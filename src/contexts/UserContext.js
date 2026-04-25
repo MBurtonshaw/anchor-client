@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
 
     const login = ({ username, password }) => {
         setUser({username});
+        //send username and password to backend
     }
 
     const register = ({ username, password, passwordTwo}) => {
@@ -16,7 +17,8 @@ export const UserProvider = ({ children }) => {
             alert("passwords do not match");
             return;
         }
-        setUser({username, password});
+        setUser({username});
+        //send username and password to backend
     };
 
     const logout = () => {

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useUser } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
 import "./Register.css";
 
 function Register() {
@@ -32,6 +33,10 @@ function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (regPass !== regPassTwo) {
+            alert('Hmm... it seems like the passwords don\'t match');
+            return;
+        }
         register({ username: regUser, password: regPass, passwordTwo: regPassTwo });
         navigate('/');
     }
@@ -39,28 +44,30 @@ function Register() {
 
   return (
         <div className="register_container text-center">
+            <Navbar />
             <h1 className='text-center m-4'>Register</h1>
             <div className='p-3'>
-                <label for="username">Username: </label>
+                <label htmlFor="username">Username: </label>
                 <br></br>
                 <input type="text" id="username" name="user_name" onChange={ handleName }></input>
             </div>
             <div className='pb-3'>
-                <label for="password">Password: </label>
+                <label htmlFor="password">Password: </label>
                 <br></br>
-                <input type="text" id="password" name="pass_word" onChange={ handlePass }></input>
+                <input type="password" id="password" name="pass_word" onChange={ handlePass }></input>
             </div>
             <div className='pb-3'>
-                <label for="passwordTwo">Re-Type Password: </label>
+                <label htmlFor="passwordTwo">Re-Type Password: </label>
                 <br></br>
-                <input type="text" id="passwordTwo" name="pass_word_two" onChange={ handlePassTwo }></input>
+                <input type="password" id="passwordTwo" name="pass_word_two" onChange={ handlePassTwo }></input>
             </div>
-
+            
             <button onClick={ handleSubmit }>Register</button>
-
-            <Link to="/login">Login</Link>
             <br></br>
-            <Link to="/">Home</Link>
+            <div className='login_subcontainer p-3'>
+                <h4 className='mt-5 mb-2'>Already have an account?</h4>
+                <Link to='/login'>Login</Link>
+            </div>
         </div>
   );
 }
