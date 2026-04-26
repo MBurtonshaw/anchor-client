@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './contexts/UserContext';
+import { TodoProvider } from './contexts/TodoContext';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -11,7 +12,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
     <UserProvider>
-      <App />
+      <TodoProvider>
+        <App />
+      </TodoProvider>
     </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
