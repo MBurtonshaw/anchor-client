@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from 'react';
+import { login as login_user, register as register_user } from '../service/UserService';
 
 const UserContext = createContext(null);
 
@@ -7,18 +8,26 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
     const [ user, setUser ] = useState(null);
 
-    const login = ({ username, password }) => {
-        setUser({username});
-        //send username and password to backend
+    const login = async({ username, password }) => {
+        try {
+            const user = await login_user({ username, password });
+            setUser(user);
+        } catch(err) {
+            console.error(err);
+        }
     }
 
-    const register = ({ username, password, passwordTwo}) => {
+    const register = async({ username, password, passwordTwo}) => {
         if ( password !== passwordTwo ) {
             alert("passwords do not match");
             return;
         }
-        setUser({username});
-        //send username and password to backend
+        try {
+            const user = await register_user({ username, password });
+            setUser(user);
+        } catch(err) {
+            console.error(err);
+        }
     };
 
     const logout = () => {
