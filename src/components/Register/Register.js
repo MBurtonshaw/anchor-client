@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useUser } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import Navbar from '../Navbar/Navbar';
 import "./Register.css";
 
 function Register() {
@@ -44,7 +43,6 @@ function Register() {
 
   return (
         <div className="register_container text-center">
-            <Navbar />
             <h1 className='text-center m-4'>Register</h1>
             <div className='p-3'>
                 <label htmlFor="username">Username: </label>

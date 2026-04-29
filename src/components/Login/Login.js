@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
-import Navbar from '../Navbar/Navbar';
 import "./Login.css";
 
 function Login() {
@@ -28,7 +27,6 @@ function Login() {
 
   return (
     <div className="login_container text-center">
-      <Navbar />
       <h1 className='text-center m-4'>Login</h1>
       <div className='p-3'>
         <label htmlFor="username">Username: </label>

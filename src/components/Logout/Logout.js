@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
-import Navbar from '../Navbar/Navbar';
 import "./Logout.css";
 
 function Logout() {
@@ -16,7 +15,6 @@ function Logout() {
 
   return (
     <div className="home_container text-center">
-      <Navbar />
       <h1 className='text-center m-4'>Logout</h1>
       <button onClick={ handleSubmit }>Logout</button>
     </div>

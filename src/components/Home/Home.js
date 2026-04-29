@@ -11,16 +11,17 @@ function Home() {
   if (!user) {
     return (
       <div className="home_container text-center">
-        <Navbar />
         <h1 className='text-center'>Welcome</h1>
       </div>
     );
   } else {
     return (
       <div className="home_container text-center">
-          <Navbar />
           <h1 className='text-center'>Welcome, {user.username}!</h1>
           <Collection />
+          <div className='button_div'>
+            <Link to='/todos/add'><button>Add To-Do</button></Link>
+          </div>
         </div>
     );
   }

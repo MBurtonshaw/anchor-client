@@ -3,12 +3,18 @@ import config from './config';
 export async function api(path, method = 'GET', body = null) {
   const url = config.apiBaseUrl + path;
 
+  const token = localStorage.getItem("token");
+
   const options = {
     method,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
     },
   };
+
+  if (token) {
+    options.headers['Authorization'] = `Bearer ${token}`;
+  }
 
   if (body !== null) {
     options.body = JSON.stringify(body);
