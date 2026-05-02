@@ -29,7 +29,7 @@ export const TodoProvider = ({ children }) => {
       return;
     } else {
       try {
-        const gettingTodos = await getTodosByUser(user.userId);
+        const gettingTodos = await getTodosByUser();
         setTodos(gettingTodos);
       } catch (err) {
         setError(err.message);
@@ -51,7 +51,6 @@ export const TodoProvider = ({ children }) => {
   const updateTodo = async (todo, todoId) => {
     try {
       if (!user?.userId) return;
-      console.log(todoId);
       await updateTodoApi(todo, todoId);
       await getTodos();
     } catch (err) {
@@ -72,7 +71,7 @@ export const TodoProvider = ({ children }) => {
   const markFinished = async (todoId) => {
     try {
       if (!user?.userId) return;
-      await markFinishedApi(user.userId, todoId);
+      await markFinishedApi(todoId);
       await getTodos();
     } catch (err) {
       setError(err.message);

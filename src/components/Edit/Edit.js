@@ -7,62 +7,56 @@ import "./Edit.css";
 
 function Edit() {
   const [todo, setTodo] = useState(null);
-  const [editTitle, setEditTitle] = useState(null);
-  const [editPriority, setEditPriority] = useState(null);
-  const [editNotes, setEditNotes] = useState(null);
-  const [editDueDate, setEditDueDate] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editPriority, setEditPriority] = useState("");
+  const [editNotes, setEditNotes] = useState("");
+  const [editDueDate, setEditDueDate] = useState("");
+  const [finished, setFinished] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const { todos, markFinished, deleteTodo, updateTodo } = useTodo();
-
+  const { todos, deleteTodo, updateTodo } = useTodo();
   const { user } = useUser();
-
   const { id } = useParams();
-
   const navigate = useNavigate();
 
-  const handleChange = (e, element) => {
-    element(e.target.value);
-  };
-
-  useEffect(() => {
-    if (todo) {
-      setEditTitle(todo.title);
-      setEditPriority(todo.priority);
-      setEditDueDate(todo.dueDate);
-      setEditNotes(todo.notes);
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
-  }, [todo]);
+  const handleChange = (e, element) => element(e.target.value);
 
   const handleTitle = (e) => handleChange(e, setEditTitle);
   const handleNotes = (e) => handleChange(e, setEditNotes);
   const handlePriority = (e) => handleChange(e, setEditPriority);
   const handleDueDate = (e) => handleChange(e, setEditDueDate);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (todo) {
+      setEditTitle(todo.title || "");
+      setEditPriority(todo.priority ?? "");
+      setEditDueDate(todo.dueDate || "");
+      setEditNotes(todo.notes || "");
+      setFinished(todo.finished ?? false);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [todo]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(todo);
-    updateTodo(
+    await updateTodo(
       {
         title: editTitle,
         priority: editPriority,
         dueDate: editDueDate,
         notes: editNotes,
-        finished: false,
       },
-      Number(id),
+      todo.id
     );
     navigate("/");
   };
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    await deleteTodo(id);
-    navigate('/');
-  }
+  const handleDelete = async () => {
+    await deleteTodo(todo.id);
+    navigate("/");
+  };
 
   useEffect(() => {
     if (!user?.userId) return;
@@ -78,7 +72,7 @@ function Edit() {
 
     const fetchTodo = async () => {
       try {
-        const data = await getTodoById(user.userId, todoId);
+        const data = await getTodoById(todoId);
         setTodo(data);
       } catch (e) {
         console.log(e);
@@ -94,58 +88,74 @@ function Edit() {
   if (!todo) return <h2>Todo not found</h2>;
 
   return (
-    <div className="edit_container">
+    <div className="add_container text-center">
       <div className="card w-50 text-center m-auto">
-        <div className="card-body">
-          <div className="card-title">
-            <label htmlFor="title">Title: </label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              value={editTitle}
-              onChange={handleTitle}
-            />
-          </div>
-          <div className="card-text">
-            <label htmlFor="priority">Priority: </label>
-            <input
-              type="number"
-              min="1"
-              max="5"
-              name="priority"
-              id="priority"
-              value={editPriority}
-              onChange={handlePriority}
-            />
-            <label htmlFor="due_date">Due Date: </label>
-            <input
-              type="date"
-              name="due_date"
-              id="due_date"
-              value={editDueDate}
-              onChange={handleDueDate}
-            />
-            <label htmlFor="notes">Notes: </label>
-            <input
-              type="text"
-              name="notes"
-              id="notes"
-              value={editNotes}
-              onChange={handleNotes}
-            />
-          </div>
+        <h1 className="card-title mt-4">Edit To-Do</h1>
 
-          {/* <div className='mt-5'>
-            <label htmlFor='finished'>{todo.finished ? "Finished!" : "In progress..."}</label>
-            <input type='checkbox' name='finished' id='finished' checked={todo.finished} />
-          </div> */}
+        {/* TITLE */}
+        <div className="w-50 m-auto mt-5">
+          <label className="card-text mx-1" htmlFor="title">
+            Title:
+          </label>
+          <input
+            className="mx-1"
+            type="text"
+            id="title"
+            value={editTitle}
+            onChange={handleTitle}
+          />
+        </div>
 
+        {/* NOTES */}
+        <div className="w-100 my-4">
+          <label className="card-text mx-1" htmlFor="notes">
+            Notes:
+          </label>
+          <input
+            className="mx-1"
+            type="text"
+            id="notes"
+            value={editNotes}
+            onChange={handleNotes}
+          />
+        </div>
+
+        {/* PRIORITY */}
+        <div className="w-100">
+          <label className="card-text mx-1" htmlFor="priority">
+            Priority:
+          </label>
+          <input
+            className="mx-1"
+            type="number"
+            id="priority"
+            min="1"
+            max="5"
+            value={editPriority}
+            onChange={handlePriority}
+          />
+        </div>
+
+        {/* DUE DATE */}
+        <div className="w-100 my-4">
+          <label className="card-text mx-1" htmlFor="date">
+            Due:
+          </label>
+          <input
+            className="mx-1"
+            type="date"
+            id="date"
+            value={editDueDate}
+            onChange={handleDueDate}
+          />
+        </div>
+
+        {/* BUTTONS */}
+        <div className="w-50 m-auto p-3">
           <button onClick={handleSubmit}>Update</button>
-
-          <button onClick={() => markFinished(todo.id)}>Mark Finished</button>
-
-          <button onClick={() => handleDelete()}>Delete</button>
+          <button onClick={handleDelete} className="mx-2">
+            Delete
+          </button>
         </div>
       </div>
     </div>

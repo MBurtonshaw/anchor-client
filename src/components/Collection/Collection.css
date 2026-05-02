@@ -1,0 +1,14 @@
+.unmarked_link {
+    text-decoration: none;
+    color: rgb(56, 56, 56);
+}
+
+.finished {
+    border: outset 3px rgb(69, 212, 69);
+    box-shadow: 10px 10px 5px gray;
+}
+
+.unfinished {
+    border: outset 3px rgb(104, 104, 227);
+    box-shadow: 10px 10px 5px gray;
+}

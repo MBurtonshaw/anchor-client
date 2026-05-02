@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useTodo } from "../../contexts/TodoContext";
 import { useUser } from "../../contexts/UserContext";
 import { getTodoById } from "../../service/TodoService";
@@ -15,6 +15,13 @@ function Todo() {
 
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
+  const createdAtHandler = () => {
+    const trimmedCreatedAt = todo.createdAt.slice(0, 10);
+    return(`${trimmedCreatedAt}`);
+  }
+
   useEffect(() => {
     if (!user?.userId) return;
 
@@ -29,7 +36,7 @@ function Todo() {
 
     const fetchTodo = async () => {
       try {
-        const data = await getTodoById(user.userId, todoId);
+        const data = await getTodoById(todoId);
         setTodo(data);
       } catch (e) {
         console.log(e);
@@ -41,6 +48,37 @@ function Todo() {
     fetchTodo();
   }, [todos, id, user]);
 
+    const handleDelete = async () => {
+      navigate('/');
+      await deleteTodo(todo.id);
+    }
+
+    const handleFinished = async() => {
+      await markFinished(todo.id);
+    }
+
+    const handleImage = () => {
+      if (!todo.finished) {
+        return(
+          <div className='finished_image'>
+            <img className='w-100' src='/blocks.png' alt='three squares representing a loading state'/>
+          </div>
+        );
+      } else {
+        return(
+          <div className='finished_image'>
+            <img className='w-100' src='/checked.png' alt='three squares representing a loading state'/>
+          </div>
+        );
+      }
+    }
+
+    const renderButton = () => {
+      if (!todo.finished) {
+        return <button onClick={handleFinished}>Mark Finished</button>;
+    }
+  }
+
   if (loading) return <h2>Loading...</h2>;
   if (!todo) return <h2>Todo not found</h2>;
 
@@ -49,21 +87,19 @@ function Todo() {
       <div className="card w-50 text-center m-auto">
         <div className="card-body">
           <h5 className="card-title">{todo.title}</h5>
-          <p className="card-text">{todo.notes}</p>
+          <p className="card-text w-50 m-auto p-5">{todo.notes}</p>
 
-          <p className="mt-5">
-            {todo.finished ? "Finished!" : "In progress..."}
-          </p>
+          {handleImage()}
 
-          <p>Created: {todo.createdAt}</p>
+          <p className='mt-5'>Created: {createdAtHandler()}</p>
 
           <Link to={`/todos/${todo.id}/edit`}>
             <button>Update</button>
           </Link>
 
-          <button onClick={() => markFinished(todo.id)}>Mark Finished</button>
+          <button onClick={handleFinished}>Mark Finished</button>
 
-          <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       </div>
     </div>

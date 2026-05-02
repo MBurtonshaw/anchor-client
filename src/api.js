@@ -24,6 +24,12 @@ export async function api(path, method = 'GET', body = null) {
 
   const contentType = response.headers.get("content-type");
 
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login"; // or navigate via router
+    return;
+  }
+
   if (!response.ok) {
     const text = await response.text();
     throw new Error(text || `HTTP ${response.status}`);
