@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTodo } from "../../contexts/TodoContext";
 import "./Collection.css";
@@ -13,19 +12,13 @@ function Collection() {
           <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={todo.id}>
             <div className="card h-100">
               <div className="card-body">
-                <h5 className="card-title">{todo.title}</h5>
+                <Link to={`/${todo.id}`}>
+                  <h5 className="card-title">{todo.title}</h5>
+                </Link>
                 <p className="card-text">{todo.notes}</p>
                 <div>
-                  <Link to={`/${todo.id}`}>
-                    <button>Edit</button>
-                  </Link>
-                  <button>Mark Finished</button>
+                  <button>Done</button>
                 </div>
-                <p className="card-text">
-                  <small className="text-body-secondary">
-                    Created {todo.createdAt}
-                  </small>
-                </p>
               </div>
             </div>
           </div>

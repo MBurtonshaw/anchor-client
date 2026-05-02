@@ -6,6 +6,7 @@ import {
   useCallback,
 } from "react";
 import { useUser } from "../contexts/UserContext";
+import { useError } from "../contexts/ErrorContext";
 import {
   getTodosByUser,
   addTodo as addTodoApi,
@@ -21,48 +22,50 @@ export const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
 
   const { user } = useUser();
+  const { setError } = useError();
 
   const getTodos = useCallback(async () => {
     if (!user?.userId) {
       return;
     } else {
       try {
-        console.log(user);
         const gettingTodos = await getTodosByUser(user.userId);
         setTodos(gettingTodos);
       } catch (err) {
-        console.error(err);
+        setError(err.message);
       }
     }
-  }, [user]);
+  }, [user, setError]);
 
   const addTodo = async (todo) => {
     try {
       if (!user?.userId) return;
-      await addTodoApi(user.userId, todo);
+      console.log(todo);
+      await addTodoApi(todo);
       await getTodos();
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
-  const updateTodo = async (todo) => {
+  const updateTodo = async (todo, todoId) => {
     try {
       if (!user?.userId) return;
-      await updateTodoApi(user.userId, todo);
+      console.log(todoId);
+      await updateTodoApi(todo, todoId);
       await getTodos();
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
   const deleteTodo = async (todoId) => {
     try {
       if (!user?.userId) return;
-      await deleteTodoApi(user.userId, todoId);
+      await deleteTodoApi(todoId);
       await getTodos();
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -71,8 +74,8 @@ export const TodoProvider = ({ children }) => {
       if (!user?.userId) return;
       await markFinishedApi(user.userId, todoId);
       await getTodos();
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
