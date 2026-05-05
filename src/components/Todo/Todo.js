@@ -73,12 +73,6 @@ function Todo() {
       }
     }
 
-    const renderButton = () => {
-      if (!todo.finished) {
-        return <button onClick={handleFinished}>Mark Finished</button>;
-    }
-  }
-
   if (loading) return <h2>Loading...</h2>;
   if (!todo) return <h2>Todo not found</h2>;
 

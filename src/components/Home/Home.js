@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
-import Navbar from '../Navbar/Navbar';
 import Collection from '../Collection/Collection';
 import "./Home.css";
 

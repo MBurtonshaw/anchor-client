@@ -37,7 +37,7 @@ function Edit() {
     } else {
       setLoading(true);
     }
-  }, [todo]);
+  }, [todo, finished]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
