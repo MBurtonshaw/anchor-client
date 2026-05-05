@@ -1,3 +1,3 @@
 export default {
-    apiBaseUrl: 'http://localhost:8081/api',
+    apiBaseUrl: 'https://motivational-todo-fde344d62b4f.herokuapp.com/api',
   };
