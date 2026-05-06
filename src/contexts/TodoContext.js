@@ -40,7 +40,6 @@ export const TodoProvider = ({ children }) => {
   const addTodo = async (todo) => {
     try {
       if (!user?.userId) return;
-      console.log(todo);
       await addTodoApi(todo);
       await getTodos();
     } catch (err) {

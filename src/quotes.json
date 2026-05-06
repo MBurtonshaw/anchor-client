@@ -1,0 +1,7 @@
+{
+    "quotes": [
+        {"id" : 1, "text" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sapien felis, faucibus nec mauris tristique, dignissim condimentum ex. In hac habitasse platea dictumst."},
+        {"id" : 2, "text" : "Proin nisl orci, posuere a imperdiet convallis, fringilla fermentum neque. Integer posuere diam ullamcorper, mattis mi vitae, ullamcorper lorem. Donec commodo tempus velit, eget scelerisque lectus."},
+        {"id" : 3, "text" : "Integer feugiat fringilla augue sit amet molestie. Praesent risus quam, ullamcorper elementum condimentum id, accumsan non tortor."}
+    ]
+}
