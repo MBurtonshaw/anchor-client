@@ -1,4 +1,49 @@
 .finished_image {
-    width: 10%;
-    margin: auto;
+  width: 10%;
+  margin: auto;
+}
+
+.todo_subcontainer {
+  width: 50%;
+}
+
+.todo_button.primary{
+  padding-top: 0.35em;
+  padding-bottom: 0.35em;
+  padding-left: 1.75em;
+  padding-right: 1.75em;
+  border-radius: 25%;
+  background-color: rgb(179, 127, 252);
+}
+
+.todo_button.secondary{
+  padding-top: 0.35em;
+  padding-bottom: 0.35em;
+  padding-left: 1.75em;
+  padding-right: 1.75em;
+  border-radius: 25%;
+  background-color: rgb(186, 125, 210);
+}
+
+.todo_button.danger{
+  padding-top: 0.35em;
+  padding-bottom: 0.35em;
+  padding-left: 1.75em;
+  padding-right: 1.75em;
+  border-radius: 25%;
+  background-color: rgb(215, 185, 252);
+}
+
+.todo_button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+}
+
+@media (max-width: 768px) {
+  .todo_container {
+    margin-top: 1em;
+  }
+  .todo_subcontainer {
+    width: 75%;
+  }
 }

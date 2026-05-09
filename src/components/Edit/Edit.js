@@ -48,7 +48,7 @@ function Edit() {
         dueDate: editDueDate,
         notes: editNotes,
       },
-      todo.id
+      todo.id,
     );
     navigate("/");
   };
@@ -109,7 +109,7 @@ function Edit() {
         {/* NOTES */}
         <div className="w-100 my-4">
           <label className="card-text mx-1" htmlFor="notes">
-            Notes:
+            (Optional) Notes:
           </label>
           <input
             className="mx-1"
@@ -139,7 +139,7 @@ function Edit() {
         {/* DUE DATE */}
         <div className="w-100 my-4">
           <label className="card-text mx-1" htmlFor="date">
-            Due:
+            (Optional) Due:
           </label>
           <input
             className="mx-1"
@@ -152,8 +152,10 @@ function Edit() {
 
         {/* BUTTONS */}
         <div className="w-50 m-auto p-3">
-          <button onClick={handleSubmit}>Update</button>
-          <button onClick={handleDelete} className="mx-2">
+          <button className="edit_button" onClick={handleSubmit}>
+            Update
+          </button>
+          <button className="delete_button mx-2" onClick={handleDelete}>
             Delete
           </button>
         </div>

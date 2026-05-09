@@ -37,6 +37,7 @@ function Greeting() {
           <h5 className="pt-4 w-75 m-auto" key={quote.id}>
             {quote.text}
           </h5>
+          <span>{quote.author}</span>
         </div>
       );
     }

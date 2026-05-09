@@ -1,1 +1,13 @@
-/* */
+.register_button {
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
+    padding-left: 1.75em;
+    padding-right: 1.75em;
+    border-radius: 25%;
+    background-color: rgb(202, 170, 241);
+}
+
+.register_button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+}

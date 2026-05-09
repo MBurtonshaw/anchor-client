@@ -11,16 +11,7 @@ body {
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
-    background-color: rgb(177, 156, 217);
-    /*
-    other pastels, perhaps rotate per day?
-    rgb(184, 224, 210);
-    rgb(152, 194, 233);
-    rgb(255, 228, 181);
-    rgb(255, 209, 220);
-    rgb(175, 210, 151);
-    rgb(243, 243, 190);
-    */
+    background-color: rgb(232, 225, 241);
 }
 
 code {

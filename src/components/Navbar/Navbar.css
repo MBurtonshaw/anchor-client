@@ -1,0 +1,36 @@
+.navbar_img {
+    width: 15%;
+}
+
+.navbar_button {
+    all: unset;
+}
+
+.nav_link {
+    text-decoration: none;
+    color: rgb(56, 56, 56);
+}
+
+.white_bg {
+    background-color: rgb(252, 250, 255);
+    width: 20%;
+    margin-left: auto;
+    text-align: center;
+    padding: 0.4em 0.5em;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(90, 60, 120, 0.16);
+}
+
+.white_bg:hover {
+    box-shadow: 0 10px 22px rgba(90, 60, 120, 0.22);
+    transform: translateY(-1px);
+}
+
+@media (min-width: 768px) {
+  .white_bg {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    width: 17.5%;
+    font-size: 1.15em;
+}
+}

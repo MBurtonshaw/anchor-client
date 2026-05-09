@@ -1,14 +1,43 @@
 .unmarked_link {
-    text-decoration: none;
-    color: rgb(56, 56, 56);
-}
-
-.finished {
-    border: outset 3px rgb(69, 212, 69);
-    box-shadow: 10px 10px 5px gray;
+  text-decoration: none;
+  color: rgb(56, 56, 56);
 }
 
 .unfinished {
-    border: outset 3px rgb(104, 104, 227);
-    box-shadow: 10px 10px 5px gray;
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
+}
+
+.finished {
+  background-color: rgb(200, 190, 215);
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
+  opacity: 0.85;
+}
+
+.card.current {
+  background-color: rgb(225, 208, 222);
+}
+
+.collection_container {
+  width: 75%;
+  margin: auto;
+}
+
+.card {
+  background-color: rgb(252, 250, 255);
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
+}
+
+.collection_container .card:hover {
+  box-shadow: 0 10px 24px rgba(90, 60, 120, 0.24);
+  transform: translateY(-2px);
+}
+
+.single_todo {
+  padding: 0.5em;
+}
+
+@media (max-width: 768px) {
+  .collection_container {
+    width: 100%;
+  }
 }

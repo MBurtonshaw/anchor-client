@@ -9,7 +9,6 @@ import Add from "./components/Add/Add";
 import Todo from "./components/Todo/Todo";
 import Navbar from "./components/Navbar/Navbar";
 import ErrorBanner from "./components/ErrorBanner/ErrorBanner";
-import Greeting from "./components/Greeting/Greeting";
 
 function App() {
   return (

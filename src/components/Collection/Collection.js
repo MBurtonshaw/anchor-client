@@ -22,13 +22,16 @@ function Collection() {
   };
 
   const sortedTodos = [...todos].sort((a, b) => {
-    return a.finished - b.finished;
+    if (a.finished !== b.finished) {
+      return a.finished - b.finished;
+    }
+    return b.urgencyScore - a.urgencyScore;
   });
 
   const todoMapper = () => {
-    return sortedTodos.map((todo) => (
-      <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={todo.id}>
-        <div className="card h-100">
+    return sortedTodos.map((todo, index) => (
+      <div className="single_todo col-12 col-md-6 col-xl-4" key={todo.id}>
+        <div className={`card ${index === 0 ? "current" : ""}`}>
           <Link className="unmarked_link" to={`/${todo.id}`}>
             <div className={classMapper(todo)}>
               <h5 className="card-title">{todo.title}</h5>
@@ -45,7 +48,7 @@ function Collection() {
   }
 
   return (
-    <div className="collection_container mt-5 p-5">
+    <div className="collection_container p-5">
       <div className="row justify-content-center">{todoMapper()}</div>
     </div>
   );
