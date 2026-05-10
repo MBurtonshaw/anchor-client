@@ -26,33 +26,37 @@ function Login() {
 
   return (
     <div className="login_container text-center">
-      <h1 className="text-center m-4">Login</h1>
-      <div className="p-3">
-        <label htmlFor="username">Username: </label>
-        <br></br>
-        <input
-          type="text"
-          id="username"
-          name="user_name"
-          onChange={handleName}
-        ></input>
-      </div>
-      <div className="pb-3">
-        <label htmlFor="password">Password: </label>
-        <br></br>
-        <input
-          type="password"
-          id="password"
-          name="pass_word"
-          onChange={handlePass}
-        ></input>
-      </div>
-      <button className="login_button" onClick={handleSubmit}>
-        Login
-      </button>
-      <div className="login_subcontainer p-3">
-        <h4 className="mt-5 mb-2">Don't have an account yet?</h4>
-        <Link to="/register">Register</Link>
+      <div className="card w-50 text-center m-auto">
+        <h1 className="card-title mt-4">Login</h1>
+        <div className="p-3">
+          <label htmlFor="username">Username: </label>
+          <br />
+          <input
+            type="text"
+            id="username"
+            name="user_name"
+            onChange={handleName}
+          />
+        </div>
+        <div className="pb-3">
+          <label htmlFor="password">Password: </label>
+          <br />
+          <input
+            type="password"
+            id="password"
+            name="pass_word"
+            onChange={handlePass}
+          />
+        </div>
+        <div className="logout_button_div w-50 m-auto p-3">
+          <button className="login_button m-4" onClick={handleSubmit}>
+            Login
+          </button>
+        </div>
+        <div className="login_subcontainer p-3">
+          <h4 className="mt-3 mb-2">Don't have an account yet?</h4>
+          <Link to="/register"><button className='login_register_button m-2'>Register</button></Link>
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,17 @@
+.delete_button {
+  padding-top: 0.35em;
+  padding-bottom: 0.35em;
+  padding-left: 1.75em;
+  padding-right: 1.75em;
+  border-radius: 25%;
+  background-color: rgb(215, 185, 252);
+}
+
+.delete_button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+}
+
 .edit_button {
   padding-top: 0.35em;
   padding-bottom: 0.35em;
@@ -12,16 +26,23 @@
   box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
 }
 
-.delete_button {
-  padding-top: 0.35em;
-  padding-bottom: 0.35em;
-  padding-left: 1.75em;
-  padding-right: 1.75em;
-  border-radius: 25%;
-  background-color: rgb(215, 185, 252);
+.edit_container {
+  width: 50%;
+  margin: auto;
 }
 
-.delete_button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+@media (max-width: 768px) {
+  .edit_container {
+    width: 75%;
+    margin: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .edit_container {
+    width: 100%;
+    margin: auto;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+  }
 }

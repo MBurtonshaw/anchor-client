@@ -48,7 +48,7 @@ function Collection() {
   }
 
   return (
-    <div className="collection_container p-5">
+    <div className="collection_container mt-4 p-5">
       <div className="row justify-content-center">{todoMapper()}</div>
     </div>
   );

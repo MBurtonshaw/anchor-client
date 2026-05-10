@@ -3,11 +3,12 @@
   margin: auto;
 }
 
-.todo_subcontainer {
+.todo_container {
   width: 50%;
+  margin: auto;
 }
 
-.todo_button.primary{
+.todo_button.primary {
   padding-top: 0.35em;
   padding-bottom: 0.35em;
   padding-left: 1.75em;
@@ -16,7 +17,7 @@
   background-color: rgb(179, 127, 252);
 }
 
-.todo_button.secondary{
+.todo_button.secondary {
   padding-top: 0.35em;
   padding-bottom: 0.35em;
   padding-left: 1.75em;
@@ -25,7 +26,7 @@
   background-color: rgb(186, 125, 210);
 }
 
-.todo_button.danger{
+.todo_button.danger {
   padding-top: 0.35em;
   padding-bottom: 0.35em;
   padding-left: 1.75em;
@@ -42,8 +43,17 @@
 @media (max-width: 768px) {
   .todo_container {
     margin-top: 1em;
-  }
-  .todo_subcontainer {
     width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .todo_container {
+    width: 100%;
+    margin: auto;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
   }
 }

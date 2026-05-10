@@ -13,14 +13,12 @@ function Edit() {
   const [editDueDate, setEditDueDate] = useState("");
   const [finished, setFinished] = useState(false);
   const [loading, setLoading] = useState(true);
-
   const { todos, deleteTodo, updateTodo } = useTodo();
   const { user } = useUser();
   const { id } = useParams();
   const navigate = useNavigate();
 
   const handleChange = (e, element) => element(e.target.value);
-
   const handleTitle = (e) => handleChange(e, setEditTitle);
   const handleNotes = (e) => handleChange(e, setEditNotes);
   const handlePriority = (e) => handleChange(e, setEditPriority);
@@ -88,45 +86,39 @@ function Edit() {
   if (!todo) return <h2>Todo not found</h2>;
 
   return (
-    <div className="add_container text-center">
-      <div className="card w-50 text-center m-auto">
+    <div className="edit_container text-center">
+      <div className="card text-center m-auto">
         <h1 className="card-title mt-4">Edit To-Do</h1>
-
-        {/* TITLE */}
         <div className="w-50 m-auto mt-5">
-          <label className="card-text mx-1" htmlFor="title">
+          <label className="card-text d-block mb-2" htmlFor="title">
             Title:
           </label>
           <input
-            className="mx-1"
+            className="text-center w-100"
             type="text"
             id="title"
             value={editTitle}
             onChange={handleTitle}
           />
         </div>
-
-        {/* NOTES */}
-        <div className="w-100 my-4">
-          <label className="card-text mx-1" htmlFor="notes">
-            (Optional) Notes:
+        <div className="w-50 m-auto my-4">
+          <label className="card-text d-block mb-2" htmlFor="notes">
+            Notes (Optional):
           </label>
           <input
-            className="mx-1"
+            className="text-center w-100"
             type="text"
             id="notes"
             value={editNotes}
             onChange={handleNotes}
           />
         </div>
-
-        {/* PRIORITY */}
-        <div className="w-100">
-          <label className="card-text mx-1" htmlFor="priority">
+        <div className="w-50 m-auto">
+          <label className="card-text d-block mb-2" htmlFor="priority">
             Priority:
           </label>
           <input
-            className="mx-1"
+            className="text-center w-100"
             type="number"
             id="priority"
             min="1"
@@ -135,27 +127,23 @@ function Edit() {
             onChange={handlePriority}
           />
         </div>
-
-        {/* DUE DATE */}
-        <div className="w-100 my-4">
-          <label className="card-text mx-1" htmlFor="date">
-            (Optional) Due:
+        <div className="w-50 m-auto my-4">
+          <label className="card-text d-block mb-2" htmlFor="date">
+            Due Date (Optional):
           </label>
           <input
-            className="mx-1"
+            className="text-center w-100"
             type="date"
             id="date"
             value={editDueDate}
             onChange={handleDueDate}
           />
         </div>
-
-        {/* BUTTONS */}
         <div className="w-50 m-auto p-3">
-          <button className="edit_button" onClick={handleSubmit}>
+          <button className="edit_button m-2" onClick={handleSubmit}>
             Update
           </button>
-          <button className="delete_button mx-2" onClick={handleDelete}>
+          <button className="delete_button m-2" onClick={handleDelete}>
             Delete
           </button>
         </div>

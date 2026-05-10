@@ -4,10 +4,45 @@
     padding-left: 1.75em;
     padding-right: 1.75em;
     border-radius: 25%;
-    background-color: rgb(202, 170, 241);
+    background-color: rgb(179, 127, 252);
 }
 
 .register_button:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+}
+
+.register_login_button {
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
+    padding-left: 1.75em;
+    padding-right: 1.75em;
+    border-radius: 25%;
+    background-color: rgb(202, 170, 241);
+}
+
+.register_login_button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+}
+
+.register_container {
+  width: 50%;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .register_container {
+    width: 75%;
+    margin: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .register_container {
+    width: 100%;
+    margin: auto;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+  }
 }

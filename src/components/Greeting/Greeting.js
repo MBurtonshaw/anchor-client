@@ -33,7 +33,7 @@ function Greeting() {
     } else {
       return (
         <div className="greeting_container_2 text-center">
-          <h1>{`Welcome, ${user.username}`}</h1>
+          <h1>{`Welcome to your To-Do list, ${user.username}`}</h1>
           <h5 className="pt-4 w-75 m-auto" key={quote.id}>
             {quote.text}
           </h5>

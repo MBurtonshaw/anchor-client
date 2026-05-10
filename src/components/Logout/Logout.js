@@ -13,11 +13,15 @@ function Logout() {
   };
 
   return (
-    <div className="home_container text-center">
-      <h1 className="text-center m-4">Logout</h1>
-      <button className="logout_button" onClick={handleSubmit}>
-        Logout
-      </button>
+    <div className="logout_container text-center">
+      <div className="card text-center m-auto">
+        <h1 className="card-title mt-4">Logout</h1>
+        <div className="logout_button_div w-50 m-auto p-3">
+          <button className="logout_button m-4" onClick={handleSubmit}>
+            Logout
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

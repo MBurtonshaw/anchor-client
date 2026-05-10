@@ -16,73 +16,55 @@ function Navbar() {
 
   return (
     <div className="navbar_container mx-4 mt-2 text-end">
-      {!user ? (
-        <nav className="navbar_container">
-          <button
-            className="navbar_button"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <img
-              className="navbar-toggler navbar_img"
-              src="/interface.png"
-              alt="Bootstrap"
-            ></img>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav">
+      <nav className="navbar_container">
+
+        <button
+          className="navbar_button"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <img
+            className="navbar-toggler navbar_img"
+            src="/interface.png"
+            alt="menu"
+          />
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <div className="white_bg">
+
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
               <li className="nav-item">
                 <Link className="nav_link" to="/" onClick={closeNavbar}>
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav_link" to="/login" onClick={closeNavbar}>
-                  Login
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      ) : (
-        <nav className="navbar_container">
-          <button
-            className="navbar_button"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <img
-              className="navbar-toggler navbar_img"
-              src="/interface.png"
-              alt="Bootstrap"
-            ></img>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <div className="white_bg">
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
+              {!user ? (
                 <li className="nav-item">
-                  <Link className="nav_link" to="/" onClick={closeNavbar}>
-                    Home
+                  <Link className="nav_link" to="/login" onClick={closeNavbar}>
+                    Login
                   </Link>
                 </li>
+              ) : (
                 <li className="nav-item">
                   <Link className="nav_link" to="/logout" onClick={closeNavbar}>
                     Logout
                   </Link>
                 </li>
-              </ul>
-            </div>
+              )}
+
+            </ul>
+
           </div>
-        </nav>
-      )}
+        </div>
+      </nav>
     </div>
   );
 }

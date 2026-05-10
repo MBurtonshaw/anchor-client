@@ -3,9 +3,9 @@
 }
 
 .home_button {
-    all: unset;
-    color: rgb(56, 56, 56);
-    margin-top: 0.5em;
+  all: unset;
+  color: rgb(56, 56, 56);
+  margin-top: 0.5em;
 }
 
 .home_link {
@@ -16,35 +16,40 @@
 }
 
 .button_div {
-    background-color: rgb(252, 250, 255);
-    border-radius: 50%;
-    padding: 0.75em;
-    box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
+  background-color: rgb(252, 250, 255);
+  border-radius: 50%;
+  padding: 0.75em;
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
 }
 
 .button_div:hover {
-    box-shadow: 0 10px 22px rgba(90, 60, 120, 0.24);
-    transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(90, 60, 120, 0.24);
+  transform: translateY(-2px);
 }
 
 .home_sub_container {
-    width: 30%;
-    margin: auto;
+  width: 30%;
+  margin: auto;
 }
 
 .home_login_button {
-    padding-top: 0.35em;
-    padding-bottom: 0.35em;
-    padding-left: 1.75em;
-    padding-right: 1.75em;
-    border-radius: 25%;
-    background-color: rgb(202, 170, 241);
-    margin-top: 2em;
+  padding-top: 0.35em;
+  padding-bottom: 0.35em;
+  padding-left: 1.75em;
+  padding-right: 1.75em;
+  border-radius: 25%;
+  background-color: rgb(202, 170, 241);
+  margin-top: 2em;
 }
 
 .home_login_button:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+}
+
+.home_container_no_user {
+  width: 50%;
+  margin: auto;
 }
 
 @media (max-width: 768px) {
@@ -53,17 +58,21 @@
     margin: auto;
   }
 
-    .home_link {
+  .home_link {
     text-decoration: none;
     color: inherit;
     width: 45%;
     margin: auto;
   }
+
   .home_sub_container {
     width: 75%;
     margin: auto;
-}
+  }
 
+  .home_container_no_user {
+    width: 75%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -71,6 +80,10 @@
     width: 100%;
     margin: auto;
   }
-
-
+  .home_container_no_user {
+    width: 100%;
+    margin: auto;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
 }

@@ -8,13 +8,10 @@ import "./Todo.css";
 function Todo() {
   const [todo, setTodo] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const { todos, markFinished, deleteTodo } = useTodo();
 
   const { user } = useUser();
-
   const { id } = useParams();
-
   const navigate = useNavigate();
 
   const createdAtHandler = () => {
@@ -100,7 +97,7 @@ function Todo() {
       return (
         <div className="todo_buttons_div">
           <Link to={`/`}>
-            <button className="todo_button">Home</button>
+            <button className="todo_button primary">Home</button>
           </Link>
         </div>
       );
@@ -112,15 +109,12 @@ function Todo() {
 
   return (
     <div className="todo_container">
-      <div className="card todo_subcontainer text-center m-auto">
+      <div className="card text-center m-auto">
         <div className="card-body">
           <h1 className="card-title">{todo.title}</h1>
           <p className="card-text w-50 m-auto p-5">{todo.notes}</p>
-
           {handleImage()}
-
           <p className="mt-5">Created: {createdAtHandler()}</p>
-
           {handleButtons()}
         </div>
       </div>

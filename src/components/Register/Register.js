@@ -41,45 +41,47 @@ function Register() {
 
   return (
     <div className="register_container text-center">
-      <h1 className="text-center m-4">Register</h1>
-      <div className="p-3">
-        <label htmlFor="username">Username: </label>
-        <br></br>
-        <input
-          type="text"
-          id="username"
-          name="user_name"
-          onChange={handleName}
-        ></input>
-      </div>
-      <div className="pb-3">
-        <label htmlFor="password">Password: </label>
-        <br></br>
-        <input
-          type="password"
-          id="password"
-          name="pass_word"
-          onChange={handlePass}
-        ></input>
-      </div>
-      <div className="pb-3">
-        <label htmlFor="passwordTwo">Re-Type Password: </label>
-        <br></br>
-        <input
-          type="password"
-          id="passwordTwo"
-          name="pass_word_two"
-          onChange={handlePassTwo}
-        ></input>
-      </div>
-
-      <button className="register_button" onClick={handleSubmit}>
-        Register
-      </button>
-      <br></br>
-      <div className="login_subcontainer p-3">
-        <h4 className="mt-5 mb-2">Already have an account?</h4>
-        <Link to="/login">Login</Link>
+      <div className="card text-center m-auto">
+        <h1 className="card-title mt-4">Register</h1>
+        <div className="p-3">
+          <label htmlFor="username">Username: </label>
+          <br />
+          <input
+            type="text"
+            id="username"
+            name="user_name"
+            onChange={handleName}
+          />
+        </div>
+        <div className="pb-3">
+          <label htmlFor="password">Password: </label>
+          <br />
+          <input
+            type="password"
+            id="password"
+            name="pass_word"
+            onChange={handlePass}
+          />
+        </div>
+        <div className="pb-3">
+          <label htmlFor="passwordTwo">Re-Type Password:</label>
+          <br />
+          <input
+            type="password"
+            id="passwordTwo"
+            name="pass_word_two"
+            onChange={handlePassTwo}
+          />
+        </div>
+        <div className="register_button_div w-50 m-auto p-3">
+          <button className="register_button m-4" onClick={handleSubmit}>
+            Register
+          </button>
+        </div>
+        <div className="register_subcontainer p-3">
+          <h4 className="mt-3 mb-2">Already have an account?</h4>
+          <Link to="/login"><button className='register_login_button'>Login</button></Link>
+        </div>
       </div>
     </div>
   );

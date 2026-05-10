@@ -34,61 +34,61 @@ function Add() {
 
   return (
     <div className="add_container text-center">
-      <div className="card w-50 text-center m-auto">
-        <h1 className="card-title mt-4">Add a new To-Do</h1>
+      <div className="card text-center m-auto">
+        <h1 className="card-title mt-4">Add a New To-Do</h1>
         <div className="w-50 m-auto mt-5">
-          <label className="card-text mx-1" htmlFor="title">
-            Title:{" "}
+          <label className="card-text d-block mb-2" htmlFor="title">
+            Title:
           </label>
           <input
-            className="mx-1"
+            className="text-center w-100"
             type="text"
             id="title"
             name="title"
             onChange={handleTitle}
-          ></input>
+          />
         </div>
-        <div className="w-100 my-4">
-          <label className="card-text mx-1" htmlFor="notes">
-            (Optional) Notes:{" "}
+        <div className="w-50 m-auto my-4">
+          <label className="card-text d-block mb-2" htmlFor="notes">
+            Notes (Optional):
           </label>
           <input
-            className="mx-1"
+            className="text-center w-100"
             type="text"
             id="notes"
             name="notes"
             onChange={handleNotes}
-          ></input>
+          />
         </div>
-        <div className="w-100">
-          <label className="card-text mx-1" htmlFor="priority">
-            Priority:{" "}
+        <div className="w-50 m-auto">
+          <label className="card-text d-block mb-2" htmlFor="priority">
+            Priority:
           </label>
           <input
-            className="mx-1"
+            className="text-center w-100"
             type="number"
             id="priority"
             name="priority"
             min="1"
             max="5"
             onChange={handlePriority}
-          ></input>
+          />
         </div>
-        <div className="w-100 my-4">
-          <label className="card-text mx-1" htmlFor="date">
-           (Optional) Due:{" "}
+        <div className="w-50 m-auto my-4">
+          <label className="card-text d-block mb-2" htmlFor="date">
+            Due Date (Optional):
           </label>
           <input
-            className="mx-1"
+            className="text-center w-100"
             type="date"
             id="date"
             name="date"
             onChange={handleDueDate}
-          ></input>
+          />
         </div>
         <div className="w-50 m-auto p-3">
-          <button className="submit_button" onClick={handleSubmit}>
-            submit
+          <button className="submit_button m-2" onClick={handleSubmit}>
+            Submit
           </button>
         </div>
       </div>
@@ -97,18 +97,3 @@ function Add() {
 }
 
 export default Add;
-
-// <div className="card-body">
-//   <h5 className="card-title">{todo.title}</h5>
-//   <p className="card-text w-50 m-auto p-5">{todo.notes}</p>
-
-//   <p className='mt-5'>Created: {createdAtHandler()}</p>
-
-//   <Link to={`/todos/${todo.id}/edit`}>
-//     <button>Update</button>
-//   </Link>
-
-//   <button onClick={handleFinished}>Mark Finished</button>
-
-//   <button onClick={handleDelete}>Delete</button>
-// </div>
