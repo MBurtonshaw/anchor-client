@@ -1,5 +1,5 @@
  const config = {
-     apiBaseUrl: 'https://motivational-todo-fde344d62b4f.herokuapp.com/api',
+     apiBaseUrl: 'https://todov2-a6391d3dade3.herokuapp.com/api',
    };
 
   // const config = {
