@@ -23,6 +23,14 @@
   margin: auto;
 }
 
+.collection_card {
+  max-width: 1200px;
+  margin: auto;
+  background-color: #f9f8fd;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.12);
+}
+
 .card {
   background-color: rgb(252, 250, 255);
   box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);

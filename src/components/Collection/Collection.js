@@ -35,7 +35,6 @@ function Collection() {
           <Link className="unmarked_link" to={`/${todo.id}`}>
             <div className={classMapper(todo)}>
               <h5 className="card-title">{todo.title}</h5>
-              <div></div>
             </div>
           </Link>
         </div>
@@ -49,7 +48,9 @@ function Collection() {
 
   return (
     <div className="collection_container mt-4 p-5">
+      <div className="card collection_card p-3">
       <div className="row justify-content-center">{todoMapper()}</div>
+      </div>
     </div>
   );
 }
