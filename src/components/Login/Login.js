@@ -48,7 +48,7 @@ function Login() {
             onChange={handlePass}
           />
         </div>
-        <div className="logout_button_div p-3">
+        <div className="login_button_div p-3">
           <button className="login_button m-4" onClick={handleSubmit}>
             Login
           </button>

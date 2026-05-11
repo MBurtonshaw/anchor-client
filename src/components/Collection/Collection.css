@@ -19,6 +19,7 @@
 
 .collection_container {
   width: 75%;
+  max-width: 900px;
   margin: auto;
 }
 
@@ -39,6 +40,12 @@
 
 @media (max-width: 768px) {
   .collection_container {
-    width: 100%;
+    padding: 0.25rem;
+  }
+}
+
+@media (max-width: 578px) {
+  .collection_container {
+    padding: 0.75rem;
   }
 }
