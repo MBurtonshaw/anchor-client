@@ -26,7 +26,7 @@ function Login() {
 
   return (
     <div className="login_container text-center">
-      <div className="card w-50 text-center m-auto">
+      <div className="card text-center">
         <h1 className="card-title mt-4">Login</h1>
         <div className="p-3">
           <label htmlFor="username">Username: </label>
@@ -48,7 +48,7 @@ function Login() {
             onChange={handlePass}
           />
         </div>
-        <div className="logout_button_div w-50 m-auto p-3">
+        <div className="logout_button_div p-3">
           <button className="login_button m-4" onClick={handleSubmit}>
             Login
           </button>

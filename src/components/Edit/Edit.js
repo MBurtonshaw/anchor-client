@@ -89,7 +89,7 @@ function Edit() {
     <div className="edit_container text-center">
       <div className="card text-center m-auto">
         <h1 className="card-title mt-4">Edit To-Do</h1>
-        <div className="w-50 m-auto mt-5">
+        <div className="mt-5">
           <label className="card-text d-block mb-2" htmlFor="title">
             Title:
           </label>
@@ -101,7 +101,7 @@ function Edit() {
             onChange={handleTitle}
           />
         </div>
-        <div className="w-50 m-auto my-4">
+        <div className="my-4">
           <label className="card-text d-block mb-2" htmlFor="notes">
             Notes (Optional):
           </label>
@@ -113,7 +113,7 @@ function Edit() {
             onChange={handleNotes}
           />
         </div>
-        <div className="w-50 m-auto">
+        <div className="">
           <label className="card-text d-block mb-2" htmlFor="priority">
             Priority:
           </label>
@@ -127,7 +127,7 @@ function Edit() {
             onChange={handlePriority}
           />
         </div>
-        <div className="w-50 m-auto my-4">
+        <div className="my-4">
           <label className="card-text d-block mb-2" htmlFor="date">
             Due Date (Optional):
           </label>
@@ -139,7 +139,7 @@ function Edit() {
             onChange={handleDueDate}
           />
         </div>
-        <div className="w-50 m-auto p-3">
+        <div className="p-3">
           <button className="edit_button m-2" onClick={handleSubmit}>
             Update
           </button>
