@@ -10,15 +10,13 @@ function Greeting() {
   const { user } = useUser();
 
   useEffect(() => {
-    const today = new Date.toDateString();
+    const today = new Date().toDateString();
     let storedQuoteIndex = Number(localStorage.getItem("quoteIndex"));
     let storedDate = localStorage.getItem("quoteDate");
 
     if (isNaN(storedQuoteIndex) || storedDate !== today) {
       storedQuoteIndex = Math.floor(Math.random() * quotesData.quotes.length);
-
       localStorage.setItem("quoteIndex", storedQuoteIndex);
-
       localStorage.setItem("quoteDate", today);
     }
 
