@@ -11,6 +11,10 @@
     color: rgb(56, 56, 56);
 }
 
+.navbar_container {
+    padding-bottom: 3rem;
+}
+
 .white_bg {
     background-color: rgb(252, 250, 255);
     width: 20%;
