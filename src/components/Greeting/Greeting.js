@@ -10,14 +10,19 @@ function Greeting() {
   const { user } = useUser();
 
   useEffect(() => {
-    let quoteIndex = Number(sessionStorage.getItem("quoteIndex"));
+    const today = new Date.toDateString();
+    let storedQuoteIndex = Number(localStorage.getItem("quoteIndex"));
+    let storedDate = localStorage.getItem("quoteDate");
 
-    if (isNaN(quoteIndex)) {
-      quoteIndex = Math.floor(Math.random() * quotesData.quotes.length);
-      sessionStorage.setItem("quoteIndex", quoteIndex);
+    if (isNaN(storedQuoteIndex) || storedDate !== today) {
+      storedQuoteIndex = Math.floor(Math.random() * quotesData.quotes.length);
+
+      localStorage.setItem("quoteIndex", storedQuoteIndex);
+
+      localStorage.setItem("quoteDate", today);
     }
 
-    setQuote(quotesData.quotes[quoteIndex]);
+    setQuote(quotesData.quotes[storedQuoteIndex]);
     setLoading(false);
   }, []);
 
