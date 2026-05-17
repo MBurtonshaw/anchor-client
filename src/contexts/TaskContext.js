@@ -8,31 +8,37 @@ import {
 import { useUser } from "./UserContext";
 import { useError } from "./ErrorContext";
 import {
-  getTasksByUser,
+  getTasks as getTasksApi,
+  getTaskById as getTaskByIdApi,
   addTask as addTaskApi,
   updateTask as updateTaskApi,
   deleteTask as deleteTaskApi,
-  lastCompleted as lastCompletedApi,
-} from "../service/DailyService";
+  completeTask as completeTaskApi,
+} from "../service/TaskService";
 const TaskContext = createContext(null);
 
 export const useTask = () => useContext(TaskContext);
 
 export const TaskProvider = ({ children }) => {
-const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   const { user } = useUser();
   const { setError } = useError();
 
-const getTasks = useCallback(async () => {
-  if (!user?.userId) return;
-  try {
-    const res = await getTasksByUser();
-    setTasks(res); 
-  } catch (err) {
-    setError(err.message);
-  }
-}, [user, setError]);
+  const getTasks = useCallback(async () => {
+    if (!user?.userId) return;
+    try {
+      const res = await getTasksApi();
+      setTasks(res);
+    } catch (err) {
+      setError(err.message);
+    }
+  }, [user, setError]);
+
+  const getTaskById = async (taskId) => {
+    if (!user?.userId) return;
+    await getTaskByIdApi(taskId);
+  };
 
   const addTask = async (task) => {
     try {
@@ -67,7 +73,7 @@ const getTasks = useCallback(async () => {
   const completeTask = async (taskId) => {
     try {
       if (!user?.userId) return;
-      await lastCompletedApi(taskId);
+      await completeTaskApi(taskId);
       await getTasks();
     } catch (err) {
       setError(err.message);
@@ -84,7 +90,15 @@ const getTasks = useCallback(async () => {
 
   return (
     <TaskContext.Provider
-      value={{ tasks, getTasks, addTask, updateTask, deleteTask, lastCompleted }}
+      value={{
+        tasks,
+        getTasks,
+        getTaskById,
+        addTask,
+        updateTask,
+        deleteTask,
+        completeTask,
+      }}
     >
       {children}
     </TaskContext.Provider>

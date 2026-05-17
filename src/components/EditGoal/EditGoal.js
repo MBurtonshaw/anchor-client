@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useTodo } from "../../contexts/TodoContext";
+import { useGoal } from "../../contexts/GoalContext";
 import { useUser } from "../../contexts/UserContext";
-import { getTodoById } from "../../service/TodoService";
-import "./Edit.css";
+import { getGoalById } from "../../service/GoalService";
+import "./EditGoal.css";
 
-function Edit() {
-  const [todo, setTodo] = useState(null);
+function EditGoal() {
+  const [goal, setGoal] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editPriority, setEditPriority] = useState("");
   const [editNotes, setEditNotes] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
-  const [finished, setFinished] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { todos, deleteTodo, updateTodo } = useTodo();
+  const { goals, deleteGoal, updateGoal } = useGoal();
   const { user } = useUser();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,53 +24,50 @@ function Edit() {
   const handleDueDate = (e) => handleChange(e, setEditDueDate);
 
   useEffect(() => {
-    if (todo) {
-      setEditTitle(todo.title || "");
-      setEditPriority(todo.priority ?? "");
-      setEditDueDate(todo.dueDate || "");
-      setEditNotes(todo.notes || "");
-      setFinished(todo.finished ?? false);
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
-  }, [todo, finished]);
+    if (!goal) return;
+
+    setEditTitle(goal.title || "");
+    setEditPriority(goal.priority ?? "");
+    setEditDueDate(goal.dueDate || "");
+    setEditNotes(goal.notes || "");
+  }, [goal]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateTodo(
+    await updateGoal(
       {
         title: editTitle,
         priority: editPriority,
         dueDate: editDueDate,
         notes: editNotes,
       },
-      todo.id,
+      goal.id,
     );
     navigate("/");
   };
 
   const handleDelete = async () => {
-    await deleteTodo(todo.id);
+    if (!goal) return;
+    await deleteGoal(goal.id);
     navigate("/");
   };
 
   useEffect(() => {
     if (!user?.userId) return;
 
-    const todoId = Number(id);
-    const found = todos.find((t) => t.id === todoId);
+    const goalId = Number(id);
+    const found = goals.find((g) => g.id === goalId);
 
     if (found) {
-      setTodo(found);
+      setGoal(found);
       setLoading(false);
       return;
     }
 
-    const fetchTodo = async () => {
+    const fetchGoal = async () => {
       try {
-        const data = await getTodoById(todoId);
-        setTodo(data);
+        const data = await getGoalById(goalId);
+        setGoal(data);
       } catch (e) {
         console.log(e);
       } finally {
@@ -79,16 +75,16 @@ function Edit() {
       }
     };
 
-    fetchTodo();
-  }, [todos, id, user]);
+    fetchGoal();
+  }, [goals, id, user]);
 
   if (loading) return <h2>Loading...</h2>;
-  if (!todo) return <h2>Todo not found</h2>;
+  if (!goal) return <h2>Goal not found</h2>;
 
   return (
     <div className="edit_container text-center">
       <div className="card text-center m-auto">
-        <h1 className="card-title mt-4">Edit To-Do</h1>
+        <h1 className="card-title mt-4">Edit Goal</h1>
         <div className="mt-5">
           <label className="card-text d-block mb-2" htmlFor="title">
             Title:
@@ -152,4 +148,4 @@ function Edit() {
   );
 }
 
-export default Edit;
+export default EditGoal;

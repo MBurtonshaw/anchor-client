@@ -26,15 +26,7 @@ function Home() {
     return (
       <div className="home_container text-center">
         <Greeting />
-        <div className="home_sub_container">
-          <Link className="home_link" to="/todos/add">
-            <div className="button_div mt-5">
-              <button className="home_button">
-                <h5>Add To-Do</h5>
-              </button>
-            </div>
-          </Link>
-        </div>
+        
         <Collection />
       </div>
     );

@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
-import { TodoProvider } from "./contexts/TodoContext";
+import { TaskProvider } from "./contexts/TaskContext";
+import { GoalProvider } from "./contexts/GoalContext";
+import { HomepageProvider } from "./contexts/HomepageContext";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import "./index.css";
 import App from "./App";
@@ -14,9 +16,13 @@ root.render(
     <BrowserRouter>
       <ErrorProvider>
         <UserProvider>
-          <TodoProvider>
+          <GoalProvider>
+          <TaskProvider>
+            <HomepageProvider>
             <App />
-          </TodoProvider>
+            </HomepageProvider>
+          </TaskProvider>
+          </GoalProvider>
         </UserProvider>
       </ErrorProvider>
     </BrowserRouter>

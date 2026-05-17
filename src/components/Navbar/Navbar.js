@@ -17,7 +17,6 @@ function Navbar() {
   return (
     <div className="navbar_container mx-4 mt-2 text-end">
       <nav className="navbar_container">
-
         <button
           className="navbar_button"
           type="button"
@@ -35,16 +34,40 @@ function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
           <div className="white_bg">
-
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-
               <li className="nav-item">
                 <Link className="nav_link" to="/" onClick={closeNavbar}>
                   Home
                 </Link>
               </li>
+              {!user ? (
+                ""
+              ) : (
+                <li className="nav-item">
+                  <Link
+                    className="nav_link"
+                    to="/tasks/add"
+                    onClick={closeNavbar}
+                  >
+                    Add Task
+                  </Link>
+                </li>
+              )}
+
+              {!user ? (
+                ""
+              ) : (
+                <li className="nav-item">
+                  <Link
+                    className="nav_link"
+                    to="/goals/add"
+                    onClick={closeNavbar}
+                  >
+                    Add Goal
+                  </Link>
+                </li>
+              )}
 
               {!user ? (
                 <li className="nav-item">
@@ -59,9 +82,7 @@ function Navbar() {
                   </Link>
                 </li>
               )}
-
             </ul>
-
           </div>
         </div>
       </nav>

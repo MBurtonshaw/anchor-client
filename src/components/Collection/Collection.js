@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useTodo } from "../../contexts/GoalContext";
+import { useHomepage } from "../../contexts/HomepageContext";
 import "./Collection.css";
 
 function Collection() {
-  const { homepage } = useTodo();
+  const { homepage } = useHomepage();
   const [loading, setLoading] = useState(true);
+  const [tasks, setTasks] = useState([]);
+  const [goal, setGoal] = useState(null);
 
   useEffect(() => {
-    if (homepage) {
-      setLoading(false);
-    }
+    if (!homepage) return;
+
+    setTasks(homepage.dailyTodos || []);
+    setGoal(homepage.generalTodo || null);
+    setLoading(false);
   }, [homepage]);
 
   function classMapper(todo) {
@@ -20,56 +24,38 @@ function Collection() {
     return "card-body unfinished";
   }
 
-  function goalMapper() {
-    if (!homepage.generalTodo) {
-      return null;
-    }
+  function taskMapper() {
+  const list = [];
 
-    return (
-      <div className="row justify-content-center mb-4">
-        <div className="col-12 col-md-6 col-xl-4">
-          <div className="card border-warning">
-            <Link
-              className="unmarked_link"
-              to={`/goals/${homepage.generalTodo.id}`}
-            >
-              <div className={classMapper(homepage.generalTodo)}>
-                <h5 className="card-title">
-                   {homepage.generalTodo.title}
-                </h5>
-              </div>
-            </Link>
-          </div>
+  if (goal) {
+    list.push(
+      <div className="single_todo col-12 col-md-6 col-xl-4" key={goal.id}>
+        <div className="card current">
+          <Link className="unmarked_link" to={`/goals/${goal.id}`}>
+            <div className={classMapper(goal)}>
+              <h5 className="card-title">{goal.title}</h5>
+            </div>
+          </Link>
         </div>
       </div>
     );
   }
 
-  function dailyMapper() {
-    if (!homepage.dailyTodos) {
-      return null;
-    }
-
-    const list = [];
-
-    for (let i = 0; i < homepage.dailyTodos.length; i++) {
-      const todo = homepage.dailyTodos[i];
-
-      list.push(
-        <div className="single_todo col-12 col-md-6 col-xl-4" key={todo.id}>
-          <div className="card">
-            <Link className="unmarked_link" to={`/daily/${todo.id}`}>
-              <div className={classMapper(todo)}>
-                <h5 className="card-title">{todo.title}</h5>
-              </div>
-            </Link>
-          </div>
+  return [
+    ...list,
+    ...tasks.map(task => (
+      <div className="single_todo col-12 col-md-6 col-xl-4" key={task.id}>
+        <div className="card">
+          <Link className="unmarked_link" to={`/tasks/${task.id}`}>
+            <div className={classMapper(task)}>
+              <h5 className="card-title">{task.title}</h5>
+            </div>
+          </Link>
         </div>
-      );
-    }
-
-    return list;
-  }
+      </div>
+    ))
+  ];
+}
 
   if (loading) {
     return <h1 className="text-center">Loading...</h1>;
@@ -77,14 +63,9 @@ function Collection() {
 
   return (
     <div className="collection_container mt-4 p-5">
-      {goalMapper()}
-
-      <div className="row justify-content-center">
-        {dailyMapper()}
-      </div>
+      <div className="row justify-content-center">{taskMapper()}</div>
     </div>
   );
-
 }
 
 export default Collection;

@@ -1,40 +1,41 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useTodo } from "../../contexts/TodoContext";
+import { useGoal } from "../../contexts/GoalContext";
 import { useUser } from "../../contexts/UserContext";
-import { getTodoById } from "../../service/TodoService";
-import "./Todo.css";
+import { getGoalById } from "../../service/GoalService";
+import "./Goal.css";
 
-function Todo() {
-  const [todo, setTodo] = useState(null);
+function Goal() {
+  const [goal, setGoal] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { todos, markFinished, deleteTodo } = useTodo();
+
+  const { goals, completeGoal, deleteGoal } = useGoal();
 
   const { user } = useUser();
   const { id } = useParams();
   const navigate = useNavigate();
 
   const createdAtHandler = () => {
-    if (!todo?.createdAt) return "";
-    return todo.createdAt.slice(0, 10);
+    if (!goal?.createdAt) return "";
+    return goal.createdAt.slice(0, 10);
   };
 
   useEffect(() => {
     if (!user?.userId) return;
 
-    const todoId = Number(id);
-    const found = todos.find((t) => t.id === todoId);
+    const goalId = Number(id);
+    const found = goals.find((g) => g.id === goalId);
 
     if (found) {
-      setTodo(found);
+      setGoal(found);
       setLoading(false);
       return;
     }
 
-    const fetchTodo = async () => {
+    const fetchGoal = async () => {
       try {
-        const data = await getTodoById(todoId);
-        setTodo(data);
+        const data = await getGoalById(goalId);
+        setGoal(data);
       } catch (e) {
         console.log(e);
       } finally {
@@ -42,52 +43,46 @@ function Todo() {
       }
     };
 
-    fetchTodo();
-  }, [todos, id, user]);
+    fetchGoal();
+  }, [goals, id, user]);
 
   const handleDelete = async () => {
     navigate("/");
-    await deleteTodo(todo.id);
+    await deleteGoal(goal.id);
   };
 
   const handleFinished = async () => {
-    await markFinished(todo.id);
+    await completeGoal(goal.id);
   };
 
   const handleImage = () => {
-    if (!todo.finished) {
+    if (!goal.finished) {
       return (
         <div className="finished_image">
-          <img
-            className="w-100"
-            src="/blocks.png"
-            alt="three squares representing a loading state"
-          />
+          <img className="w-100" src="/blocks.png" alt="unfinished goal" />
         </div>
       );
     } else {
       return (
         <div className="finished_image">
-          <img
-            className="w-100"
-            src="/checked.png"
-            alt="three squares representing a loading state"
-          />
+          <img className="w-100" src="/checked.png" alt="completed goal" />
         </div>
       );
     }
   };
 
   const handleButtons = () => {
-    if (!todo.finished) {
+    if (!goal.finished) {
       return (
         <div className="todo_buttons_div">
-          <Link to={`/todos/${todo.id}/edit`}>
+          <Link to={`/goals/${goal.id}/edit`}>
             <button className="todo_button primary">Update</button>
           </Link>
+
           <button className="todo_button secondary" onClick={handleFinished}>
             Mark Finished
           </button>
+
           <button className="todo_button danger" onClick={handleDelete}>
             Delete
           </button>
@@ -105,14 +100,13 @@ function Todo() {
   };
 
   if (loading) return <h2>Loading...</h2>;
-  if (!todo) return <h2>Todo not found</h2>;
+  if (!goal) return <h2>Goal not found</h2>;
 
   return (
     <div className="todo_container">
       <div className="card text-center m-auto">
         <div className="card-body">
-          <h1 className="card-title">{todo.title}</h1>
-          <p className="card-text w-50 m-auto p-5">{todo.notes}</p>
+          <h1 className="card-title">{goal.title}</h1>
           {handleImage()}
           <p className="mt-5">Created: {createdAtHandler()}</p>
           {handleButtons()}
@@ -122,4 +116,4 @@ function Todo() {
   );
 }
 
-export default Todo;
+export default Goal;

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTodo } from "../../contexts/GoalContext";
-import "./Add.css";
+import { useGoal } from "../../contexts/GoalContext";
+import "./AddGoal.css";
 
-function Add() {
-  const { addTodo } = useTodo();
+function AddGoal() {
+  const { addGoal } = useGoal();
   const [addTitle, setAddTitle] = useState("");
   const [addNotes, setAddNotes] = useState("");
   const [addPriority, setAddPriority] = useState(1);
@@ -23,7 +23,7 @@ function Add() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addTodo({
+    await addGoal({
       title: addTitle,
       priority: addPriority,
       notes: addNotes,
@@ -35,7 +35,7 @@ function Add() {
   return (
     <div className="add_container text-center">
       <div className="card text-center m-auto">
-        <h1 className="card-title mt-4">Add a New To-Do</h1>
+        <h1 className="card-title mt-4">Add a New Goal</h1>
         <div className="mt-5">
           <label className="card-text d-block mb-2" htmlFor="title">
             Title:
@@ -96,4 +96,4 @@ function Add() {
   );
 }
 
-export default Add;
+export default AddGoal;

@@ -8,11 +8,11 @@ import {
 import { useUser } from "./UserContext";
 import { useError } from "./ErrorContext";
 import {
-  getGoalByUser,
+  getGoals as getGoalsApi,
   addGoal as addGoalApi,
   updateGoal as updateGoalApi,
   deleteGoal as deleteGoalApi,
-  markFinished as markFinishedApi,
+  completeGoal as completeGoalApi,
 } from "../service/GoalService";
 const GoalContext = createContext(null);
 
@@ -28,7 +28,7 @@ const getGoals = useCallback(async () => {
   if (!user?.userId) return;
 
   try {
-    const res = await getGoalByUser();
+    const res = await getGoalsApi();
     setGoals(res); 
   } catch (err) {
     setError(err.message);
@@ -68,7 +68,7 @@ const getGoals = useCallback(async () => {
   const completeGoal = async (goalId) => {
     try {
       if (!user?.userId) return;
-      await markFinishedApi(goalId);
+      await completeGoalApi(goalId);
       await getGoals();
     } catch (err) {
       setError(err.message);
