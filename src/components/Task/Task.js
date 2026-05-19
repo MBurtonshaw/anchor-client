@@ -118,17 +118,23 @@ const handleButtons = () => {
   if (loading) return <h2>Loading...</h2>;
   if (!task) return <h2>Task not found</h2>;
 
-  return (
-    <div className="todo_container">
-      <div className="card text-center m-auto">
-        <div className="card-body">
-          <h1 className="card-title">{task.title}</h1>
-          {handleImage()}
+return (
+  <div className="todo_container">
+    <div className="card text-center m-auto">
+      <div className="card-body p-4">
+        <h1 className="card-title">
+          {task.title}
+        </h1>
+
+        {handleImage()}
+
+        <div className="pt-4">
           {handleButtons()}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default Task;

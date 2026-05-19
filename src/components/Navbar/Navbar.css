@@ -38,3 +38,8 @@
     font-size: 1.15em;
 }
 }
+@media (max-width: 768px) {
+  .white_bg {
+    width: 27.5%;
+}
+}

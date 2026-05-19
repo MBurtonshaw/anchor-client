@@ -12,6 +12,7 @@ import AddGoal from "./components/AddGoal/AddGoal";
 import Task from "./components/Task/Task";
 import Goal from "./components/Goal/Goal";
 import Navbar from "./components/Navbar/Navbar";
+import GoalPage from "./components/GoalPage/GoalPage";
 import ErrorBanner from "./components/ErrorBanner/ErrorBanner";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/goals" element={<GoalPage />} />
         <Route path="tasks/:id" element={<Task />} />
         <Route path="goals/:id" element={<Goal />} />
         <Route path="/tasks/add" element={<AddTask />} />

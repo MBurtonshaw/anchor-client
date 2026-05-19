@@ -15,11 +15,6 @@ function Goal() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const createdAtHandler = () => {
-    if (!goal?.createdAt) return "";
-    return goal.createdAt.slice(0, 10);
-  };
-
   useEffect(() => {
     if (!user?.userId) return;
 

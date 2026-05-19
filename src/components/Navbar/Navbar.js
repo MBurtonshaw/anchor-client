@@ -70,6 +70,20 @@ function Navbar() {
               )}
 
               {!user ? (
+                ""
+              ) : (
+                <li className="nav-item">
+                  <Link
+                    className="nav_link"
+                    to="/goals"
+                    onClick={closeNavbar}
+                  >
+                    View Goals
+                  </Link>
+                </li>
+              )}
+
+              {!user ? (
                 <li className="nav-item">
                   <Link className="nav_link" to="/login" onClick={closeNavbar}>
                     Login
