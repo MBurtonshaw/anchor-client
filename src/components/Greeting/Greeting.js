@@ -9,17 +9,26 @@ function Greeting() {
 
   const { user } = useUser();
 
-  useEffect(() => {
-    let quoteIndex = Number(sessionStorage.getItem("quoteIndex"));
+ useEffect(() => {
+  const today = new Date().toDateString();
 
-    if (isNaN(quoteIndex)) {
-      quoteIndex = Math.floor(Math.random() * quotesData.quotes.length);
-      sessionStorage.setItem("quoteIndex", quoteIndex);
-    }
+  const storedDate = localStorage.getItem("quoteDate");
+  const storedIndex = localStorage.getItem("quoteIndex");
 
-    setQuote(quotesData.quotes[quoteIndex]);
+  if (storedDate === today && storedIndex !== null) {
+    setQuote(quotesData.quotes[Number(storedIndex)]);
     setLoading(false);
-  }, []);
+    return;
+  }
+
+  const newIndex = Math.floor(Math.random() * quotesData.quotes.length);
+
+  localStorage.setItem("quoteIndex", newIndex);
+  localStorage.setItem("quoteDate", today);
+
+  setQuote(quotesData.quotes[newIndex]);
+  setLoading(false);
+}, []);
 
   if (loading) {
     return <h1 className="text-center">Loading...</h1>;
@@ -33,7 +42,7 @@ function Greeting() {
     } else {
       return (
         <div className="greeting_container_2 text-center">
-          <h1>{`Welcome to your To-Do list, ${user.username}`}</h1>
+          <h1>{`Welcome, ${user.username}`}</h1>
           <h5 className="pt-4 w-75 m-auto" key={quote.id}>
             {quote.text}
           </h5>

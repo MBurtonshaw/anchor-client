@@ -15,6 +15,7 @@ import {
   deleteTask as deleteTaskApi,
   completeTask as completeTaskApi,
 } from "../service/TaskService";
+import { useHomepage } from "./HomepageContext";
 const TaskContext = createContext(null);
 
 export const useTask = () => useContext(TaskContext);
@@ -24,6 +25,7 @@ export const TaskProvider = ({ children }) => {
 
   const { user } = useUser();
   const { setError } = useError();
+  const { getHomepage } = useHomepage();
 
   const getTasks = useCallback(async () => {
     if (!user?.userId) return;
@@ -45,6 +47,7 @@ export const TaskProvider = ({ children }) => {
       if (!user?.userId) return;
       await addTaskApi(task);
       await getTasks();
+      await getHomepage();
     } catch (err) {
       setError(err.message);
     }
@@ -55,6 +58,7 @@ export const TaskProvider = ({ children }) => {
       if (!user?.userId) return;
       await updateTaskApi(task, taskId);
       await getTasks();
+      await getHomepage();
     } catch (err) {
       setError(err.message);
     }
@@ -65,6 +69,7 @@ export const TaskProvider = ({ children }) => {
       if (!user?.userId) return;
       await deleteTaskApi(taskId);
       await getTasks();
+      await getHomepage();
     } catch (err) {
       setError(err.message);
     }
@@ -75,6 +80,7 @@ export const TaskProvider = ({ children }) => {
       if (!user?.userId) return;
       await completeTaskApi(taskId);
       await getTasks();
+      await getHomepage();
     } catch (err) {
       setError(err.message);
     }

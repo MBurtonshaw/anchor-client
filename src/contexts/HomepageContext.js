@@ -21,6 +21,7 @@ const [homepage, setHomepage] = useState(null);
   const { setError } = useError();
 
 const getHomepage = useCallback(async () => {
+  console.log("REFRESH HOMEPAGE CALLED");
   if (!user?.userId) return;
   try {
     const res = await getHomepageApi();

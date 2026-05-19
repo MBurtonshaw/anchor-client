@@ -14,14 +14,13 @@
         {"id" : 12, "text" : "Folks are usually about as happy as they make up their minds to be.", "author" : "Abraham Lincoln"},
         {"id" : 13, "text" : "It is during our darkest moments that we must focus to see the light.", "author" : "Aristotle"},
         {"id" : 14, "text" : "Develop success from failures. Discouragement and failure are two of the surest stepping stones to success.", "author" : "Dale Carnegie"},
-        {"id" : 15, "text" : "The most important thing in life is to stop saying ‘I wish’ and start saying ‘I will’. Consider nothing impossible then treat possibilities as probabilities.", "author" : "Charles Dickens"},
-        {"id" : 16, "text" : "Never bend your head. Always hold it high. Look the world straight in the eye.", "author" : "Helen Keller"},
-        {"id" : 17, "text" : "We generate fears while we sit. We overcome them by action. Fear is nature’s way of warning us to get busy.", "author" : "Dr. Henry Link"},
-        {"id" : 18, "text" : "The best way to get started is to quit talking and begin doing.", "author" : "Walt Disney"},
-        {"id" : 19, "text" : "I can’t change the direction of the wind, but I can adjust my sails to always reach my destination.", "author" : "Jimmy Dean"},
-        {"id" : 20, "text" : "We may encounter many defeats but we must not be defeated.", "author" : "Maya Angelou"},
-        {"id" : 21, "text" : "Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence.", "author" : "Helen Keller"},
-        {"id" : 22, "text" : "Courage is more exhilarating than fear and in the long run it is easier. We do not have to become heroes overnight. Just one step at a time, meeting each thing that comes up, seeing it is not as dreadful as it appeared, discovering we have the strength to stare it down.", "author" : "Eleanor Roosevelt"},
-        {"id" : 23, "text" : "For every reason it’s not possible, there are hundreds of people who have faced the same circumstances and succeeded.", "author" : "Jack Canfield"}
+        {"id" : 15, "text" : "Never bend your head. Always hold it high. Look the world straight in the eye.", "author" : "Helen Keller"},
+        {"id" : 16, "text" : "We generate fears while we sit. We overcome them by action. Fear is nature’s way of warning us to get busy.", "author" : "Dr. Henry Link"},
+        {"id" : 17, "text" : "The best way to get started is to quit talking and begin doing.", "author" : "Walt Disney"},
+        {"id" : 18, "text" : "I can’t change the direction of the wind, but I can adjust my sails to always reach my destination.", "author" : "Jimmy Dean"},
+        {"id" : 19, "text" : "We may encounter many defeats, but we must not be defeated.", "author" : "Maya Angelou"},
+        {"id" : 20, "text" : "Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence.", "author" : "Helen Keller"},
+        {"id" : 21, "text" : "Courage is more exhilarating than fear and in the long run it is easier. We do not have to become heroes overnight. Just one step at a time, meeting each thing that comes up, seeing it is not as dreadful as it appeared, discovering we have the strength to stare it down.", "author" : "Eleanor Roosevelt"},
+        {"id" : 22, "text" : "For every reason it’s not possible, there are hundreds of people who have faced the same circumstances and succeeded.", "author" : "Jack Canfield"}
     ]
 }

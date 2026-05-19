@@ -41,8 +41,8 @@ function Task() {
   }, [tasks, id, user]);
 
   const handleDelete = async () => {
-    navigate("/");
     await deleteTask(task.id);
+    navigate("/");
   };
 
   const handleFinished = async () => {

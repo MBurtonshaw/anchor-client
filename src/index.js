@@ -16,20 +16,17 @@ root.render(
     <BrowserRouter>
       <ErrorProvider>
         <UserProvider>
-          <GoalProvider>
-          <TaskProvider>
-            <HomepageProvider>
-            <App />
-            </HomepageProvider>
-          </TaskProvider>
-          </GoalProvider>
+          <HomepageProvider>
+            <TaskProvider>
+              <GoalProvider>
+                <App />
+              </GoalProvider>
+            </TaskProvider>
+          </HomepageProvider>
         </UserProvider>
       </ErrorProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

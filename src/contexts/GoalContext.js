@@ -7,6 +7,7 @@ import {
 } from "react";
 import { useUser } from "./UserContext";
 import { useError } from "./ErrorContext";
+import { useHomepage } from "./HomepageContext";
 import {
   getGoals as getGoalsApi,
   addGoal as addGoalApi,
@@ -23,6 +24,7 @@ const [goals, setGoals] = useState([]);
 
   const { user } = useUser();
   const { setError } = useError();
+  const { getHomepage } = useHomepage();
 
 const getGoals = useCallback(async () => {
   if (!user?.userId) return;
@@ -40,6 +42,7 @@ const getGoals = useCallback(async () => {
       if (!user?.userId) return;
       await addGoalApi(goal);
       await getGoals();
+      await getHomepage();
     } catch (err) {
       setError(err.message);
     }
@@ -50,6 +53,7 @@ const getGoals = useCallback(async () => {
       if (!user?.userId) return;
       await updateGoalApi(goal, goalId);
       await getGoals();
+      await getHomepage();
     } catch (err) {
       setError(err.message);
     }
@@ -60,6 +64,7 @@ const getGoals = useCallback(async () => {
       if (!user?.userId) return;
       await deleteGoalApi(goalId);
       await getGoals();
+      await getHomepage();
     } catch (err) {
       setError(err.message);
     }
@@ -70,6 +75,7 @@ const getGoals = useCallback(async () => {
       if (!user?.userId) return;
       await completeGoalApi(goalId);
       await getGoals();
+      await getHomepage();
     } catch (err) {
       setError(err.message);
     }

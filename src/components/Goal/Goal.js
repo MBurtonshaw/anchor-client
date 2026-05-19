@@ -108,7 +108,7 @@ function Goal() {
         <div className="card-body">
           <h1 className="card-title">{goal.title}</h1>
           {handleImage()}
-          <p className="mt-5">Created: {createdAtHandler()}</p>
+          <p className='fs-5'>{goal.notes}</p>
           {handleButtons()}
         </div>
       </div>

@@ -18,7 +18,7 @@ function AddTask() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await addTask({
-      title: addTitle,
+      title: addTitle
     });
     navigate("/");
   };
