@@ -22,7 +22,7 @@ function GoalPage() {
         className="single_todo col-12 col-md-6 col-xl-4 mt-4"
         key={goal.id}
       >
-        <div className="card current">
+        <div className="card">
           <Link
             className="unmarked_link"
             to={`/goals/${goal.id}`}
