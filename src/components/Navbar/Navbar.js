@@ -18,7 +18,7 @@ function Navbar() {
     <div className="navbar_container mx-4 mt-2 text-end">
       <nav className="navbar_container">
         <button
-          className="navbar_button"
+          className="navbar-toggler navbar_button text-end"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -27,7 +27,7 @@ function Navbar() {
           aria-label="Toggle navigation"
         >
           <img
-            className="navbar-toggler navbar_img"
+            className="navbar_img"
             src="/interface.png"
             alt="menu"
           />
