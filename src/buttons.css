@@ -1,0 +1,47 @@
+.danger_button {
+  background-color: rgb(255, 140, 160);
+  border-radius: 0.75rem;
+  color: white;
+  padding: 0.35em 1.75em;
+}
+
+.primary_button {
+  background-color: rgb(140, 120, 255);
+  border-radius: 0.75rem;
+  color: white;
+  padding: 0.35em 1.75em;
+}
+
+.secondary_button {
+  background-color: rgb(186, 165, 255);
+  border-radius: 0.75rem;
+  color: white;
+  padding: 0.35em 1.75em;
+}
+
+.tertiary_button {
+  background-color: rgb(230, 220, 255);
+  border-radius: 0.75rem;
+  color: rgb(60, 60, 60);
+  padding: 0.35em 1.75em;
+}
+
+.primary_button:hover {
+  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+  transform: translateY(-1px);
+}
+
+.secondary_button:hover {
+  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+  transform: translateY(-1px);
+}
+
+.danger_button:hover {
+  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+  transform: translateY(-1px);
+}
+
+.tertiary_button:hover {
+  box-shadow: 0 8px 18px rgba(90, 60, 120, 0.18);
+  transform: translateY(-1px);
+}

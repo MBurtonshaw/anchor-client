@@ -1,4 +1,47 @@
+.finished {
+  background-color: rgb(200, 190, 215);
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
+  opacity: 0.85;
+}
+
+.finished_image {
+  margin: auto;
+  width: 10%;
+}
+
 h1 {
-    word-spacing: 3px;
-    letter-spacing: 2px;
+  letter-spacing: 2px;
+  word-spacing: 3px;
+}
+
+.home_link {
+  color: inherit;
+  margin: auto;
+  max-width: 300px;
+  text-decoration: none;
+  width: 25%;
+}
+
+.single_todo {
+  padding: 0.5em;
+  padding-bottom: 1.5em;
+}
+
+.unfinished {
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
+}
+
+.unmarked_link {
+  color: rgb(56, 56, 56);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .home_link {
+    color: inherit;
+    margin: auto;
+    max-width: 540px;
+    text-decoration: none;
+    width: 45%;
+  }
 }

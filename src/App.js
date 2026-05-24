@@ -1,19 +1,23 @@
 import { Routes, Route } from "react-router-dom";
 import "./normalize.css";
 import "./App.css";
-import Home from "./components/Home/Home";
-import Register from "./components/Register/Register";
-import Login from "./components/Login/Login";
-import Logout from "./components/Logout/Logout";
-import EditTask from "./components/EditTask/EditTask";
-import EditGoal from "./components/EditGoal/EditGoal";
-import AddTask from "./components/AddTask/AddTask";
-import AddGoal from "./components/AddGoal/AddGoal";
-import Task from "./components/Task/Task";
-import Goal from "./components/Goal/Goal";
-import Navbar from "./components/Navbar/Navbar";
-import GoalPage from "./components/GoalPage/GoalPage";
-import ErrorBanner from "./components/ErrorBanner/ErrorBanner";
+import "./buttons.css";
+import "./containers.css";
+import "./navigation.css";
+import Home from "./components/Home";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
+import EditTask from "./components/EditTask";
+import EditGoal from "./components/EditGoal";
+import AddTask from "./components/AddTask";
+import AddGoal from "./components/AddGoal";
+import Task from "./components/Task";
+import Goal from "./components/Goal";
+import Navbar from "./components/Navbar";
+import GoalPage from "./components/GoalPage";
+import ErrorBanner from "./components/ErrorBanner";
+import HowToUse from "./components/HowToUse";
 
 function App() {
   return (
@@ -32,6 +36,7 @@ function App() {
         <Route path="/goals/add" element={<AddGoal />} />
         <Route path="/tasks/:id/edit" element={<EditTask/>} />
         <Route path="/goals/:id/edit" element={<EditGoal/>} />
+        <Route path="/how_to_use" element={<HowToUse/>} />
       </Routes>
     </div>
   );

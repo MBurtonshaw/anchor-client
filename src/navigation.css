@@ -1,0 +1,47 @@
+.nav_link {
+  color: rgb(56, 56, 56);
+  text-decoration: none;
+}
+
+.navbar_bg {
+  background-color: rgb(252, 250, 255);
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5rem 1rem rgba(90, 60, 120, 0.16);
+  margin-left: auto;
+  padding: 0.4em 0.5em;
+  text-align: center;
+  width: 20%;
+}
+
+.navbar_container {
+  padding-bottom: 1.5rem;
+}
+
+.navbar_dropdown {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding-right: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.navbar_img {
+  width: 15%;
+}
+
+@media (max-width: 768px) {
+  .navbar_bg {
+    width: 40%;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar_bg {
+    font-size: 1.15em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    width: 17.5%;
+  }
+}
