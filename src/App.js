@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import "./normalize.css";
-import "./App.css";
-import "./buttons.css";
-import "./containers.css";
-import "./navigation.css";
+import "./css/normalize.css";
+import "./css/App.css";
+import "./css/buttons.css";
+import "./css/containers.css";
+import "./css/navigation.css";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";

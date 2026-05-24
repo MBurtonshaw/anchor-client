@@ -6,7 +6,7 @@ import { TaskProvider } from "./contexts/TaskContext";
 import { GoalProvider } from "./contexts/GoalContext";
 import { HomepageProvider } from "./contexts/HomepageContext";
 import { ErrorProvider } from "./contexts/ErrorContext";
-import "./index.css";
+import "./css/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
