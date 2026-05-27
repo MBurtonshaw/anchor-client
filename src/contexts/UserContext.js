@@ -11,6 +11,7 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -25,6 +26,8 @@ export const UserProvider = ({ children }) => {
       console.error("Failed to parse stored user:", err);
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -38,6 +41,7 @@ export const UserProvider = ({ children }) => {
 
   const login = async ({ username, password }) => {
     try {
+      console.log({ username, password });
       const response = await login_user({ username, password });
 
       const userData = {
@@ -47,6 +51,9 @@ export const UserProvider = ({ children }) => {
 
       saveAuth(userData, response.token);
     } catch (err) {
+      if (err.message === "UNAUTHORIZED") {
+        handleAuthError();
+      }
       console.error(err);
     }
   };
@@ -67,8 +74,18 @@ export const UserProvider = ({ children }) => {
 
       saveAuth(userData, response.token);
     } catch (err) {
+      if (err.message === "UNAUTHORIZED") {
+        handleAuthError();
+      }
       console.error(err);
     }
+  };
+
+  const handleAuthError = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   const logout = () => {
@@ -78,7 +95,9 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, token, login, register, logout }}>
+    <UserContext.Provider
+      value={{ user, token, login, register, logout, loading }}
+    >
       {children}
     </UserContext.Provider>
   );

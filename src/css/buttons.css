@@ -5,6 +5,25 @@
   padding: 0.35em 1.75em;
 }
 
+.done_button {
+  width: fit-content;
+  margin: 0.5rem auto 0;
+  padding: 0.2rem 0.9rem;
+  background-color: transparent;
+  border: 1px solid rgba(186, 165, 255, 0.35);
+  border-radius: 999px;
+  color: rgb(90, 60, 120);
+  font-size: 0.9rem;
+  letter-spacing: 0.03rem;
+  transition: all 160ms ease;
+}
+
+.done_button:hover {
+  cursor: pointer;
+  background-color: rgba(186, 165, 255, 0.28);
+  transform: translateY(-1px);
+}
+
 .primary_button {
   background-color: rgb(140, 120, 255);
   border-radius: 0.75rem;
