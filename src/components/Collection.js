@@ -24,7 +24,7 @@ function Collection() {
   }
 
   function taskMapper(task) {
-    return isTaskFinished(task) ? "card-body finished" : "card-body unfinished";
+    return isTaskFinished(task) ? "card-body card--finished" : "card-body unfinished";
   }
 
   function isGoalFinished(goal) {
@@ -32,7 +32,7 @@ function Collection() {
   }
 
   function goalMapper(goal) {
-    return isGoalFinished(goal) ? "card-body finished" : "card-body unfinished";
+    return isGoalFinished(goal) ? "card-body card--finished" : "card-body unfinished";
   }
 
   function viewMapper() {
@@ -48,17 +48,14 @@ function Collection() {
           className="single_todo col-12 col-md-6 col-xl-4"
           key={`g${goal.id}`}
         >
-            <div className="card current">
-              <Link className="unmarked_link" to={`/goals/${goal.id}`}>
-                <div className={goalMapper(goal)}>
-                  <h5 className="card-title">{goal.title}</h5>
-                </div>
-              </Link>
-            </div>
-          <button
-            className="done_button"
-            onClick={() => completeGoal(goal.id)}
-          >
+          <div className="card card--primary">
+            <Link className="unmarked_link" to={`/goals/${goal.id}`}>
+              <div className={goalMapper(goal)}>
+                <h5 className="card-title">{goal.title}</h5>
+              </div>
+            </Link>
+          </div>
+          <button className="done_button" onClick={() => completeGoal(goal.id)}>
             done
           </button>
         </div>
@@ -68,7 +65,6 @@ function Collection() {
       if (!isGoalFinished(goal)) {
         list.push(goalCard);
       }
-
     }
 
     // add sorted tasks
@@ -78,19 +74,19 @@ function Collection() {
           className="single_todo col-12 col-md-6 col-xl-4"
           key={`t${task.id}`}
         >
-            <div className="card">
-              <Link className="unmarked_link" to={`/tasks/${task.id}`}>
-                <div className={taskMapper(task)}>
-                  <h5 className="card-title">{task.title}</h5>
-                </div>
-              </Link>
-            </div>
+          <div className="card">
+            <Link className="unmarked_link" to={`/tasks/${task.id}`}>
+              <div className={taskMapper(task)}>
+                <h5 className="card-title">{task.title}</h5>
+              </div>
+            </Link>
+          </div>
           {!isTaskFinished(task) && (
             <button
               className="done_button"
               onClick={() => completeTask(task.id)}
             >
-               done
+              done
             </button>
           )}
         </div>,
@@ -104,7 +100,7 @@ function Collection() {
           className="single_todo col-12 col-md-6 col-xl-4"
           key={`g${goal.id}`}
         >
-          <div className="card current">
+          <div className="card">
             <Link className="unmarked_link" to={`/goals/${goal.id}`}>
               <div className={goalMapper(goal)}>
                 <h5 className="card-title">{goal.title}</h5>
@@ -123,7 +119,7 @@ function Collection() {
   }
 
   return (
-    <div className="collection_container mt-4 p-5">
+    <div className="collection_container">
       <div className="row justify-content-center">{viewMapper()}</div>
     </div>
   );

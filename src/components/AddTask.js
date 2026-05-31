@@ -26,7 +26,7 @@ function AddTask() {
     <div className="component_container text-center">
       <div className="card text-center m-auto">
         <h1 className="card-title mt-4">Add a New Task</h1>
-        <div className="mt-5">
+        <div className="w-50 m-auto mt-5">
           <label className="card-text d-block mb-2" htmlFor="title">
             Title:
           </label>
@@ -42,6 +42,9 @@ function AddTask() {
         <div className="p-3">
           <button className="primary_button m-2" onClick={handleSubmit}>
             Submit
+          </button>
+          <button className="secondary_button m-2" onClick={() => navigate('/')}>
+            Home
           </button>
         </div>
       </div>

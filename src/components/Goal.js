@@ -41,8 +41,8 @@ function Goal() {
   }, [goals, id, user]);
 
   const handleDelete = async () => {
-    navigate("/");
     await deleteGoal(goal.id);
+    navigate("/");
   };
 
   const handleFinished = async () => {
@@ -68,18 +68,26 @@ function Goal() {
   const handleButtons = () => {
     if (!goal.finished) {
       return (
-        <div className="todo_buttons_div row w-50 m-auto mt-5">
-            <button className="primary_button" onClick={() => navigate(`/goals/${goal.id}/edit`)}>Update</button>
+        <div className="todo_buttons_div m-auto mt-5">
+          <button
+            className="primary_button w-100"
+            onClick={() => navigate(`/goals/${goal.id}/edit`)}
+          >
+            Update
+          </button>
 
-          <button className="secondary_button" onClick={handleFinished}>
+          <button className="secondary_button w-100" onClick={handleFinished}>
             Complete
           </button>
 
-          <button className="danger_button" onClick={handleDelete}>
+          <button className="danger_button w-100" onClick={handleDelete}>
             Delete
           </button>
 
-          <button className="tertiary_button" onClick={() => navigate('/')}>
+          <button
+            className="tertiary_button w-100"
+            onClick={() => navigate("/")}
+          >
             Home
           </button>
         </div>
@@ -88,7 +96,7 @@ function Goal() {
       return (
         <div className="todo_buttons_div">
           <Link to={`/`}>
-            <button className="primary_button primary">Home</button>
+            <button className="primary_button w-100">Home</button>
           </Link>
         </div>
       );
@@ -98,13 +106,22 @@ function Goal() {
   if (loading) return <h2>Loading...</h2>;
   if (!goal) return <h2>Goal not found</h2>;
 
+  const formattedDueDate = new Date(
+    goal.dueDate + "T00:00:00",
+  ).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
     <div className="component_container">
       <div className="card text-center m-auto">
-        <div className="card-body">
+        <div className="card-body p-4">
           <h1 className="card-title">{goal.title}</h1>
           {handleImage()}
-          <p className='fs-5'>{goal.notes}</p>
+          {goal.notes && <p className="fs-5">{goal.notes}</p>}
+          {goal.dueDate && <p className="text-muted">Due {formattedDueDate}</p>}
           {handleButtons()}
         </div>
       </div>

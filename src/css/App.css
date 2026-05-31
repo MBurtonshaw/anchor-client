@@ -1,8 +1,4 @@
-.finished {
-  background-color: rgb(200, 190, 215);
-  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
-  opacity: 0.85;
-}
+
 
 .finished_image {
   margin: auto;
@@ -10,8 +6,11 @@
 }
 
 h1 {
-  letter-spacing: 2px;
-  word-spacing: 3px;
+  letter-spacing: 0.04em;
+}
+
+h4, h5 {
+  letter-spacing: 0.04em;
 }
 
 .home_link {
@@ -25,6 +24,11 @@ h1 {
 .single_todo {
   padding: 0.5em;
   padding-bottom: 1.5em;
+}
+
+.quote {
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 .unfinished {
@@ -45,3 +49,4 @@ h1 {
     width: 45%;
   }
 }
+

@@ -94,24 +94,24 @@ const completedToday = () => {
 const handleButtons = () => {
   if (!completedToday()) {
     return (
-      <div className="todo_buttons_div row w-50 m-auto mt-5">
-          <button className="primary_button" onClick={() => navigate(`/tasks/${task.id}/edit`)}>Update</button>
+      <div className="todo_buttons_div m-auto mt-5">
+          <button className="primary_button w-100" onClick={() => navigate(`/tasks/${task.id}/edit`)}>Update</button>
 
         <button
-          className="secondary_button"
+          className="secondary_button w-100"
           onClick={handleFinished}
         >
-          Complete Task
+          Complete
         </button>
 
         <button
-          className="danger_button"
+          className="danger_button w-100"
           onClick={handleDelete}
         >
           Delete
         </button>
         <button
-          className="tertiary_button"
+          className="tertiary_button w-100"
           onClick={() => navigate('/')}
         >
           Home
@@ -142,9 +142,7 @@ return (
 
         {handleImage()}
 
-        <div className="pt-4">
           {handleButtons()}
-        </div>
       </div>
     </div>
   </div>

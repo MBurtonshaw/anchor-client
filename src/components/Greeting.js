@@ -5,44 +5,95 @@ import { useUser } from "../contexts/UserContext";
 function Greeting() {
   const [quote, setQuote] = useState("");
   const [loading, setLoading] = useState(true);
+  const [timeOfDay, setTimeOfDay] = useState("");
 
   const { user } = useUser();
 
- useEffect(() => {
-  const today = new Date().toDateString();
+  useEffect(() => {
+    const today = new Date().toDateString();
 
-  const storedDate = localStorage.getItem("quoteDate");
-  const storedIndex = localStorage.getItem("quoteIndex");
+    const storedDate = localStorage.getItem("quoteDate");
+    const storedIndex = localStorage.getItem("quoteIndex");
 
-  if (storedDate === today && storedIndex !== null) {
-    setQuote(quotesData.quotes[Number(storedIndex)]);
+    if (storedDate === today && storedIndex !== null) {
+      setQuote(quotesData.quotes[Number(storedIndex)]);
+      setLoading(false);
+      return;
+    }
+
+    const newIndex = Math.floor(Math.random() * quotesData.quotes.length);
+
+    localStorage.setItem("quoteIndex", newIndex);
+    localStorage.setItem("quoteDate", today);
+
+    setQuote(quotesData.quotes[newIndex]);
+
     setLoading(false);
-    return;
-  }
+  }, []);
 
-  const newIndex = Math.floor(Math.random() * quotesData.quotes.length);
+  useEffect(() => {
+    const updateTime = () => {
+      const hour = new Date().getHours();
 
-  localStorage.setItem("quoteIndex", newIndex);
-  localStorage.setItem("quoteDate", today);
+      if (hour < 12) setTimeOfDay("morning");
+      else if (hour < 17) setTimeOfDay("afternoon");
+      else setTimeOfDay("evening");
+    };
 
-  setQuote(quotesData.quotes[newIndex]);
-  setLoading(false);
-}, []);
+    updateTime();
+    const interval = setInterval(updateTime, 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getGreeting = () => {
+    let clock = "";
+    if (timeOfDay === "morning") {
+      clock = "Good morning, ";
+    } else if (timeOfDay === "afternoon") {
+      clock = "Good afternoon, ";
+    } else {
+      clock = "Good evening, ";
+    }
+    const now = new Date();
+
+    const dayOfWeek = now.toLocaleDateString(undefined, {
+      weekday: "long",
+    });
+
+    const fullDate = now.toLocaleDateString(undefined, {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+
+    return (
+      <div>
+        <h1>
+          {clock} {user.username}
+        </h1>
+
+        <h4>Today is {dayOfWeek}</h4>
+
+        <h5>{fullDate}</h5>
+      </div>
+    );
+  };
 
   if (loading) {
     return <h1 className="text-center">Loading...</h1>;
   } else {
     if (!user || user === null) {
       return (
-        <div className="greeting_container_1 text-center">
+        <div className="text-center">
           <h1 className="text-center">Welcome</h1>
         </div>
       );
     } else {
       return (
-        <div className="greeting_container_2 text-center">
-          <h1>{`Welcome, ${user.username}`}</h1>
-          <h5 className="pt-4 w-75 m-auto" key={quote.id}>
+        <div className="text-center">
+          <h1>{getGreeting()}</h1>
+          <h5 className="pt-5 w-75 m-auto quote" key={quote.id}>
             {quote.text}
           </h5>
           <span>{quote.author}</span>

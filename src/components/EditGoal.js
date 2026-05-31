@@ -84,7 +84,7 @@ function EditGoal() {
     <div className="component_container text-center">
       <div className="card text-center m-auto">
         <h1 className="card-title mt-4">Edit Goal</h1>
-        <div className="mt-5">
+        <div className="w-50 m-auto mt-5">
           <label className="card-text d-block mb-2" htmlFor="title">
             Title:
           </label>
@@ -96,7 +96,7 @@ function EditGoal() {
             onChange={handleTitle}
           />
         </div>
-        <div className="my-4">
+        <div className="w-50 m-auto my-4">
           <label className="card-text d-block mb-2" htmlFor="notes">
             Notes (Optional):
           </label>
@@ -108,7 +108,7 @@ function EditGoal() {
             onChange={handleNotes}
           />
         </div>
-        <div className="">
+        <div className="w-50 m-auto">
           <label className="card-text d-block mb-2" htmlFor="priority">
             Priority:
           </label>
@@ -122,7 +122,7 @@ function EditGoal() {
             onChange={handlePriority}
           />
         </div>
-        <div className="my-4">
+        <div className="w-50 m-auto my-4">
           <label className="card-text d-block mb-2" htmlFor="date">
             Due Date (Optional):
           </label>
@@ -137,6 +137,9 @@ function EditGoal() {
         <div className="p-3">
           <button className="primary_button m-2" onClick={handleSubmit}>
             Update
+          </button>
+          <button className="secondary_button m-2" onClick={() => navigate('/')}>
+            Home
           </button>
           <button className="danger_button m-2" onClick={handleDelete}>
             Delete

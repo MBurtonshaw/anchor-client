@@ -35,7 +35,7 @@ function AddGoal() {
     <div className="component_container text-center">
       <div className="card text-center m-auto">
         <h1 className="card-title mt-4">Add a New Goal</h1>
-        <div className="mt-5">
+        <div className="mt-5 w-50 m-auto">
           <label className="card-text d-block mb-2" htmlFor="title">
             Title:
           </label>
@@ -47,7 +47,7 @@ function AddGoal() {
             onChange={handleTitle}
           />
         </div>
-        <div className="my-4">
+        <div className="w-50 m-auto my-4">
           <label className="card-text d-block mb-2" htmlFor="notes">
             Notes (Optional):
           </label>
@@ -59,7 +59,7 @@ function AddGoal() {
             onChange={handleNotes}
           />
         </div>
-        <div className="">
+        <div className="w-50 m-auto">
           <label className="card-text d-block mb-2" htmlFor="priority">
             Priority:
           </label>
@@ -73,7 +73,7 @@ function AddGoal() {
             onChange={handlePriority}
           />
         </div>
-        <div className="my-4">
+        <div className="w-50 m-auto my-4">
           <label className="card-text d-block mb-2" htmlFor="date">
             Due Date (Optional):
           </label>
@@ -88,6 +88,9 @@ function AddGoal() {
         <div className="p-3">
           <button className="primary_button m-2" onClick={handleSubmit}>
             Submit
+          </button>
+          <button className="secondary_button m-2" onClick={() => navigate('/')}>
+            Home
           </button>
         </div>
       </div>

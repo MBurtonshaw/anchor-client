@@ -1,26 +1,215 @@
 {
-    "quotes": [
-        {"id" : 1, "text" : "The most effective way to do it, is to do it.", "author" : "Amelia Earhart"},
-        {"id" : 2, "text" : "Never put off until tomorrow what you can do today.", "author" : "Thomas Jefferson"},
-        {"id" : 3, "text" : "The greatest glory in living lies not in never falling, but in rising every time we fall.", "author" : "Nelson Mandela"},
-        {"id" : 4, "text" : "You just can't beat the person who never gives up.", "author" : "Babe Ruth"},
-        {"id" : 5, "text" : "If you find that you're going through hell, keep going.", "author" : "Winston Churchill"},
-        {"id" : 6, "text" : "Believe you can and you're halfway there.", "author" : "Theodore Roosevelt"},
-        {"id" : 7, "text" : "The journey of a thousand miles begins with one step.", "author" : "Lao Tzu"},
-        {"id" : 8, "text" : "You cannot have a positive life and a negative mind.", "author" : "Joyce Meyer"},
-        {"id" : 9, "text" : "Doubt kills more dreams than failure ever will.", "author" : "Suzy Kassem"},
-        {"id" : 10, "text" : "Keep your face always toward the sunshine, and shadows will fall behind you.", "author" : "Walt Whitman"},
-        {"id" : 11, "text" : "The happiness of your life depends on the quality of your thoughts.", "author" : "Marcus Aurelius"},
-        {"id" : 12, "text" : "Folks are usually about as happy as they make up their minds to be.", "author" : "Abraham Lincoln"},
-        {"id" : 13, "text" : "It is during our darkest moments that we must focus to see the light.", "author" : "Aristotle"},
-        {"id" : 14, "text" : "Develop success from failures. Discouragement and failure are two of the surest stepping stones to success.", "author" : "Dale Carnegie"},
-        {"id" : 15, "text" : "Never bend your head. Always hold it high. Look the world straight in the eye.", "author" : "Helen Keller"},
-        {"id" : 16, "text" : "We generate fears while we sit. We overcome them by action. Fear is nature’s way of warning us to get busy.", "author" : "Dr. Henry Link"},
-        {"id" : 17, "text" : "The best way to get started is to quit talking and begin doing.", "author" : "Walt Disney"},
-        {"id" : 18, "text" : "I can’t change the direction of the wind, but I can adjust my sails to always reach my destination.", "author" : "Jimmy Dean"},
-        {"id" : 19, "text" : "We may encounter many defeats, but we must not be defeated.", "author" : "Maya Angelou"},
-        {"id" : 20, "text" : "Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence.", "author" : "Helen Keller"},
-        {"id" : 21, "text" : "Courage is more exhilarating than fear and in the long run it is easier. We do not have to become heroes overnight. Just one step at a time, meeting each thing that comes up, seeing it is not as dreadful as it appeared, discovering we have the strength to stare it down.", "author" : "Eleanor Roosevelt"},
-        {"id" : 22, "text" : "For every reason it’s not possible, there are hundreds of people who have faced the same circumstances and succeeded.", "author" : "Jack Canfield"}
-    ]
+  "quotes": [
+    {
+      "id": 1,
+      "text": "The most effective way to do it, is to do it.",
+      "author": "Amelia Earhart"
+    },
+    {
+      "id": 2,
+      "text": "Never put off until tomorrow what you can do today.",
+      "author": "Thomas Jefferson"
+    },
+    {
+      "id": 3,
+      "text": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+      "author": "Nelson Mandela"
+    },
+    {
+      "id": 4,
+      "text": "You just can't beat the person who never gives up.",
+      "author": "Babe Ruth"
+    },
+    {
+      "id": 5,
+      "text": "If you find that you're going through hell, keep going.",
+      "author": "Winston Churchill"
+    },
+    {
+      "id": 6,
+      "text": "Believe you can and you're halfway there.",
+      "author": "Theodore Roosevelt"
+    },
+    {
+      "id": 7,
+      "text": "The journey of a thousand miles begins with one step.",
+      "author": "Lao Tzu"
+    },
+    {
+      "id": 8,
+      "text": "Keep your face always toward the sunshine, and shadows will fall behind you.",
+      "author": "Walt Whitman"
+    },
+    {
+      "id": 9,
+      "text": "The happiness of your life depends on the quality of your thoughts.",
+      "author": "Marcus Aurelius"
+    },
+    {
+      "id": 10,
+      "text": "It is during our darkest moments that we must focus to see the light.",
+      "author": "Aristotle"
+    },
+    {
+      "id": 11,
+      "text": "Develop success from failures. Discouragement and failure are two of the surest stepping stones to success.",
+      "author": "Dale Carnegie"
+    },
+    {
+      "id": 12,
+      "text": "Never bend your head. Always hold it high. Look the world straight in the eye.",
+      "author": "Helen Keller"
+    },
+    {
+      "id": 13,
+      "text": "We generate fears while we sit. We overcome them by action. Fear is nature’s way of warning us to get busy.",
+      "author": "Dr. Henry Link"
+    },
+    {
+      "id": 14,
+      "text": "The best way to get started is to quit talking and begin doing.",
+      "author": "Walt Disney"
+    },
+    {
+      "id": 15,
+      "text": "I can’t change the direction of the wind, but I can adjust my sails to always reach my destination.",
+      "author": "Jimmy Dean"
+    },
+    {
+      "id": 16,
+      "text": "We may encounter many defeats, but we must not be defeated.",
+      "author": "Maya Angelou"
+    },
+    {
+      "id": 17,
+      "text": "Courage is more exhilarating than fear and in the long run it is easier. We do not have to become heroes overnight. Just one step at a time, meeting each thing that comes up, seeing it is not as dreadful as it appeared, discovering we have the strength to stare it down.",
+      "author": "Eleanor Roosevelt"
+    },
+    {
+      "id": 18,
+      "text": "For every reason it’s not possible, there are hundreds of people who have faced the same circumstances and succeeded.",
+      "author": "Jack Canfield"
+    },
+    {
+      "id": 19,
+      "text": "Small steps still move you forward.",
+      "author": "James Clear"
+    },
+    {
+      "id": 20,
+      "text": "Do what you can, where you are.",
+      "author": "Theodore Roosevelt"
+    },
+    {
+      "id": 21,
+      "text": "It does not matter how slowly you go as long as you do not stop.",
+      "author": "Confucius"
+    },
+    { "id": 22, "text": "Well begun is half done.", "author": "Aristotle" },
+    {
+      "id": 23,
+      "text": "You do not have to see the whole staircase, just take the first step.",
+      "author": "Martin Luther King Jr."
+    },
+    {
+      "id": 24,
+      "text": "Simplicity is the ultimate sophistication.",
+      "author": "Leonardo da Vinci"
+    },
+    {
+      "id": 25,
+      "text": "Action is the foundational key to all success.",
+      "author": "Pablo Picasso"
+    },
+    {
+      "id": 26,
+      "text": "Start where you are. Use what you have. Do what you can.",
+      "author": "Arthur Ashe"
+    },
+    {
+      "id": 27,
+      "text": "Do not wait to strike till the iron is hot, but make it hot by striking.",
+      "author": "William Butler Yeats"
+    },
+    {
+      "id": 28,
+      "text": "Little by little, one travels far.",
+      "author": "J.R.R. Tolkien"
+    },
+    {
+      "id": 29,
+      "text": "The secret of getting ahead is getting started.",
+      "author": "Mark Twain"
+    },
+    {
+      "id": 30,
+      "text": "It always seems impossible until it is done.",
+      "author": "Nelson Mandela"
+    },
+    {
+      "id": 31,
+      "text": "He who moves a mountain begins by carrying small stones.",
+      "author": "Confucius"
+    },
+    {
+      "id": 32,
+      "text": "Energy and persistence conquer all things.",
+      "author": "Benjamin Franklin"
+    },
+    {
+      "id": 33,
+      "text": "Simplicity is the key to brilliance.",
+      "author": "Bruce Lee"
+    },
+    {
+      "id": 34,
+      "text": "Motivation gets you started. Habit keeps you going.",
+      "author": "Jim Ryun"
+    },
+    {
+      "id": 35,
+      "text": "Dream big. Start small. Act now.",
+      "author": "Robin Sharma"
+    },
+    {
+      "id": 36,
+      "text": "Do something today that your future self will thank you for.",
+      "author": "Sean Patrick Flanery"
+    },
+    {
+      "id": 37,
+      "text": "Don’t count the days, make the days count.",
+      "author": "Muhammad Ali"
+    },
+    {
+      "id": 38,
+      "text": "A goal without a plan is just a wish.",
+      "author": "Antoine de Saint-Exupéry"
+    },
+    {
+      "id": 39,
+      "text": "The best time to plant a tree was 20 years ago. The second best time is now.",
+      "author": "Chinese Proverb"
+    },
+    {
+      "id": 40,
+      "text": "In the middle of difficulty lies opportunity.",
+      "author": "Albert Einstein"
+    },
+    {
+      "id": 41,
+      "text": "Life is really simple, but we insist on making it complicated.",
+      "author": "Confucius"
+    },
+    {
+      "id": 42,
+      "text": "Do not be embarrassed by your failures, learn from them.",
+      "author": "Bill Gates"
+    },
+    {
+      "id": 43,
+      "text": "The amateur waits for inspiration; the professional shows up.",
+      "author": "Steven Pressfield"
+    }
+  ]
 }
