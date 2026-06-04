@@ -13,6 +13,7 @@ function Collection() {
 
   function isTaskFinished(task) {
     if (!task.lastCompleted || task.lastCompleted === 0) {
+      console.log(task.title, task.lastCompleted);
       return false;
     }
 

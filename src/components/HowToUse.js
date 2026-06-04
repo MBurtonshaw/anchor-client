@@ -96,7 +96,7 @@ function HowToUse() {
     return (
       <div className="how_to_card my-5">
         <div className="p-4 row">
-          <div className="col-12 col-md-6 order-2 order-md-1">
+          <div className="col-12 col-md-6 order-2 order-md-1 pb-2 pb-md-0">
             <h4 className="p-3 pt-4 p-md-4 pt-md-5">Completed Info</h4>
             <div className="how-to-text-div">
               <p className="p-2 py-md-3">
@@ -126,19 +126,19 @@ function HowToUse() {
     return (
       <div className="how_to_card how_to_card--primary mt-5">
         <div className="p-5">
-          <h4 className="p-3 pt-4 p-md-4 pt-md-5">
+          <h4 className="p-3 pt-4 p-md-3 pt-md-5">
             Getting Started (Recommended)
           </h4>
 
-          <p className="p-2 p-md-4">
+          <p className="p-2 p-md-4 pt-md-5">
             Daily tasks are provided automatically, but can be customized if
             needed.
           </p>
-          <p className="p-2 p-md-4">
+          <p className="p-2 p-md-3">
             To get started, focus on adding a small number of goals that are
             important to you right now.
           </p>
-          <p className="p-2 p-md-4">
+          <p className="p-2 p-md-4 pb-md-5 crunched">
             Avoid trying to plan everything at once. The app works best when it
             helps you focus on today's priorities rather than every project you
             may want to tackle in the future.
