@@ -15,7 +15,6 @@ function Goal() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user?.userId) return;
 
     const goalId = Number(id);
     const found = goals.find((g) => g.id === goalId);

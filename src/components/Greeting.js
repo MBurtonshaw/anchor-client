@@ -82,13 +82,6 @@ function Greeting() {
 
   if (loading) {
     return <h1 className="text-center">Loading...</h1>;
-  } else {
-    if (!user || user === null) {
-      return (
-        <div className="text-center">
-          <h1 className="text-center">Welcome</h1>
-        </div>
-      );
     } else {
       return (
         <div className="text-center">
@@ -100,7 +93,6 @@ function Greeting() {
         </div>
       );
     }
-  }
 }
 
 export default Greeting;

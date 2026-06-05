@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+
+    import { Routes, Route, Navigate } from "react-router-dom";
 import "./css/normalize.css";
 import "./css/App.css";
 import "./css/buttons.css";
@@ -18,28 +19,47 @@ import Navbar from "./components/Navbar";
 import GoalPage from "./components/GoalPage";
 import ErrorBanner from "./components/ErrorBanner";
 import HowToUse from "./components/HowToUse";
+import { useUser } from './contexts/UserContext';
 
 function App() {
+
+function ProtectedRoute({ children }) {
+  const { user, loading } = useUser();
+
+  if (loading) {
+    return <h1 className="text-center">Loading...</h1>;
+  }
+
+  return user ? children : <Navigate to="/login" replace />;
+}
+
   return (
+
     <div className="App">
       <Navbar />
       <ErrorBanner />
+
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
+        {/* public */}
         <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/goals" element={<GoalPage />} />
-        <Route path="tasks/:id" element={<Task />} />
-        <Route path="goals/:id" element={<Goal />} />
-        <Route path="/tasks/add" element={<AddTask />} />
-        <Route path="/goals/add" element={<AddGoal />} />
-        <Route path="/tasks/:id/edit" element={<EditTask/>} />
-        <Route path="/goals/:id/edit" element={<EditGoal/>} />
-        <Route path="/how_to_use" element={<HowToUse/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/how_to_use" element={<HowToUse />} />
+
+        {/* protected */}
+        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
+        <Route path="/goals" element={<ProtectedRoute><GoalPage /></ProtectedRoute>} />
+        <Route path="tasks/:id"element={<ProtectedRoute><Task /></ProtectedRoute>} />
+        <Route path="goals/:id" element={<ProtectedRoute><Goal /></ProtectedRoute>} />
+        <Route path="/tasks/add" element={<ProtectedRoute><AddTask /></ProtectedRoute>} />
+        <Route path="/goals/add" element={<ProtectedRoute><AddGoal /></ProtectedRoute>} />
+        <Route path="/tasks/:id/edit" element={<ProtectedRoute><EditTask /></ProtectedRoute>} />
+        <Route path="/goals/:id/edit" element={<ProtectedRoute><EditGoal /></ProtectedRoute>} />
       </Routes>
     </div>
   );
 }
 
+
 export default App;
+

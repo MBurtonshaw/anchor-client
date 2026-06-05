@@ -17,10 +17,15 @@ function Login() {
   const handleName = (e) => handleChange(e, setLoginUser);
   const handlePass = (e) => handleChange(e, setLoginPass);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login({ username: loginUser, password: loginPass });
+    const success = await login({
+    username: loginUser,
+    password: loginPass,
+  });
+    if (success) {
     navigate("/");
+  }
   };
 
   return (

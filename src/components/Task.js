@@ -14,7 +14,6 @@ function Task() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user?.userId) return;
 
     const taskId = Number(id);
     const found = tasks.find((t) => t.id === taskId);

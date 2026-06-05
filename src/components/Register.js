@@ -28,15 +28,24 @@ function Register() {
     handleChange(e, setRegPassTwo);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (regPass !== regPassTwo) {
-      alert("Hmm... it seems like the passwords don't match");
-      return;
-    }
-    register({ username: regUser, password: regPass, passwordTwo: regPassTwo });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (regPass !== regPassTwo) {
+    alert("Hmm... it seems like the passwords don't match");
+    return;
+  }
+
+  const success = await register({
+    username: regUser,
+    password: regPass,
+    passwordTwo: regPassTwo,
+  });
+
+  if (success) {
     navigate("/");
-  };
+  }
+};
 
   return (
     <div className="component_container text-center">

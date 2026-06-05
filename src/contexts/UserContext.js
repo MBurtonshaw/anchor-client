@@ -3,6 +3,7 @@ import {
   login as login_user,
   register as register_user,
 } from "../service/UserService";
+import { useError } from "../contexts/ErrorContext";
 
 const UserContext = createContext(null);
 
@@ -12,6 +13,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { setError } = useError();
 
   useEffect(() => {
     try {
@@ -41,7 +43,6 @@ export const UserProvider = ({ children }) => {
 
   const login = async ({ username, password }) => {
     try {
-      console.log({ username, password });
       const response = await login_user({ username, password });
 
       const userData = {
@@ -50,18 +51,20 @@ export const UserProvider = ({ children }) => {
       };
 
       saveAuth(userData, response.token);
+      return true;
     } catch (err) {
       if (err.message === "UNAUTHORIZED") {
         handleAuthError();
       }
       console.error(err);
+      return false;
     }
   };
 
   const register = async ({ username, password, passwordTwo }) => {
     if (password !== passwordTwo) {
       alert("passwords do not match");
-      return;
+      return false;
     }
 
     try {
@@ -73,25 +76,28 @@ export const UserProvider = ({ children }) => {
       };
 
       saveAuth(userData, response.token);
+      return true;
     } catch (err) {
       if (err.message === "UNAUTHORIZED") {
         handleAuthError();
       }
       console.error(err);
+      return false;
     }
   };
 
   const handleAuthError = () => {
+    console.log("AUTH ERROR");
     setUser(null);
     setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    setError("Session expired");
   };
 
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.clear();
   };
 
   return (
