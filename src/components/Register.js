@@ -81,7 +81,7 @@ function Register() {
             onChange={handlePassTwo}
           />
         </div>
-        <div className="register_button_div w-50 m-auto p-3">
+        <div className="register_button_div w-50 m-auto p-3 pb-4 pt-1">
           <button className="primary_button m-4" onClick={handleSubmit}>
             Register
           </button>
