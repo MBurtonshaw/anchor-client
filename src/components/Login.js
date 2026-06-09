@@ -20,12 +20,12 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await login({
-    username: loginUser,
-    password: loginPass,
-  });
+      username: loginUser,
+      password: loginPass,
+    });
     if (success) {
-    navigate("/");
-  }
+      navigate("/");
+    }
   };
 
   return (
@@ -58,8 +58,16 @@ function Login() {
           </button>
         </div>
         <div className="login_subcontainer p-3">
-          <h4 className="mt-3 mb-2">Don't have an account yet?</h4>
-          <Link to="/register"><button className='secondary_button m-2'>Register</button></Link>
+          <p className="mb-2">New here?</p>
+          <Link to="/register">
+            <button className="secondary_button m-2">Register</button>
+          </Link>
+        </div>
+        <div className="login_subcontainer p-3">
+          <p className="text-muted mb-2">Need help getting started?</p>
+          <Link to="/how-to-use">
+            <button className="tertiary_button">How to Use</button>
+          </Link>
         </div>
       </div>
     </div>

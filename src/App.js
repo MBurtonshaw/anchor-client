@@ -1,5 +1,5 @@
 
-    import { Routes, Route, Navigate } from "react-router-dom";
+    import { Routes, Route } from "react-router-dom";
 import "./css/normalize.css";
 import "./css/App.css";
 import "./css/buttons.css";
@@ -15,23 +15,13 @@ import AddTask from "./components/AddTask";
 import AddGoal from "./components/AddGoal";
 import Task from "./components/Task";
 import Goal from "./components/Goal";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/ui/Navbar";
 import GoalPage from "./components/GoalPage";
-import ErrorBanner from "./components/ErrorBanner";
+import ErrorBanner from "./components/ui/ErrorBanner";
 import HowToUse from "./components/HowToUse";
-import { useUser } from './contexts/UserContext';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 function App() {
-
-function ProtectedRoute({ children }) {
-  const { user, loading } = useUser();
-
-  if (loading) {
-    return <h1 className="text-center">Loading...</h1>;
-  }
-
-  return user ? children : <Navigate to="/login" replace />;
-}
 
   return (
 

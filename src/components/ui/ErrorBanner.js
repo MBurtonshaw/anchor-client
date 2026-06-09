@@ -1,4 +1,4 @@
-import { useError } from "../contexts/ErrorContext";
+import { useError } from "../../contexts/ErrorContext";
 
 function ErrorBanner() {
   const { error, clearError } = useError();

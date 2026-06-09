@@ -28,24 +28,24 @@ function Register() {
     handleChange(e, setRegPassTwo);
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (regPass !== regPassTwo) {
-    alert("Hmm... it seems like the passwords don't match");
-    return;
-  }
+    if (regPass !== regPassTwo) {
+      alert("Hmm... it seems like the passwords don't match");
+      return;
+    }
 
-  const success = await register({
-    username: regUser,
-    password: regPass,
-    passwordTwo: regPassTwo,
-  });
+    const success = await register({
+      username: regUser,
+      password: regPass,
+      passwordTwo: regPassTwo,
+    });
 
-  if (success) {
-    navigate("/");
-  }
-};
+    if (success) {
+      navigate("/");
+    }
+  };
 
   return (
     <div className="component_container text-center">
@@ -87,8 +87,10 @@ const handleSubmit = async (e) => {
           </button>
         </div>
         <div className="register_subcontainer p-3">
-          <h4 className="mt-3 mb-2">Already have an account?</h4>
-          <Link to="/login"><button className='secondary_button'>Login</button></Link>
+          <p className="mb-2">Already have an account?</p>
+          <Link to="/login">
+            <button className="secondary_button m-2">Login</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -94,7 +94,7 @@ const handleButtons = () => {
   if (!completedToday()) {
     return (
       <div className="todo_buttons_div m-auto mt-5">
-          <button className="primary_button w-100" onClick={() => navigate(`/tasks/${task.id}/edit`)}>Update</button>
+          <Link to={`/tasks/${task.id}/edit`}><button className="primary_button w-100">Update</button></Link>
 
         <button
           className="secondary_button w-100"
@@ -109,12 +109,13 @@ const handleButtons = () => {
         >
           Delete
         </button>
+        <Link to='/'>
         <button
           className="tertiary_button w-100"
-          onClick={() => navigate('/')}
         >
           Home
         </button>
+        </Link>
       </div>
     );
   } else {
