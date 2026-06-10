@@ -78,7 +78,7 @@ export const UserProvider = ({ children }) => {
       saveAuth(userData, response.token);
       return true;
     } catch (err) {
-      if (err.message === "UNAUTHORIZED") {
+      if (err?.status === 401 || err?.response?.status === 401) {
         handleAuthError();
       }
       console.error(err);
@@ -86,18 +86,21 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const handleAuthError = () => {
-    console.log("AUTH ERROR");
+  const clearAuth = (message = null) => {
     setUser(null);
     setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    setError("Session expired");
+
+    if (message) setError(message);
+  };
+
+  const handleAuthError = () => {
+    clearAuth("Session expired");
   };
 
   const logout = () => {
-    setUser(null);
-    setToken(null);
+    clearAuth();
   };
 
   return (

@@ -6,6 +6,7 @@ import { TaskProvider } from "./contexts/TaskContext";
 import { GoalProvider } from "./contexts/GoalContext";
 import { HomepageProvider } from "./contexts/HomepageContext";
 import { ErrorProvider } from "./contexts/ErrorContext";
+import { WeekendTaskProvider } from "./contexts/WeekendTaskContext";
 import "./css/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -19,7 +20,9 @@ root.render(
           <HomepageProvider>
             <TaskProvider>
               <GoalProvider>
-                <App />
+                <WeekendTaskProvider>
+                  <App />
+                </WeekendTaskProvider>
               </GoalProvider>
             </TaskProvider>
           </HomepageProvider>

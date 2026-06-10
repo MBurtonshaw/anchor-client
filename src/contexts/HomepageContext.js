@@ -16,32 +16,35 @@ export const useHomepage = () => useContext(HomepageContext);
 
 export const HomepageProvider = ({ children }) => {
 const [homepage, setHomepage] = useState(null);
+const [loading, setLoading] = useState(true);
 
   const { user } = useUser();
   const { setError } = useError();
 
 const getHomepage = useCallback(async () => {
-  console.log("REFRESH HOMEPAGE CALLED");
+
   if (!user?.userId) return;
   try {
     const res = await getHomepageApi();
-    setHomepage(res); 
+    setHomepage(res);
   } catch (err) {
     setError(err.message);
   }
-}, [user, setError]);
+  setLoading(false);
+}, [user?.userId, setError]);
 
   useEffect(() => {
     if (user) {
       getHomepage();
     } else {
-      setHomepage([]);
+      setHomepage(null);
+      setLoading(false);
     }
   }, [user, getHomepage]);
 
   return (
     <HomepageContext.Provider
-      value={{ homepage, getHomepage }}
+      value={{ homepage, getHomepage, loading }}
     >
       {children}
     </HomepageContext.Provider>
