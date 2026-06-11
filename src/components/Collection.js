@@ -38,8 +38,8 @@ function Collection() {
 
   function goalMapper(goal) {
     return isGoalFinished(goal)
-      ? "card-body card--finished"
-      : "card-body unfinished";
+      ? "card-body card--finished card-primary"
+      : "card-body unfinished card--primary";
   }
 
   function viewMapper() {
@@ -49,13 +49,13 @@ function Collection() {
       return isTaskFinished(a) - isTaskFinished(b);
     });
 
-    if (homepage.dayType === 'WEEKEND' && weekendTask) {
+    if (homepage && homepage.dayType === "WEEKDAY" && weekendTask && !isTaskFinished(weekendTask)) {
       const weekendCard = (
         <div
           className="single_todo col-12 col-md-6 col-xl-4"
           key={`t${weekendTask.id}`}
         >
-          <div className="card">
+          <div className="card card--maintenance">
             <Link className="unmarked_link" to={`/weekend/${weekendTask.id}`}>
               <div className={taskMapper(weekendTask)}>
                 <h5 className="card-title">{weekendTask.title}</h5>
@@ -65,7 +65,7 @@ function Collection() {
           {!isTaskFinished(weekendTask) && (
             <button
               className="done_button"
-              onClick={ async () => {
+              onClick={async () => {
                 await completeWeekendTask(weekendTask.id);
                 await getHomepage();
               }}
@@ -80,29 +80,59 @@ function Collection() {
     }
 
     if (goal) {
-      const goalCard = (
-        <div
-          className="single_todo col-12 col-md-6 col-xl-4"
-          key={`g${goal.id}`}
-        >
-          <div className="card card--primary">
-            <Link className="unmarked_link" to={`/goals/${goal.id}`}>
-              <div className={goalMapper(goal)}>
-                <h5 className="card-title">{goal.title}</h5>
-              </div>
-            </Link>
+      let goalCard = "";
+      if (homepage.dayType === "WEEKDAY") {
+        goalCard = (
+          <div
+            className="single_todo col-12 col-md-6 col-xl-4"
+            key={`g${goal.id}`}
+          >
+            <div className="card card--primary-weekend card--weekend-goal">
+              <Link className="unmarked_link" to={`/goals/${goal.id}`}>
+                <div className={goalMapper(goal)}>
+                  <h5 className="card-title">{goal.title}</h5>
+                </div>
+              </Link>
+            </div>
+            <button
+              className="done_button"
+              onClick={() => {
+                completeGoal(goal.id);
+                getHomepage();
+              }}
+            >
+              done
+            </button>
           </div>
-          <button className="done_button" onClick={() => {
-            completeGoal(goal.id);
-            getHomepage();
-          }}>
-            done
-          </button>
-        </div>
-      );
+        );
+      } else {
+        goalCard = (
+          <div
+            className="single_todo col-12 col-md-6 col-xl-4"
+            key={`g${goal.id}`}
+          >
+            <div className="card card--primary">
+              <Link className="unmarked_link" to={`/goals/${goal.id}`}>
+                <div className={goalMapper(goal)}>
+                  <h5 className="card-title">{goal.title}</h5>
+                </div>
+              </Link>
+            </div>
+            <button
+              className="done_button"
+              onClick={() => {
+                completeGoal(goal.id);
+                getHomepage();
+              }}
+            >
+              done
+            </button>
+          </div>
+        );
+      }
 
       // unfinished goal goes first
-      if (!isGoalFinished(goal)) {
+      if (!isGoalFinished(goal) && homepage.dayType !== "WEEKDAY") {
         list.push(goalCard);
       }
     }
@@ -136,22 +166,114 @@ function Collection() {
       );
     });
 
-    // add finished goal at end
-    if (goal && isGoalFinished(goal)) {
-      list.push(
+        if (homepage && homepage.dayType === "WEEKDAY" && weekendTask && isTaskFinished(weekendTask)) {
+      const weekendCard = (
         <div
           className="single_todo col-12 col-md-6 col-xl-4"
-          key={`g${goal.id}`}
+          key={`t${weekendTask.id}`}
         >
-          <div className="card">
-            <Link className="unmarked_link" to={`/goals/${goal.id}`}>
-              <div className={goalMapper(goal)}>
-                <h5 className="card-title">{goal.title}</h5>
+          <div className="card card--maintenance">
+            <Link className="unmarked_link" to={`/weekend/${weekendTask.id}`}>
+              <div className={taskMapper(weekendTask)}>
+                <h5 className="card-title">{weekendTask.title}</h5>
               </div>
             </Link>
           </div>
-        </div>,
+          {!isTaskFinished(weekendTask) && (
+            <button
+              className="done_button"
+              onClick={async () => {
+                await completeWeekendTask(weekendTask.id);
+                await getHomepage();
+              }}
+            >
+              done
+            </button>
+          )}
+        </div>
       );
+
+      list.push(weekendCard);
+    }
+
+    // add finished goal at end
+    if (
+      (goal && isGoalFinished(goal)) ||
+      (goal && !isGoalFinished(goal) && homepage.dayType === "WEEKDAY")
+    ) {
+      if (goal && isGoalFinished(goal)) {
+        if (homepage.dayType === "WEEKDAY") {
+          list.push(
+           
+            <div
+              className="single_todo col-12 col-md-6 col-xl-4"
+              key={`g${goal.id}`}
+            >
+              <div className="card">
+                <Link className="unmarked_link" to={`/goals/${goal.id}`}>
+                  <div className="card-body card--finished card--primary-weekend">
+                    <h5 className="card-title">{goal.title}</h5>
+                  </div>
+                </Link>
+              </div>
+           
+          </div>,
+          );
+        } else {
+          list.push(
+            
+            <div
+              className="single_todo col-12 col-md-6 col-xl-4"
+              key={`g${goal.id}`}
+            >
+              <div className="card">
+                <Link className="unmarked_link" to={`/goals/${goal.id}`}>
+                  <div className="card-body card--finished card--primary">
+                    <h5 className="card-title">{goal.title}</h5>
+                  </div>
+                </Link>
+              </div>
+            
+            <button
+              className="done_button"
+              onClick={() => {
+                completeGoal(goal.id);
+                getHomepage();
+              }}
+            >
+              done
+            </button>
+          </div>,
+          );
+        }
+      }
+      if (goal && !isGoalFinished(goal) && homepage.dayType === "WEEKDAY") {
+        list.push(
+          
+          <div
+            className="single_todo col-12 col-md-6 col-xl-4"
+            key={`g${goal.id}`}
+          >
+            <div className="card">
+              <Link className="unmarked_link" to={`/goals/${goal.id}`}>
+                <div className="card-body unfinished card--primary-weekend">
+                  <h5 className="card-title">{goal.title}</h5>
+                </div>
+              </Link>
+            </div>
+          
+          <button
+              className="done_button"
+              onClick={() => {
+                completeGoal(goal.id);
+                getHomepage();
+              }}
+            >
+              done
+            </button>
+          </div>,
+        );
+      }
     }
 
     return list;

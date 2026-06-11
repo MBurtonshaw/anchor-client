@@ -1,6 +1,7 @@
 import quotesData from "../quotes.json";
 import { useState, useEffect } from "react";
 import { useUser } from "../contexts/UserContext";
+import { useHomepage } from "../contexts/HomepageContext";
 
 function Greeting() {
   const [quote, setQuote] = useState("");
@@ -8,6 +9,7 @@ function Greeting() {
   const [timeOfDay, setTimeOfDay] = useState("");
 
   const { user } = useUser();
+  const { homepage } = useHomepage();
 
   useEffect(() => {
     const today = new Date().toDateString();
@@ -82,17 +84,26 @@ function Greeting() {
 
   if (loading) {
     return <h1 className="text-center">Loading...</h1>;
-    } else {
-      return (
-        <div className="text-center">
-          <h1>{getGreeting()}</h1>
-          <h5 className="pt-5 w-75 m-auto quote" key={quote.id}>
-            {quote.text}
-          </h5>
-          <span>{quote.author}</span>
-        </div>
-      );
-    }
+  }
+
+  if (homepage && homepage.dayType === "WEEKDAY") {
+    return (
+      <div className="text-center">
+        {getGreeting()}
+        <h5 className="pt-5 w-75 m-auto quote">Weekend Mode</h5>
+      </div>
+    );
+  } else {
+    return (
+      <div className="text-center">
+        {getGreeting()}
+        <h5 className="pt-5 w-75 m-auto quote" key={quote.id}>
+          {quote.text}
+        </h5>
+        <span>{quote.author}</span>
+      </div>
+    );
+  }
 }
 
 export default Greeting;

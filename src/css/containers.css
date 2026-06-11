@@ -22,10 +22,23 @@
   border-left: 4px solid rgba(110, 56, 146, 0.6);
 }
 
+.card--primary-weekend {
+  border-right: 4px solid rgba(110, 56, 146, 0.6);
+}
+
 .card--finished {
   background-color: rgb(200, 190, 215);
   box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
   opacity: 0.85;
+}
+
+.card--weekend-goal {
+    opacity: 0.82;
+    box-shadow: 0 3px 10px rgba(90, 60, 120, 0.12);
+}
+
+.card--maintenance {
+  border-left: 4px solid rgba(80, 120, 90, 0.5);
 }
 
 .how_to_card {
