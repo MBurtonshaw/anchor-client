@@ -83,7 +83,7 @@ function Login() {
         </div>
         <div className="login_subcontainer p-3">
           <p className="text-muted mb-2">Need help getting started?</p>
-          <Link to="/how-to-use">
+          <Link to="/how_to_use">
             <button className="tertiary_button">How to Use</button>
           </Link>
         </div>
