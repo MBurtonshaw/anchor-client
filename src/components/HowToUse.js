@@ -122,6 +122,36 @@ function HowToUse() {
     );
   };
 
+  const weekendMode = () => {
+    return (
+      <div className="how_to_card my-5">
+        <div className="p-4 row">
+          <div className="col-12 col-md-6 order-2 order-md-2 pb-2 pb-md-0">
+            <h4 className="p-3 pt-4 p-md-4 pt-md-5">Weekend Mode</h4>
+            <div className="how-to-text-div">
+              <p className="p-2 py-md-3">
+                On Saturdays and Sundays, Anchor automatically switches to
+                Weekend Mode. Your current goal is still visible, but it is
+                moved to the bottom of the list.
+              </p>
+              <p className="p-2 py-md-3">
+                A single weekend task is added to the top of the list as a
+                lighter focus for the day.
+              </p>
+              <p className="p-2 py-md-3">
+                This mode reduces pressure while still keeping a simple
+                structure for the day.
+              </p>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 order-1 order-md-1 pb-2 pb-md-0">
+            <img className="img-fluid" src="/weekend.png" alt="" />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const gettingStarted = () => {
     return (
       <div className="how_to_card how_to_card--primary mt-5">
@@ -165,6 +195,8 @@ function HowToUse() {
         {goalInfo()}
 
         {completedInfo()}
+
+        {weekendMode()}
 
         {gettingStarted()}
       </div>

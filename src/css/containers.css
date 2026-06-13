@@ -19,11 +19,11 @@
 }
 
 .card--primary {
-  border-left: 4px solid rgba(110, 56, 146, 0.6);
+  border-left: 6px solid rgba(110, 56, 146, 0.6);
 }
 
 .card--primary-weekend {
-  border-right: 4px solid rgba(110, 56, 146, 0.6);
+  border-right: 6px solid rgba(110, 56, 146, 0.6);
 }
 
 .card--finished {
@@ -38,7 +38,20 @@
 }
 
 .card--maintenance {
-  border-left: 4px solid rgba(80, 120, 90, 0.5);
+  border-left: 6px solid rgba(80, 120, 90, 0.5);
+}
+
+.card-subtitle {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 0.25rem;
+}
+
+.card-body {
+  padding: 1rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .how_to_card {
@@ -57,7 +70,7 @@
 }
 
 .how_to_card--primary {
-    border-left: 4px solid rgba(110, 56, 146, 0.6);
+    border-left: 6px solid rgba(110, 56, 146, 0.6);
     opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;

@@ -39,7 +39,7 @@ function Collection() {
 
   function goalMapper(goal) {
     return isGoalFinished(goal)
-      ? "card-body card--finished card-primary"
+      ? "card-body card--finished"
       : "card-body unfinished card--primary";
   }
 
@@ -64,17 +64,15 @@ function Collection() {
               </div>
             </Link>
           </div>
-          {!isTaskFinished(weekendTask) && (
-            <button
-              className="done_button"
-              onClick={async () => {
-                await completeWeekendTask(weekendTask.id);
-                await getHomepage();
-              }}
-            >
-              done
-            </button>
-          )}
+          <button
+            className="done_button"
+            onClick={async () => {
+              await completeWeekendTask(weekendTask.id);
+              await getHomepage();
+            }}
+          >
+            done
+          </button>
         </div>
       );
 
@@ -152,6 +150,7 @@ function Collection() {
             <Link className="unmarked_link" to={`/tasks/${task.id}`}>
               <div className={taskMapper(task)}>
                 <h5 className="card-title">{task.title}</h5>
+                <p className="card-spacer"></p>
               </div>
             </Link>
           </div>
@@ -176,24 +175,14 @@ function Collection() {
           className="single_todo col-12 col-md-6 col-xl-4"
           key={`t${weekendTask.id}`}
         >
-          <div className="card card--maintenance">
+          <div className="card">
             <Link className="unmarked_link" to={`/weekend/${weekendTask.id}`}>
               <div className={taskMapper(weekendTask)}>
                 <h5 className="card-title">{weekendTask.title}</h5>
+                <p className="card-spacer"></p>
               </div>
             </Link>
           </div>
-          {!isTaskFinished(weekendTask) && (
-            <button
-              className="done_button"
-              onClick={async () => {
-                await completeWeekendTask(weekendTask.id);
-                await getHomepage();
-              }}
-            >
-              done
-            </button>
-          )}
         </div>
       );
 
@@ -214,8 +203,9 @@ function Collection() {
             >
               <div className="card">
                 <Link className="unmarked_link" to={`/goals/${goal.id}`}>
-                  <div className="card-body card--finished card--primary-weekend">
+                  <div className="card-body card--finished">
                     <h5 className="card-title">{goal.title}</h5>
+                    <p className="card-spacer"></p>
                   </div>
                 </Link>
               </div>
@@ -231,6 +221,7 @@ function Collection() {
                 <Link className="unmarked_link" to={`/goals/${goal.id}`}>
                   <div className="card-body card--finished card--primary">
                     <h5 className="card-title">{goal.title}</h5>
+                    <p className="card-spacer"></p>
                   </div>
                 </Link>
               </div>
