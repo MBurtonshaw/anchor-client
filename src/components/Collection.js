@@ -13,6 +13,7 @@ function Collection() {
   const tasks = homepage?.tasks || [];
   const goal = homepage?.goal || null;
   const weekendTask = homepage?.maintenanceTask || null;
+  const isWeekend = homepage?.dayType === "WEEKEND";
 
   function isTaskFinished(task) {
     if (!task.lastCompleted || task.lastCompleted === 0) {
@@ -49,7 +50,7 @@ function Collection() {
       return isTaskFinished(a) - isTaskFinished(b);
     });
 
-    if (homepage && homepage.dayType === "WEEKDAY" && weekendTask && !isTaskFinished(weekendTask)) {
+    if (homepage && isWeekend && weekendTask && !isTaskFinished(weekendTask)) {
       const weekendCard = (
         <div
           className="single_todo col-12 col-md-6 col-xl-4"
@@ -81,7 +82,7 @@ function Collection() {
 
     if (goal) {
       let goalCard = "";
-      if (homepage.dayType === "WEEKDAY") {
+      if (isWeekend) {
         goalCard = (
           <div
             className="single_todo col-12 col-md-6 col-xl-4"
@@ -132,7 +133,7 @@ function Collection() {
       }
 
       // unfinished goal goes first
-      if (!isGoalFinished(goal) && homepage.dayType !== "WEEKDAY") {
+      if (!isGoalFinished(goal) && !isWeekend) {
         list.push(goalCard);
       }
     }
@@ -166,7 +167,7 @@ function Collection() {
       );
     });
 
-        if (homepage && homepage.dayType === "WEEKDAY" && weekendTask && isTaskFinished(weekendTask)) {
+        if (homepage && isWeekend && weekendTask && isTaskFinished(weekendTask)) {
       const weekendCard = (
         <div
           className="single_todo col-12 col-md-6 col-xl-4"
@@ -199,10 +200,10 @@ function Collection() {
     // add finished goal at end
     if (
       (goal && isGoalFinished(goal)) ||
-      (goal && !isGoalFinished(goal) && homepage.dayType === "WEEKDAY")
+      (goal && !isGoalFinished(goal) && isWeekend)
     ) {
       if (goal && isGoalFinished(goal)) {
-        if (homepage.dayType === "WEEKDAY") {
+        if (isWeekend) {
           list.push(
            
             <div
@@ -247,7 +248,7 @@ function Collection() {
           );
         }
       }
-      if (goal && !isGoalFinished(goal) && homepage.dayType === "WEEKDAY") {
+      if (goal && !isGoalFinished(goal) && isWeekend) {
         list.push(
           
           <div

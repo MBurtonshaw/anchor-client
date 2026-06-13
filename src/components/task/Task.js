@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useTask } from "../contexts/TaskContext";
-import { useUser } from "../contexts/UserContext";
-import { getTaskById } from "../service/TaskService";
+import { useTask } from "../../contexts/TaskContext";
+import { useUser } from "../../contexts/UserContext";
+import { getTaskById } from "../../service/TaskService";
 
 function Task() {
   const [task, setTask] = useState(null);

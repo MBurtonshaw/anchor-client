@@ -5,6 +5,7 @@ import { useUser } from "../contexts/UserContext";
 function Login() {
   const [loginUser, setLoginUser] = useState("");
   const [loginPass, setLoginPass] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,14 +20,31 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+
     const success = await login({
       username: loginUser,
       password: loginPass,
     });
+
     if (success) {
       navigate("/");
+    } else {
+      setLoading(false);
     }
   };
+  
+
+  if (loading) {
+    return (
+      <div className="component_container text-center m-auto m-5">
+        <div className="card text-center">
+          <h1 className="card-title p-5">Loading...</h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="component_container text-center">

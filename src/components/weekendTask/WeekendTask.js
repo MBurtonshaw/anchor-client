@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useWeekendTask } from "../contexts/WeekendTaskContext";
+import { useWeekendTask } from "../../contexts/WeekendTaskContext";
 
 function WeekendTask() {
   const [task, setTask] = useState(null);

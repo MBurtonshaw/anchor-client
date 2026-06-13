@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGoal } from "../contexts/GoalContext";
+import { useGoal } from "../../contexts/GoalContext";
 
 function AddGoal() {
   const { addGoal } = useGoal();

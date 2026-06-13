@@ -22,25 +22,25 @@ const [loading, setLoading] = useState(true);
   const { setError } = useError();
 
 const getHomepage = useCallback(async () => {
-
-  if (!user?.userId) return;
   try {
     const res = await getHomepageApi();
     setHomepage(res);
   } catch (err) {
     setError(err.message);
+  } finally {
+    setLoading(false);
   }
-  setLoading(false);
-}, [user?.userId, setError]);
+}, [setError]);
 
-  useEffect(() => {
-    if (user) {
-      getHomepage();
-    } else {
-      setHomepage(null);
-      setLoading(false);
-    }
-  }, [user, getHomepage]);
+useEffect(() => {
+  if (!user?.userId) {
+    setHomepage(null);
+    setLoading(false);
+    return;
+  }
+
+  getHomepage();
+}, [user?.userId, getHomepage]);
 
   return (
     <HomepageContext.Provider

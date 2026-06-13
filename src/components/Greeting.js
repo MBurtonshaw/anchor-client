@@ -10,6 +10,7 @@ function Greeting() {
 
   const { user } = useUser();
   const { homepage } = useHomepage();
+    const isWeekend = homepage?.dayType === "WEEKEND";
 
   useEffect(() => {
     const today = new Date().toDateString();
@@ -86,7 +87,7 @@ function Greeting() {
     return <h1 className="text-center">Loading...</h1>;
   }
 
-  if (homepage && homepage.dayType === "WEEKDAY") {
+  if (homepage && isWeekend) {
     return (
       <div className="text-center">
         {getGreeting()}

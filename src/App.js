@@ -1,5 +1,5 @@
 
-    import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./css/normalize.css";
 import "./css/App.css";
 import "./css/buttons.css";
@@ -9,18 +9,18 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
-import EditTask from "./components/EditTask";
-import EditGoal from "./components/EditGoal";
-import AddTask from "./components/AddTask";
-import AddGoal from "./components/AddGoal";
-import Task from "./components/Task";
-import Goal from "./components/Goal";
+import EditTask from "./components/task/EditTask";
+import EditGoal from "./components/goal/EditGoal";
+import AddTask from "./components/task/AddTask";
+import AddGoal from "./components/goal/AddGoal";
+import Task from "./components/task/Task";
+import Goal from "./components/goal/Goal";
 import Navbar from "./components/ui/Navbar";
-import GoalPage from "./components/GoalPage";
+import GoalPage from "./components/goal/GoalPage";
 import ErrorBanner from "./components/ui/ErrorBanner";
 import HowToUse from "./components/HowToUse";
-import WeekendTask from "./components/WeekendTask";
-import EditWeekendTask from "./components/EditWeekendTask";
+import WeekendTask from "./components/weekendTask/WeekendTask";
+import EditWeekendTask from "./components/weekendTask/EditWeekendTask";
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 function App() {

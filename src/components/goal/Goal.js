@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useGoal } from "../contexts/GoalContext";
-import { useUser } from "../contexts/UserContext";
-import { getGoalById } from "../service/GoalService";
+import { useGoal } from "../../contexts/GoalContext";
+import { useUser } from "../../contexts/UserContext";
+import { getGoalById } from "../../service/GoalService";
 
 function Goal() {
   const [goal, setGoal] = useState(null);

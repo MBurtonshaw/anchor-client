@@ -4,6 +4,7 @@ import {
   register as register_user,
 } from "../service/UserService";
 import { useError } from "../contexts/ErrorContext";
+import { jwtDecode } from "jwt-decode";
 
 const UserContext = createContext(null);
 
@@ -21,8 +22,20 @@ export const UserProvider = ({ children }) => {
       const storedToken = localStorage.getItem("token");
 
       if (storedUser && storedToken) {
-        setUser(JSON.parse(storedUser));
-        setToken(storedToken);
+        const decoded = jwtDecode(storedToken);
+
+        const expired = decoded.exp * 1000 < Date.now();
+
+        if (expired) {
+          setUser(null);
+          setToken(null);
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          setError("Session expired");
+        } else {
+          setUser(JSON.parse(storedUser));
+          setToken(storedToken);
+        }
       }
     } catch (err) {
       console.error("Failed to parse stored user:", err);
@@ -31,7 +44,16 @@ export const UserProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [setError]);
+
+  const clearAuth = (message = null) => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
+    if (message) setError(message);
+  };
 
   const saveAuth = (userData, token) => {
     setUser(userData);
@@ -39,6 +61,10 @@ export const UserProvider = ({ children }) => {
 
     localStorage.setItem("user", JSON.stringify(userData));
     localStorage.setItem("token", token);
+  };
+
+  const handleAuthError = () => {
+    clearAuth("Session expired");
   };
 
   const login = async ({ username, password }) => {
@@ -84,19 +110,6 @@ export const UserProvider = ({ children }) => {
       console.error(err);
       return false;
     }
-  };
-
-  const clearAuth = (message = null) => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-
-    if (message) setError(message);
-  };
-
-  const handleAuthError = () => {
-    clearAuth("Session expired");
   };
 
   const logout = () => {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useHomepage } from "../contexts/HomepageContext";
-import { useWeekendTask } from "../contexts/WeekendTaskContext";
+import { useHomepage } from "../../contexts/HomepageContext";
+import { useWeekendTask } from "../../contexts/WeekendTaskContext";
 
 function EditWeekendTask() {
   const [editTitle, setEditTitle] = useState("");

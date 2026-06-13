@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useTask } from "../contexts/TaskContext";
-import { useUser } from "../contexts/UserContext";
-import { getTaskById } from "../service/TaskService";
+import { useTask } from "../../contexts/TaskContext";
+import { useUser } from "../../contexts/UserContext";
+import { getTaskById } from "../../service/TaskService";
 
 function EditTask() {
   const [task, setTask] = useState(null);
