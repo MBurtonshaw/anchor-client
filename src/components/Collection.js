@@ -179,6 +179,7 @@ function Collection() {
             <Link className="unmarked_link" to={`/weekend/${weekendTask.id}`}>
               <div className={taskMapper(weekendTask)}>
                 <h5 className="card-title">{weekendTask.title}</h5>
+                <p className="card-subtitle">Weekend Task</p>
               </div>
             </Link>
           </div>
@@ -257,6 +258,7 @@ function Collection() {
               <Link className="unmarked_link" to={`/goals/${goal.id}`}>
                 <div className="card-body unfinished card--primary-weekend">
                   <h5 className="card-title">{goal.title}</h5>
+                  <p className="card-subtitle">Current Goal • Weekend Mode</p>
                 </div>
               </Link>
             </div>
