@@ -92,6 +92,7 @@ function Collection() {
               <Link className="unmarked_link" to={`/goals/${goal.id}`}>
                 <div className={goalMapper(goal)}>
                   <h5 className="card-title">{goal.title}</h5>
+                  <p className="card-subtitle">Current Goal • Weekend Mode</p>
                 </div>
               </Link>
             </div>
@@ -116,6 +117,7 @@ function Collection() {
               <Link className="unmarked_link" to={`/goals/${goal.id}`}>
                 <div className={goalMapper(goal)}>
                   <h5 className="card-title">{goal.title}</h5>
+                  <p className="card-subtitle">Current Goal</p>
                 </div>
               </Link>
             </div>
@@ -167,7 +169,7 @@ function Collection() {
       );
     });
 
-        if (homepage && isWeekend && weekendTask && isTaskFinished(weekendTask)) {
+    if (homepage && isWeekend && weekendTask && isTaskFinished(weekendTask)) {
       const weekendCard = (
         <div
           className="single_todo col-12 col-md-6 col-xl-4"
@@ -205,7 +207,6 @@ function Collection() {
       if (goal && isGoalFinished(goal)) {
         if (isWeekend) {
           list.push(
-           
             <div
               className="single_todo col-12 col-md-6 col-xl-4"
               key={`g${goal.id}`}
@@ -217,12 +218,10 @@ function Collection() {
                   </div>
                 </Link>
               </div>
-           
-          </div>,
+            </div>,
           );
         } else {
           list.push(
-            
             <div
               className="single_todo col-12 col-md-6 col-xl-4"
               key={`g${goal.id}`}
@@ -234,23 +233,22 @@ function Collection() {
                   </div>
                 </Link>
               </div>
-            
-            <button
-              className="done_button"
-              onClick={() => {
-                completeGoal(goal.id);
-                getHomepage();
-              }}
-            >
-              done
-            </button>
-          </div>,
+
+              <button
+                className="done_button"
+                onClick={() => {
+                  completeGoal(goal.id);
+                  getHomepage();
+                }}
+              >
+                done
+              </button>
+            </div>,
           );
         }
       }
       if (goal && !isGoalFinished(goal) && isWeekend) {
         list.push(
-          
           <div
             className="single_todo col-12 col-md-6 col-xl-4"
             key={`g${goal.id}`}
@@ -262,8 +260,8 @@ function Collection() {
                 </div>
               </Link>
             </div>
-          
-          <button
+
+            <button
               className="done_button"
               onClick={() => {
                 completeGoal(goal.id);
