@@ -60,6 +60,7 @@ function Collection() {
             <Link className="unmarked_link" to={`/weekend/${weekendTask.id}`}>
               <div className={taskMapper(weekendTask)}>
                 <h5 className="card-title">{weekendTask.title}</h5>
+                <p className="card-subtitle">Weekend Task</p>
               </div>
             </Link>
           </div>
