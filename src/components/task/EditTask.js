@@ -1,25 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTask } from "../../contexts/TaskContext";
-import { useUser } from "../../contexts/UserContext";
-import { getTaskById } from "../../service/TaskService";
+import Loader from "../ui/Loader";
 
 function EditTask() {
-  const [task, setTask] = useState(null);
   const [editTitle, setEditTitle] = useState("");
-  const [loading, setLoading] = useState(true);
-  const { tasks, deleteTask, updateTask } = useTask();
-  const { user } = useUser();
+  const { tasks, deleteTask, updateTask, loading } = useTask();
   const { id } = useParams();
   const navigate = useNavigate();
 
   const handleChange = (e, element) => element(e.target.value);
   const handleTitle = (e) => handleChange(e, setEditTitle);
 
-  useEffect(() => {
-    if (!task) return;
-    setEditTitle(task.title || "");
-  }, [task]);
+  const taskId = Number(id);
+  const task = tasks.find((t) => t.id === taskId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,33 +32,9 @@ function EditTask() {
     navigate("/");
   };
 
-  useEffect(() => {
-    if (!user?.userId) return;
-
-    const taskId = Number(id);
-    const found = tasks.find((t) => t.id === taskId);
-
-    if (found) {
-      setTask(found);
-      setLoading(false);
-      return;
-    }
-
-    const fetchTask = async () => {
-      try {
-        const data = await getTaskById(taskId);
-        setTask(data);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTask();
-  }, [tasks, id, user]);
-
-  if (loading) return <h2>Loading...</h2>;
+  if (loading && !tasks) {
+    return <Loader />;
+  }
   if (!task) return <h2>Task not found</h2>;
 
   return (
@@ -87,7 +57,10 @@ function EditTask() {
           <button className="primary_button m-2" onClick={handleSubmit}>
             Update
           </button>
-          <button className="secondary_button m-2" onClick={() => navigate('/')}>
+          <button
+            className="secondary_button m-2"
+            onClick={() => navigate("/")}
+          >
             Home
           </button>
           <button className="danger_button m-2" onClick={handleDelete}>

@@ -5,12 +5,11 @@ import { useHomepage } from "../contexts/HomepageContext";
 
 function Greeting() {
   const [quote, setQuote] = useState("");
-  const [loading, setLoading] = useState(true);
   const [timeOfDay, setTimeOfDay] = useState("");
 
   const { user } = useUser();
   const { homepage } = useHomepage();
-    const isWeekend = homepage?.dayType === "WEEKEND";
+  const isWeekend = homepage?.dayType === "WEEKEND";
 
   useEffect(() => {
     const today = new Date().toDateString();
@@ -20,7 +19,6 @@ function Greeting() {
 
     if (storedDate === today && storedIndex !== null) {
       setQuote(quotesData.quotes[Number(storedIndex)]);
-      setLoading(false);
       return;
     }
 
@@ -30,8 +28,6 @@ function Greeting() {
     localStorage.setItem("quoteDate", today);
 
     setQuote(quotesData.quotes[newIndex]);
-
-    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -82,10 +78,6 @@ function Greeting() {
       </div>
     );
   };
-
-  if (loading) {
-    return <h1 className="text-center">Loading...</h1>;
-  }
 
   if (homepage && isWeekend) {
     return (

@@ -68,6 +68,8 @@ export const UserProvider = ({ children }) => {
   };
 
   const login = async ({ username, password }) => {
+    setLoading(true);
+
     try {
       const response = await login_user({ username, password });
 
@@ -77,6 +79,7 @@ export const UserProvider = ({ children }) => {
       };
 
       saveAuth(userData, response.token);
+
       return true;
     } catch (err) {
       if (err.message === "UNAUTHORIZED") {
@@ -84,14 +87,18 @@ export const UserProvider = ({ children }) => {
       }
       console.error(err);
       return false;
+    } finally {
+      setLoading(false);
     }
   };
 
   const register = async ({ username, password, passwordTwo }) => {
     if (password !== passwordTwo) {
-      alert("passwords do not match");
+      setError("Passwords do not match");
       return false;
     }
+
+    setLoading(true);
 
     try {
       const response = await register_user({ username, password });
@@ -109,6 +116,8 @@ export const UserProvider = ({ children }) => {
       }
       console.error(err);
       return false;
+    } finally {
+      setLoading(false);
     }
   };
 

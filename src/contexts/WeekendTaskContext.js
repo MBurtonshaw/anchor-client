@@ -18,18 +18,26 @@ export const useWeekendTask = () => useContext(WeekendTaskContext);
 
 export const WeekendTaskProvider = ({ children }) => {
   const [weekendTask, setWeekendTask] = useState(null);
-  const [ loading, setLoading ] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useUser();
   const { setError } = useError();
 
   const getWeekendTask = useCallback(async () => {
-    if (!user?.userId) return;
+    if (!user?.userId) {
+      setWeekendTask(null);
+      return null;
+    }
+
+    setLoading(true);
     try {
       const res = await getWeekendTaskApi(user.userId);
       setWeekendTask(res);
+      return res;
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   }, [user?.userId, setError]);
 
@@ -53,21 +61,19 @@ export const WeekendTaskProvider = ({ children }) => {
     }
   };
 
-useEffect(() => {
-  const load = async () => {
-    if (!user?.userId) {
-      setWeekendTask(null);
-      setLoading(false);
-      return;
-    }
+  useEffect(() => {
+    const load = async () => {
+      if (!user?.userId) {
+        setWeekendTask(null);
+        setLoading(false);
+        return;
+      }
 
-    setLoading(true);
-    await getWeekendTask();
-    setLoading(false);
-  };
+      await getWeekendTask();
+    };
 
-  load();
-}, [user?.userId, getWeekendTask]);
+    load();
+  }, [user?.userId, getWeekendTask]);
 
   return (
     <WeekendTaskContext.Provider
@@ -76,7 +82,7 @@ useEffect(() => {
         getWeekendTask,
         updateWeekendTask,
         completeWeekendTask,
-        loading
+        loading,
       }}
     >
       {children}

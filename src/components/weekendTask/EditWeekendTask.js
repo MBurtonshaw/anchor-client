@@ -2,21 +2,43 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useHomepage } from "../../contexts/HomepageContext";
 import { useWeekendTask } from "../../contexts/WeekendTaskContext";
+import Loader from "../ui/Loader";
 
 function EditWeekendTask() {
   const [editTitle, setEditTitle] = useState("");
   const { getHomepage } = useHomepage();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { weekendTask, updateWeekendTask, completeWeekendTask, loading } = useWeekendTask();
+  const {
+    weekendTask,
+    getWeekendTask,
+    updateWeekendTask,
+    completeWeekendTask,
+    loading,
+  } = useWeekendTask();
 
   const handleChange = (e, element) => element(e.target.value);
   const handleTitle = (e) => handleChange(e, setEditTitle);
 
   useEffect(() => {
-    if (!weekendTask) return;
-    setEditTitle(weekendTask.title || "");
-  }, [weekendTask]);
+    if (!id) return;
+
+    const taskId = Number(id);
+
+    const load = async () => {
+      const found = weekendTask?.id === taskId ? weekendTask : null;
+
+      if (found) {
+        setEditTitle(found.title);
+        return;
+      }
+
+      const data = await getWeekendTask();
+      setEditTitle(data.title);
+    };
+
+    load();
+  }, [id, weekendTask, getWeekendTask]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,11 +56,12 @@ function EditWeekendTask() {
     e.preventDefault();
     await completeWeekendTask(weekendTask.id);
     await getHomepage();
+  };
+
+  if (loading) {
+    return <Loader />;
   }
-
-
-  if (loading) return <h2>Loading...</h2>;
-  if (!weekendTask || weekendTask.id !== Number(id)) return <h2>Task not found</h2>;
+  if (!weekendTask) return <h2>Task not found</h2>;
 
   return (
     <div className="component_container text-center">
@@ -57,18 +80,15 @@ function EditWeekendTask() {
           />
         </div>
         <div className="p-3">
-          <button className="primary_button m-2" 
-          onClick={handleSubmit}
-          >
+          <button className="primary_button m-2" onClick={handleSubmit}>
             Update
           </button>
           <button className="secondary_button m-2" onClick={handleComplete}>
             Complete
           </button>
-          <button className="tertiary_button m-2" onClick={() => navigate('/')}>
+          <button className="tertiary_button m-2" onClick={() => navigate("/")}>
             Home
           </button>
-
         </div>
       </div>
     </div>

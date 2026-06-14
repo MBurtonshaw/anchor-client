@@ -1,18 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGoal } from "../../contexts/GoalContext";
-import { useUser } from "../../contexts/UserContext";
-import { getGoalById } from "../../service/GoalService";
+import Loader from "../ui/Loader";
 
 function EditGoal() {
-  const [goal, setGoal] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editPriority, setEditPriority] = useState("");
   const [editNotes, setEditNotes] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
-  const [loading, setLoading] = useState(true);
-  const { goals, deleteGoal, updateGoal } = useGoal();
-  const { user } = useUser();
+  const { goals, deleteGoal, updateGoal, loading } = useGoal();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -22,14 +18,8 @@ function EditGoal() {
   const handlePriority = (e) => handleChange(e, setEditPriority);
   const handleDueDate = (e) => handleChange(e, setEditDueDate);
 
-  useEffect(() => {
-    if (!goal) return;
-
-    setEditTitle(goal.title || "");
-    setEditPriority(goal.priority ?? "");
-    setEditDueDate(goal.dueDate || "");
-    setEditNotes(goal.notes || "");
-  }, [goal]);
+  const goalId = Number(id);
+  const goal = goals.find(g => g.id === goalId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,33 +41,9 @@ function EditGoal() {
     navigate("/");
   };
 
-  useEffect(() => {
-    if (!user?.userId) return;
-
-    const goalId = Number(id);
-    const found = goals.find((g) => g.id === goalId);
-
-    if (found) {
-      setGoal(found);
-      setLoading(false);
-      return;
-    }
-
-    const fetchGoal = async () => {
-      try {
-        const data = await getGoalById(goalId);
-        setGoal(data);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGoal();
-  }, [goals, id, user]);
-
-  if (loading) return <h2>Loading...</h2>;
+  if (loading && !goals) {
+    return <Loader />;
+  }
   if (!goal) return <h2>Goal not found</h2>;
 
   return (
@@ -138,7 +104,10 @@ function EditGoal() {
           <button className="primary_button m-2" onClick={handleSubmit}>
             Update
           </button>
-          <button className="secondary_button m-2" onClick={() => navigate('/')}>
+          <button
+            className="secondary_button m-2"
+            onClick={() => navigate("/")}
+          >
             Home
           </button>
           <button className="danger_button m-2" onClick={handleDelete}>

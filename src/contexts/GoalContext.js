@@ -20,40 +20,41 @@ const GoalContext = createContext(null);
 export const useGoal = () => useContext(GoalContext);
 
 export const GoalProvider = ({ children }) => {
-const [goals, setGoals] = useState([]);
+  const [goals, setGoals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { user } = useUser();
   const { setError } = useError();
   const { getHomepage } = useHomepage();
 
-const getGoals = useCallback(async () => {
-  if (!user?.userId) return;
+  const getGoals = useCallback(async () => {
+    if (!user?.userId) return;
+    setLoading(true);
+    try {
+      const res = await getGoalsApi();
+      setGoals(res);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [user, setError]);
 
-  try {
-    const res = await getGoalsApi();
-    setGoals(res); 
-  } catch (err) {
-    setError(err.message);
-  }
-}, [user, setError]);
-
-  const addGoal = async (goal) => {
+  const addGoal = async (goalData) => {
     try {
       if (!user?.userId) return;
-      await addGoalApi(goal);
-      await getGoals();
-      await getHomepage();
+      await addGoalApi(goalData);
+      await Promise.all([getGoals(), getHomepage()]);
     } catch (err) {
       setError(err.message);
     }
   };
 
-  const updateGoal = async (goal, goalId) => {
+  const updateGoal = async (goalData, goalId) => {
     try {
       if (!user?.userId) return;
-      await updateGoalApi(goal, goalId);
-      await getGoals();
-      await getHomepage();
+      await updateGoalApi(goalData, goalId);
+      await Promise.all([getGoals(), getHomepage()]);
     } catch (err) {
       setError(err.message);
     }
@@ -63,8 +64,7 @@ const getGoals = useCallback(async () => {
     try {
       if (!user?.userId) return;
       await deleteGoalApi(goalId);
-      await getGoals();
-      await getHomepage();
+      await Promise.all([getGoals(), getHomepage()]);
     } catch (err) {
       setError(err.message);
     }
@@ -74,8 +74,7 @@ const getGoals = useCallback(async () => {
     try {
       if (!user?.userId) return;
       await completeGoalApi(goalId);
-      await getGoals();
-      await getHomepage();
+      await Promise.all([getGoals(), getHomepage()]);
     } catch (err) {
       setError(err.message);
     }
@@ -91,7 +90,15 @@ const getGoals = useCallback(async () => {
 
   return (
     <GoalContext.Provider
-      value={{ goals, getGoals, addGoal, updateGoal, deleteGoal, completeGoal }}
+      value={{
+        goals,
+        getGoals,
+        addGoal,
+        updateGoal,
+        deleteGoal,
+        completeGoal,
+        loading,
+      }}
     >
       {children}
     </GoalContext.Provider>

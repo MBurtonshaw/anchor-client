@@ -3,6 +3,7 @@ import { useHomepage } from "../contexts/HomepageContext";
 import { useGoal } from "../contexts/GoalContext";
 import { useTask } from "../contexts/TaskContext";
 import { useWeekendTask } from "../contexts/WeekendTaskContext";
+import Loader from "../components/ui/Loader";
 
 function Collection() {
   const { homepage, getHomepage, loading } = useHomepage();
@@ -196,7 +197,7 @@ function Collection() {
   }
 
   if (!homepage || loading) {
-    return <h1 className="text-center">Loading...</h1>;
+    return <Loader />;
   }
 
   return (
