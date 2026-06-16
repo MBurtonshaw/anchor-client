@@ -5,9 +5,9 @@ import {
   useEffect,
   useCallback,
 } from "react";
+import { useError } from "../contexts/ErrorContext";
+import handleError from "../components/auth/HandleError";
 import { useUser } from "./UserContext";
-import { useError } from "./ErrorContext";
-import { useHomepage } from "./HomepageContext";
 import {
   getGoals as getGoalsApi,
   addGoal as addGoalApi,
@@ -15,6 +15,7 @@ import {
   deleteGoal as deleteGoalApi,
   completeGoal as completeGoalApi,
 } from "../service/GoalService";
+
 const GoalContext = createContext(null);
 
 export const useGoal = () => useContext(GoalContext);
@@ -22,61 +23,92 @@ export const useGoal = () => useContext(GoalContext);
 export const GoalProvider = ({ children }) => {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { setError } = useError();
 
   const { user } = useUser();
-  const { setError } = useError();
-  const { getHomepage } = useHomepage();
 
   const getGoals = useCallback(async () => {
-    if (!user?.userId) return;
+    if (!user?.userId) {
+      setGoals([]);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
+
     try {
       const res = await getGoalsApi();
       setGoals(res);
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
     } finally {
       setLoading(false);
     }
   }, [user, setError]);
 
   const addGoal = async (goalData) => {
+    if (!user?.userId) {
+      setGoals([]);
+      setLoading(false);
+      return;
+    }
+
     try {
-      if (!user?.userId) return;
       await addGoalApi(goalData);
-      await Promise.all([getGoals(), getHomepage()]);
+      await getGoals();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
     }
   };
 
   const updateGoal = async (goalData, goalId) => {
+        if (!user?.userId) {
+      setGoals([]);
+      setLoading(false);
+      return;
+    }
+     setLoading(true);
     try {
-      if (!user?.userId) return;
       await updateGoalApi(goalData, goalId);
-      await Promise.all([getGoals(), getHomepage()]);
+      await getGoals();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 
   const deleteGoal = async (goalId) => {
+        if (!user?.userId) {
+      setGoals([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true); 
     try {
-      if (!user?.userId) return;
       await deleteGoalApi(goalId);
-      await Promise.all([getGoals(), getHomepage()]);
+      await getGoals();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 
   const completeGoal = async (goalId) => {
+        if (!user?.userId) {
+      setGoals([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     try {
-      if (!user?.userId) return;
       await completeGoalApi(goalId);
-      await Promise.all([getGoals(), getHomepage()]);
+      await getGoals();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 

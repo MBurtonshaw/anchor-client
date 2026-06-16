@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoal } from "../../contexts/GoalContext";
+import { useHomepage } from "../../contexts/HomepageContext";
 
 function AddGoal() {
   const { addGoal } = useGoal();
@@ -8,6 +9,7 @@ function AddGoal() {
   const [addNotes, setAddNotes] = useState("");
   const [addPriority, setAddPriority] = useState(1);
   const [addDueDate, setAddDueDate] = useState("");
+  const { getHomepage } = useHomepage();
 
   const handleChange = (e, element) => {
     element(e.target.value);
@@ -28,6 +30,7 @@ function AddGoal() {
       notes: addNotes,
       dueDate: addDueDate,
     });
+    await getHomepage();
     navigate("/");
   };
 

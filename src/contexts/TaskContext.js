@@ -7,6 +7,7 @@ import {
 } from "react";
 import { useUser } from "./UserContext";
 import { useError } from "./ErrorContext";
+import handleError from "../components/auth/HandleError";
 import {
   getTasks as getTasksApi,
   getTaskById as getTaskByIdApi,
@@ -15,74 +16,116 @@ import {
   deleteTask as deleteTaskApi,
   completeTask as completeTaskApi,
 } from "../service/TaskService";
-import { useHomepage } from "./HomepageContext";
 const TaskContext = createContext(null);
 
 export const useTask = () => useContext(TaskContext);
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useUser();
   const { setError } = useError();
-  const { getHomepage } = useHomepage();
 
   const getTasks = useCallback(async () => {
-    if (!user?.userId) return;
+    if (!user?.userId) {
+      setTasks([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     try {
       const res = await getTasksApi();
       setTasks(res);
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   }, [user, setError]);
 
-  const getTaskById = async (taskId) => {
-    if (!user?.userId) return;
-    await getTaskByIdApi(taskId);
-  };
+const getTaskById = async (taskId) => {
+  if (!user?.userId) {
+    setTasks([]);
+    return;
+  }
+  setLoading(true);
+  try {
+    const task = await getTaskByIdApi(taskId);
+    return task;
+  } catch (err) {
+    handleError(err, setError);
+    return null;
+  } finally {
+    setLoading(false);
+  }
+};
 
   const addTask = async (task) => {
+    if (!user?.userId) {
+      setTasks([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     try {
-      if (!user?.userId) return;
       await addTaskApi(task);
       await getTasks();
-      await getHomepage();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 
   const updateTask = async (task, taskId) => {
+    if (!user?.userId) {
+      setTasks([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     try {
-      if (!user?.userId) return;
       await updateTaskApi(task, taskId);
       await getTasks();
-      await getHomepage();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 
   const deleteTask = async (taskId) => {
+    if (!user?.userId) {
+      setTasks([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     try {
-      if (!user?.userId) return;
       await deleteTaskApi(taskId);
       await getTasks();
-      await getHomepage();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 
   const completeTask = async (taskId) => {
+    if (!user?.userId) {
+      setTasks([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     try {
-      if (!user?.userId) return;
       await completeTaskApi(taskId);
       await getTasks();
-      await getHomepage();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -104,6 +147,7 @@ export const TaskProvider = ({ children }) => {
         updateTask,
         deleteTask,
         completeTask,
+        loading,
       }}
     >
       {children}

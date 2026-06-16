@@ -173,9 +173,9 @@ function Collection() {
           {!isTaskFinished(task) && (
             <button
               className="done_button"
-              onClick={() => {
-                completeTask(task.id);
-                getHomepage();
+              onClick={async () => {
+                await completeTask(task.id);
+                await getHomepage();
               }}
             >
               done

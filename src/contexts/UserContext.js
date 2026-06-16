@@ -5,6 +5,7 @@ import {
 } from "../service/UserService";
 import { useError } from "../contexts/ErrorContext";
 import { jwtDecode } from "jwt-decode";
+import handleError from "../components/auth/HandleError";
 
 const UserContext = createContext(null);
 
@@ -31,28 +32,25 @@ export const UserProvider = ({ children }) => {
           setToken(null);
           localStorage.removeItem("user");
           localStorage.removeItem("token");
-          setError("Session expired");
-        } else {
-          setUser(JSON.parse(storedUser));
-          setToken(storedToken);
+          return;
         }
+
+        setUser(JSON.parse(storedUser));
+        setToken(storedToken);
       }
     } catch (err) {
-      console.error("Failed to parse stored user:", err);
       localStorage.removeItem("user");
       localStorage.removeItem("token");
     } finally {
       setLoading(false);
     }
-  }, [setError]);
+  }, []);
 
-  const clearAuth = (message = null) => {
+  const clearAuth = () => {
     setUser(null);
     setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-
-    if (message) setError(message);
   };
 
   const saveAuth = (userData, token) => {
@@ -61,10 +59,6 @@ export const UserProvider = ({ children }) => {
 
     localStorage.setItem("user", JSON.stringify(userData));
     localStorage.setItem("token", token);
-  };
-
-  const handleAuthError = () => {
-    clearAuth("Session expired");
   };
 
   const login = async ({ username, password }) => {
@@ -82,10 +76,7 @@ export const UserProvider = ({ children }) => {
 
       return true;
     } catch (err) {
-      if (err.message === "UNAUTHORIZED") {
-        handleAuthError();
-      }
-      console.error(err);
+      handleError(err, setError, clearAuth);
       return false;
     } finally {
       setLoading(false);
@@ -111,10 +102,7 @@ export const UserProvider = ({ children }) => {
       saveAuth(userData, response.token);
       return true;
     } catch (err) {
-      if (err?.status === 401 || err?.response?.status === 401) {
-        handleAuthError();
-      }
-      console.error(err);
+      handleError(err, setError, clearAuth);
       return false;
     } finally {
       setLoading(false);

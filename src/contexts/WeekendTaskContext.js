@@ -7,6 +7,7 @@ import {
 } from "react";
 import { useUser } from "./UserContext";
 import { useError } from "./ErrorContext";
+import handleError from '../components/auth/HandleError';
 import {
   getWeekendTask as getWeekendTaskApi,
   updateWeekendTask as updateWeekendTaskApi,
@@ -35,29 +36,34 @@ export const WeekendTaskProvider = ({ children }) => {
       setWeekendTask(res);
       return res;
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+          return null;
     } finally {
       setLoading(false);
     }
   }, [user?.userId, setError]);
 
   const updateWeekendTask = async (task, taskId) => {
+    setLoading(true);
     try {
-      if (!user?.userId) return;
       await updateWeekendTaskApi(task, taskId);
       await getWeekendTask();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 
   const completeWeekendTask = async (taskId) => {
+    setLoading(true);
     try {
-      if (!user?.userId) return;
       await completeWeekendTaskApi(taskId);
       await getWeekendTask();
     } catch (err) {
-      setError(err.message);
+      handleError(err, setError);
+    } finally {
+      setLoading(false);
     }
   };
 

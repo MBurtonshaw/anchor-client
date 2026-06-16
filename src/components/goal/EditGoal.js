@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGoal } from "../../contexts/GoalContext";
+import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
 
 function EditGoal() {
@@ -11,6 +12,7 @@ function EditGoal() {
   const { goals, deleteGoal, updateGoal, loading } = useGoal();
   const { id } = useParams();
   const navigate = useNavigate();
+  const { getHomepage } = useHomepage();
 
   const handleChange = (e, element) => element(e.target.value);
   const handleTitle = (e) => handleChange(e, setEditTitle);
@@ -32,16 +34,18 @@ function EditGoal() {
       },
       goal.id,
     );
+    await getHomepage();
     navigate("/");
   };
 
   const handleDelete = async () => {
     if (!goal) return;
     await deleteGoal(goal.id);
+    await getHomepage();
     navigate("/");
   };
 
-  if (loading && !goals) {
+  if (loading && !goal) {
     return <Loader />;
   }
   if (!goal) return <h2>Goal not found</h2>;

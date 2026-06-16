@@ -1,8 +1,8 @@
 import config from './config';
+import { ApiError } from './components/auth/ApiError';
 
 export async function api(path, method = 'GET', body = null) {
   const url = config.apiBaseUrl + path;
-
   const token = localStorage.getItem("token");
 
   const options = {
@@ -24,23 +24,27 @@ export async function api(path, method = 'GET', body = null) {
 
   const contentType = response.headers.get("content-type");
 
-if (response.status === 401) {
-  throw new Error("UNAUTHORIZED");
-}
+  let data = null;
+
+  if (contentType?.includes("application/json")) {
+    data = await response.json().catch(() => null);
+  } else {
+    data = await response.text().catch(() => null);
+  }
+
+  const message =
+  data?.message ||
+  data?.error?.message ||
+  (typeof data === "string" ? data : null) ||
+  "Request failed";
 
   if (!response.ok) {
-    const text = await response.text();
-    throw new Error(text || `HTTP ${response.status}`);
+    throw new ApiError(message, response.status, data);
   }
 
   if (response.status === 204) {
     return null;
   }
 
-  if (contentType && contentType.includes("application/json")) {
-    return await response.json();
-  }
-
-  return null;
+  return data;
 }
-

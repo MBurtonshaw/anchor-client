@@ -1,3 +1,14 @@
+@keyframes floatUp {
+  from {
+    transform: translateY(24px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
 .button_div {
   background-color: rgb(252, 250, 255);
   border-radius: 50%;
@@ -18,6 +29,16 @@
   flex-direction: column;
 }
 
+.card--finished {
+  background-color: rgb(200, 190, 215);
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
+  opacity: 0.85;
+}
+
+.card--maintenance {
+  border-left: 6px solid rgba(80, 120, 90, 0.5);
+}
+
 .card--primary {
   border-left: 6px solid rgba(110, 56, 146, 0.6);
 }
@@ -26,25 +47,9 @@
   border-right: 6px solid rgba(110, 56, 146, 0.6);
 }
 
-.card--finished {
-  background-color: rgb(200, 190, 215);
-  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
-  opacity: 0.85;
-}
-
 .card--weekend-goal {
-    opacity: 0.82;
-    box-shadow: 0 3px 10px rgba(90, 60, 120, 0.12);
-}
-
-.card--maintenance {
-  border-left: 6px solid rgba(80, 120, 90, 0.5);
-}
-
-.card-subtitle {
-  font-size: 0.75rem;
-  opacity: 0.7;
-  margin-top: 0.25rem;
+  opacity: 0.82;
+  box-shadow: 0 3px 10px rgba(90, 60, 120, 0.12);
 }
 
 .card-body {
@@ -54,38 +59,10 @@
   justify-content: center;
 }
 
-.how_to_card {
-  width: 100%;
-  max-width: 1350px;
-  margin: 0 auto;
-  background-color: rgb(252, 250, 255);
-  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
-  border-radius: 0.375rem;
-  display: flex;
-  flex-direction: column;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  will-change: transform, opacity;
-}
-
-.how_to_card--primary {
-    border-left: 6px solid rgba(110, 56, 146, 0.6);
-    opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  will-change: transform, opacity;
-}
-
-.how_to_card.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.how-to-text-div {
-  max-width: 500px;
-  width: 100%;
-  margin: auto;
+.card-subtitle {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  opacity: 0.7;
 }
 
 .collection_container {
@@ -105,6 +82,29 @@
   padding: 1rem;
 }
 
+.error-banner {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  min-width: 300px;
+  padding: 2rem;
+  position: relative;
+}
+
+.error-banner-container {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
 .home_container {
   margin: auto;
   max-width: 1200px;
@@ -122,9 +122,47 @@
   max-width: 360px;
 }
 
-.todo_buttons_div {
-  width: 30%;
+.how-to-text-div {
   margin: auto;
+  max-width: 500px;
+  width: 100%;
+}
+
+.how_to_card {
+  background-color: rgb(252, 250, 255);
+  border-radius: 0.375rem;
+  box-shadow: 0 6px 16px rgba(90, 60, 120, 0.18);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 1350px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change: transform, opacity;
+  width: 100%;
+}
+
+.how_to_card--primary {
+  border-left: 6px solid rgba(110, 56, 146, 0.6);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change: transform, opacity;
+}
+
+.how_to_card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.todo_buttons_div {
+  margin: auto;
+  width: 30%;
 }
 
 @media (max-width: 576px) {
@@ -152,16 +190,5 @@
 
   .todo_buttons_div {
     width: 50%;
-  }
-}
-
-@keyframes floatUp {
-  from {
-    transform: translateY(24px) scale(0.98);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
   }
 }

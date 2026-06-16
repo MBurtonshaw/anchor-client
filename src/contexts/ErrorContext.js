@@ -9,8 +9,14 @@ export const ErrorProvider = ({ children }) => {
 
   const clearError = () => setError(null);
 
+const setErrorSafe = (err) => {
+  console.log("RAW TYPE:", typeof err);
+  console.log("RAW VALUE:", err);
+  setError(err);
+};
+
   return (
-    <ErrorContext.Provider value={{ error, setError, clearError }}>
+    <ErrorContext.Provider value={{ error, setError: setErrorSafe, clearError }}>
       {children}
     </ErrorContext.Provider>
   );

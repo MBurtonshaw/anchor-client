@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTask } from "../../contexts/TaskContext";
+import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
 
 function EditTask() {
@@ -8,6 +9,7 @@ function EditTask() {
   const { tasks, deleteTask, updateTask, loading } = useTask();
   const { id } = useParams();
   const navigate = useNavigate();
+  const { getHomepage } = useHomepage();
 
   const handleChange = (e, element) => element(e.target.value);
   const handleTitle = (e) => handleChange(e, setEditTitle);
@@ -23,16 +25,18 @@ function EditTask() {
       },
       task.id,
     );
+    await getHomepage();
     navigate("/");
   };
 
   const handleDelete = async () => {
     if (!task) return;
     await deleteTask(task.id);
+    await getHomepage();
     navigate("/");
   };
 
-  if (loading && !tasks) {
+  if (loading && !task) {
     return <Loader />;
   }
   if (!task) return <h2>Task not found</h2>;

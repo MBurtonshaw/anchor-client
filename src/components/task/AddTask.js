@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTask } from "../../contexts/TaskContext";
+import { useHomepage } from "../../contexts/HomepageContext";
 
 function AddTask() {
   const { addTask } = useTask();
   const [addTitle, setAddTitle] = useState("");
+  const { getHomepage } = useHomepage();
 
   const handleChange = (e, element) => {
     element(e.target.value);
@@ -19,6 +21,7 @@ function AddTask() {
     await addTask({
       title: addTitle
     });
+    await getHomepage();
     navigate("/");
   };
 
