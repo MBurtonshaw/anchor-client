@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTask } from "../../contexts/TaskContext";
 import { useHomepage } from "../../contexts/HomepageContext";
+import { toast } from "react-toastify";
 
 function AddTask() {
   const { addTask } = useTask();
   const [addTitle, setAddTitle] = useState("");
   const { getHomepage } = useHomepage();
+  const [savingId, setSavingId] = useState(null);
 
   const handleChange = (e, element) => {
     element(e.target.value);
@@ -18,10 +20,17 @@ function AddTask() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addTask({
-      title: addTitle
-    });
-    await getHomepage();
+    setSavingId(1);
+    try {
+      await addTask({
+        title: addTitle,
+      });
+      toast.success("Added successfully");
+      await getHomepage();
+    } finally {
+      setSavingId(null);
+    }
+
     navigate("/");
   };
 
@@ -43,10 +52,17 @@ function AddTask() {
           />
         </div>
         <div className="p-3">
-          <button className="primary_button m-2" onClick={handleSubmit}>
-            Submit
+          <button
+            disabled={savingId === 1}
+            className="primary_button m-2"
+            onClick={handleSubmit}
+          >
+            {savingId === 1 ? "..." : "Submit"}
           </button>
-          <button className="secondary_button m-2" onClick={() => navigate('/')}>
+          <button
+            className="secondary_button m-2"
+            onClick={() => navigate("/")}
+          >
             Home
           </button>
         </div>

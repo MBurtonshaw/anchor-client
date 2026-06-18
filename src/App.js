@@ -22,6 +22,8 @@ import HowToUse from "./components/HowToUse";
 import WeekendTask from "./components/weekendTask/WeekendTask";
 import EditWeekendTask from "./components/weekendTask/EditWeekendTask";
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -30,6 +32,14 @@ function App() {
     <div className="App">
       <Navbar />
       <ErrorBanner />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2500}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="light"
+      />
 
       <Routes>
         {/* public */}

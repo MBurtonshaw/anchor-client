@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useHomepage } from "../../contexts/HomepageContext";
 import { useWeekendTask } from "../../contexts/WeekendTaskContext";
 import Loader from "../ui/Loader";
+import { toast } from "react-toastify";
 
 function EditWeekendTask() {
   const [editTitle, setEditTitle] = useState("");
@@ -13,9 +14,10 @@ function EditWeekendTask() {
     weekendTask,
     getWeekendTask,
     updateWeekendTask,
-    completeWeekendTask,
+    // completeWeekendTask,
     loading,
   } = useWeekendTask();
+  const [savingId, setSavingId] = useState(null);
 
   const handleChange = (e, element) => element(e.target.value);
   const handleTitle = (e) => handleChange(e, setEditTitle);
@@ -42,21 +44,33 @@ function EditWeekendTask() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateWeekendTask(
-      {
-        title: editTitle,
-      },
-      weekendTask.id,
-    );
-    await getHomepage();
+    setSavingId(1);
+    try {
+      await updateWeekendTask(
+        {
+          title: editTitle,
+        },
+        weekendTask.id,
+      );
+      toast.success("Update success");
+      await getHomepage();
+    } finally {
+      setSavingId(null);
+    }
+
     navigate("/");
   };
 
-  const handleComplete = async (e) => {
-    e.preventDefault();
-    await completeWeekendTask(weekendTask.id);
-    await getHomepage();
-  };
+  // const handleComplete = async (e) => {
+  //   e.preventDefault();
+  //   setSavingId(1);
+  //   try {
+  //     await completeWeekendTask(weekendTask.id);
+  //     await getHomepage();
+  //   } finally {
+  //     setSavingId(null);
+  //   }
+  // };
 
   if (loading) {
     return <Loader />;
@@ -80,11 +94,12 @@ function EditWeekendTask() {
           />
         </div>
         <div className="p-3">
-          <button className="primary_button m-2" onClick={handleSubmit}>
-            Update
-          </button>
-          <button className="secondary_button m-2" onClick={handleComplete}>
-            Complete
+          <button
+            className="primary_button m-2"
+            disabled={savingId === 1}
+            onClick={handleSubmit}
+          >
+            {savingId === 1 ? "..." : "Submit"}
           </button>
           <button className="tertiary_button m-2" onClick={() => navigate("/")}>
             Home

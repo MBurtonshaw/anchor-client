@@ -1,20 +1,66 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHomepage } from "../contexts/HomepageContext";
 import { useGoal } from "../contexts/GoalContext";
 import { useTask } from "../contexts/TaskContext";
 import { useWeekendTask } from "../contexts/WeekendTaskContext";
 import Loader from "../components/ui/Loader";
+import { toast } from "react-toastify";
 
 function Collection() {
   const { homepage, getHomepage, loading } = useHomepage();
   const { completeGoal } = useGoal();
   const { completeTask } = useTask();
   const { completeWeekendTask } = useWeekendTask();
+  const [savingId, setSavingId] = useState(null);
+  const [lastToast, setLastToast] = useState(null);
 
   const tasks = homepage?.tasks || [];
   const goal = homepage?.goal || null;
   const weekendTask = homepage?.maintenanceTask || null;
   const isWeekend = homepage?.dayType === "WEEKEND";
+
+  const encouragements = [
+  "Nice work",
+  "Well done",
+  "Great job",
+  "Keep it up",
+  "One step at a time",
+  "Progress made",
+  "You did it",
+  "Mission complete",
+  "That's a win",
+  "Momentum matters",
+  "Another step forward",
+  "Good effort",
+  "Keep moving",
+  "You're making progress",
+  "Way to go",
+  "Nicely done",
+  "Small steps add up",
+  "That's progress",
+  "Keep building momentum",
+  "You showed up today",
+  "Every move counts",
+  "Forward is forward",
+  "Keep going",
+  "Another one down",
+  "You've got this"
+];
+
+const determineToast = (list) => {
+  if (!list?.length) return "Good job";
+
+  let next = null;
+
+  do {
+    next = list[Math.floor(Math.random() * list.length)];
+  } while (next === lastToast && list.length > 1);
+
+  setLastToast(next);
+  return next;
+};
+
 
   const determineGoalClasses = (goal) => {
     if (isGoalFinished(goal)) {
@@ -59,12 +105,20 @@ function Collection() {
         {!isGoalFinished(goal) && (
           <button
             className="done_button"
+            disabled={savingId === `goal-${goal.id}`}
             onClick={async () => {
-              await completeGoal(goal.id);
-              await getHomepage();
+              setSavingId(`goal-${goal.id}`);
+
+              try {
+                await completeGoal(goal.id);
+                toast.success(determineToast(encouragements));
+                await getHomepage();
+              } finally {
+                setSavingId(null);
+              }
             }}
           >
-            done
+            {savingId === `goal-${goal.id}` ? "..." : "done"}
           </button>
         )}
       </div>
@@ -93,12 +147,20 @@ function Collection() {
         {!finished && (
           <button
             className="done_button"
+            disabled={savingId === `weekend-${weekendTask.id}`}
             onClick={async () => {
-              await completeWeekendTask(weekendTask.id);
-              await getHomepage();
+              setSavingId(`weekend-${weekendTask.id}`);
+
+              try {
+                await completeWeekendTask(weekendTask.id);
+                toast.success(determineToast(encouragements));
+                await getHomepage();
+              } finally {
+                setSavingId(null);
+              }
             }}
           >
-            done
+            {savingId === `weekend-${weekendTask.id}` ? "..." : "done"}
           </button>
         )}
       </div>
@@ -173,12 +235,19 @@ function Collection() {
           {!isTaskFinished(task) && (
             <button
               className="done_button"
+              disabled={savingId === task.id}
               onClick={async () => {
-                await completeTask(task.id);
-                await getHomepage();
+                setSavingId(task.id);
+                try {
+                  await completeTask(task.id);
+                  toast.success(determineToast(encouragements));
+                  await getHomepage();
+                } finally {
+                  setSavingId(null);
+                }
               }}
             >
-              done
+              {savingId === task.id ? "..." : "done"}
             </button>
           )}
         </div>,

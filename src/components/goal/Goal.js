@@ -1,6 +1,8 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useGoal } from "../../contexts/GoalContext";
 import Loader from "../ui/Loader";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Goal() {
   const { goals, completeGoal, deleteGoal, loading } = useGoal();
@@ -9,15 +11,71 @@ function Goal() {
   const navigate = useNavigate();
       const goalId = Number(id);
     const goal = goals.find((g) => g.id === goalId);
+    const [lastToast, setLastToast] = useState(null);
+    const [savingId, setSavingId] = useState(null);
+
+      const encouragements = [
+  "Nice work",
+  "Well done",
+  "Great job",
+  "Keep it up",
+  "One step at a time",
+  "Progress made",
+  "You did it",
+  "Mission complete",
+  "That's a win",
+  "Momentum matters",
+  "Another step forward",
+  "Good effort",
+  "Keep moving",
+  "You're making progress",
+  "Way to go",
+  "Nicely done",
+  "Small steps add up",
+  "That's progress",
+  "Keep building momentum",
+  "You showed up today",
+  "Every move counts",
+  "Forward is forward",
+  "Keep going",
+  "Another one down",
+  "You've got this"
+];
+
+const determineToast = (list) => {
+  if (!list?.length) return "Good job";
+
+  let next = null;
+
+  do {
+    next = list[Math.floor(Math.random() * list.length)];
+  } while (next === lastToast && list.length > 1);
+
+  setLastToast(next);
+  return next;
+};
 
 
   const handleDelete = async () => {
+    setSavingId(1);
+    try {
     await deleteGoal(goal.id);
+    toast.success("Successfully removed");
+    } finally {
+      setSavingId(null);
+    }
     navigate("/");
   };
 
   const handleFinished = async () => {
-    await completeGoal(goal.id);
+    setSavingId(1);
+    try {
+      await completeGoal(goal.id);
+      toast.success(determineToast(encouragements));
+    } finally {
+      setSavingId(null);
+    }
+
   };
 
   const handleImage = () => {
@@ -47,12 +105,12 @@ function Goal() {
             Update
           </button>
 
-          <button className="secondary_button w-100" onClick={handleFinished}>
-            Complete
+          <button className="secondary_button w-100" onClick={handleFinished} disabled={savingId === 1}>
+            {savingId === 1 ? "..." : "Complete"}
           </button>
 
-          <button className="danger_button w-100" onClick={handleDelete}>
-            Delete
+          <button className="danger_button w-100" onClick={handleDelete} disabled={savingId === 1}>
+            {savingId === 1 ? "..." : "Delete"}
           </button>
 
           <button

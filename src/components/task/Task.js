@@ -1,6 +1,8 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useTask } from "../../contexts/TaskContext";
 import Loader from "../ui/Loader";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Task() {
   const { tasks, completeTask, deleteTask, loading } = useTask();
@@ -9,14 +11,69 @@ function Task() {
   const navigate = useNavigate();
   const taskId = Number(id);
   const task = tasks.find((t) => t.id === taskId);
+  const [lastToast, setLastToast] = useState(null);
+  const [savingId, setSavingId] = useState(null);
+
+  const encouragements = [
+    "Nice work",
+    "Well done",
+    "Great job",
+    "Keep it up",
+    "One step at a time",
+    "Progress made",
+    "You did it",
+    "Mission complete",
+    "That's a win",
+    "Momentum matters",
+    "Another step forward",
+    "Good effort",
+    "Keep moving",
+    "You're making progress",
+    "Way to go",
+    "Nicely done",
+    "Small steps add up",
+    "That's progress",
+    "Keep building momentum",
+    "You showed up today",
+    "Every move counts",
+    "Forward is forward",
+    "Keep going",
+    "Another one down",
+    "You've got this",
+  ];
+
+  const determineToast = (list) => {
+    if (!list?.length) return "Good job";
+
+    let next = null;
+
+    do {
+      next = list[Math.floor(Math.random() * list.length)];
+    } while (next === lastToast && list.length > 1);
+
+    setLastToast(next);
+    return next;
+  };
 
   const handleDelete = async () => {
-    await deleteTask(task.id);
+    setSavingId(1);
+    try {
+      await deleteTask(task.id);
+      toast.success("Successfully removed");
+    } finally {
+      setSavingId(null);
+    }
     navigate("/");
   };
 
   const handleFinished = async () => {
-    await completeTask(task.id);
+    setSavingId(1);
+    try {
+      await completeTask(task.id);
+      toast.success(determineToast(encouragements));
+    } finally {
+      setSavingId(null);
+    }
   };
 
   const completedToday = () => {
@@ -51,12 +108,20 @@ function Task() {
             <button className="primary_button w-100">Update</button>
           </Link>
 
-          <button className="secondary_button w-100" onClick={handleFinished}>
-            Complete
+          <button
+            className="secondary_button w-100"
+            onClick={handleFinished}
+            disabled={savingId === 1}
+          >
+            {savingId === 1 ? "..." : "Complete"}
           </button>
 
-          <button className="danger_button w-100" onClick={handleDelete}>
-            Delete
+          <button
+            className="danger_button w-100"
+            onClick={handleDelete}
+            disabled={savingId === 1}
+          >
+            {savingId === 1 ? "..." : "Delete"}
           </button>
           <Link to="/">
             <button className="tertiary_button w-100">Home</button>

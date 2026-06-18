@@ -1,12 +1,64 @@
 import { Link } from "react-router-dom";
 import { useWeekendTask } from "../../contexts/WeekendTaskContext";
 import Loader from "../ui/Loader";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function WeekendTask() {
   const { weekendTask, completeWeekendTask, loading } = useWeekendTask();
+  const [lastToast, setLastToast] = useState(null);
+  const [savingId, setSavingId] = useState(null);
+
+  const encouragements = [
+    "Nice work",
+    "Well done",
+    "Great job",
+    "Keep it up",
+    "One step at a time",
+    "Progress made",
+    "You did it",
+    "Mission complete",
+    "That's a win",
+    "Momentum matters",
+    "Another step forward",
+    "Good effort",
+    "Keep moving",
+    "You're making progress",
+    "Way to go",
+    "Nicely done",
+    "Small steps add up",
+    "That's progress",
+    "Keep building momentum",
+    "You showed up today",
+    "Every move counts",
+    "Forward is forward",
+    "Keep going",
+    "Another one down",
+    "You've got this",
+  ];
+
+  const determineToast = (list) => {
+    if (!list?.length) return "Good job";
+
+    let next = null;
+
+    do {
+      next = list[Math.floor(Math.random() * list.length)];
+    } while (next === lastToast && list.length > 1);
+
+    setLastToast(next);
+    return next;
+  };
 
   const handleFinished = async () => {
+    setSavingId(1);
+    try {
     await completeWeekendTask(weekendTask.id);
+    toast.success(determineToast(encouragements));
+    } finally {
+      setSavingId(null);
+    }
+
   };
 
   const completedToday = () => {
@@ -41,8 +93,12 @@ function WeekendTask() {
             <button className="primary_button w-100">Update</button>
           </Link>
 
-          <button className="secondary_button w-100" onClick={handleFinished}>
-            Complete
+          <button
+            className="secondary_button w-100"
+            onClick={handleFinished}
+            disabled={savingId === 1}
+          >
+            {savingId === 1 ? "..." : "Complete"}
           </button>
 
           <Link to="/">

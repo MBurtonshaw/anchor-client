@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTask } from "../../contexts/TaskContext";
 import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
+import { toast } from "react-toastify";
 
 function EditTask() {
   const [editTitle, setEditTitle] = useState("");
@@ -10,6 +11,7 @@ function EditTask() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getHomepage } = useHomepage();
+  const [savingId, setSavingId] = useState(null);
 
   const handleChange = (e, element) => element(e.target.value);
   const handleTitle = (e) => handleChange(e, setEditTitle);
@@ -19,13 +21,20 @@ function EditTask() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateTask(
-      {
-        title: editTitle,
-      },
-      task.id,
-    );
-    await getHomepage();
+    setSavingId(1);
+    try {
+      await updateTask(
+        {
+          title: editTitle,
+        },
+        task.id,
+      );
+      toast.success("Update success");
+      await getHomepage();
+    } finally {
+      setSavingId(null);
+    }
+
     navigate("/");
   };
 
@@ -58,8 +67,12 @@ function EditTask() {
           />
         </div>
         <div className="p-3">
-          <button className="primary_button m-2" onClick={handleSubmit}>
-            Update
+          <button
+            className="primary_button m-2"
+            disabled={savingId === 1}
+            onClick={handleSubmit}
+          >
+            {savingId === 1 ? "..." : "Submit"}
           </button>
           <button
             className="secondary_button m-2"

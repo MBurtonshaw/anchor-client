@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoal } from "../../contexts/GoalContext";
 import { useHomepage } from "../../contexts/HomepageContext";
+import { toast } from "react-toastify";
 
 function AddGoal() {
   const { addGoal } = useGoal();
@@ -10,6 +11,7 @@ function AddGoal() {
   const [addPriority, setAddPriority] = useState(1);
   const [addDueDate, setAddDueDate] = useState("");
   const { getHomepage } = useHomepage();
+  const [savingId, setSavingId] = useState(null);
 
   const handleChange = (e, element) => {
     element(e.target.value);
@@ -22,15 +24,21 @@ function AddGoal() {
   const handlePriority = (e) => handleChange(e, setAddPriority);
   const handleDueDate = (e) => handleChange(e, setAddDueDate);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, goal) => {
     e.preventDefault();
-    await addGoal({
+    setSavingId(1);
+    try {
+      await addGoal({
       title: addTitle,
       priority: addPriority,
       notes: addNotes,
       dueDate: addDueDate,
     });
+    toast.success('Added successfully');
     await getHomepage();
+    } finally {
+      setSavingId(null);
+    }
     navigate("/");
   };
 
@@ -89,8 +97,8 @@ function AddGoal() {
           />
         </div>
         <div className="p-3">
-          <button className="primary_button m-2" onClick={handleSubmit}>
-            Submit
+          <button className="primary_button m-2" disabled={savingId === 1} onClick={handleSubmit}>
+            {savingId === 1 ? "..." : "Submit"}
           </button>
           <button className="secondary_button m-2" onClick={() => navigate('/')}>
             Home

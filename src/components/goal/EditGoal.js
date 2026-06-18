@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useGoal } from "../../contexts/GoalContext";
 import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
+import { toast } from "react-toastify";
 
 function EditGoal() {
   const [editTitle, setEditTitle] = useState("");
@@ -13,6 +14,7 @@ function EditGoal() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getHomepage } = useHomepage();
+  const [savingId, setSavingId] = useState(null);
 
   const handleChange = (e, element) => element(e.target.value);
   const handleTitle = (e) => handleChange(e, setEditTitle);
@@ -25,7 +27,9 @@ function EditGoal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateGoal(
+    setSavingId(1);
+    try {
+await updateGoal(
       {
         title: editTitle,
         priority: editPriority,
@@ -34,7 +38,12 @@ function EditGoal() {
       },
       goal.id,
     );
+    toast.success('Update success')
     await getHomepage();
+    } finally {
+      setSavingId(null);
+    }
+    
     navigate("/");
   };
 
@@ -105,8 +114,8 @@ function EditGoal() {
           />
         </div>
         <div className="p-3">
-          <button className="primary_button m-2" onClick={handleSubmit}>
-            Update
+          <button className="primary_button m-2" disabled={savingId === 1} onClick={handleSubmit}>
+            {savingId === 1 ? "..." : "Submit"}
           </button>
           <button
             className="secondary_button m-2"
