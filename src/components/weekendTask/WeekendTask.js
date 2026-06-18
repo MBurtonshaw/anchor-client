@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useWeekendTask } from "../../contexts/WeekendTaskContext";
+import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -8,6 +9,8 @@ function WeekendTask() {
   const { weekendTask, completeWeekendTask, loading } = useWeekendTask();
   const [lastToast, setLastToast] = useState(null);
   const [savingId, setSavingId] = useState(null);
+  const navigate = useNavigate();
+  const { getHomepage } = useHomepage();
 
   const encouragements = [
     "Nice work",
@@ -55,10 +58,11 @@ function WeekendTask() {
     try {
     await completeWeekendTask(weekendTask.id);
     toast.success(determineToast(encouragements));
+    getHomepage();
     } finally {
       setSavingId(null);
     }
-
+    navigate(`/weekend/${weekendTask.id}`);
   };
 
   const completedToday = () => {

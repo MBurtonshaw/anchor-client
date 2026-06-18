@@ -34,7 +34,6 @@ function EditTask() {
     } finally {
       setSavingId(null);
     }
-
     navigate("/");
   };
 

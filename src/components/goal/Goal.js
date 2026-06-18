@@ -1,5 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useGoal } from "../../contexts/GoalContext";
+import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -8,6 +9,7 @@ function Goal() {
   const { goals, completeGoal, deleteGoal, loading } = useGoal();
 
   const { id } = useParams();
+  const { getHomepage } = useHomepage();
   const navigate = useNavigate();
       const goalId = Number(id);
     const goal = goals.find((g) => g.id === goalId);
@@ -61,6 +63,7 @@ const determineToast = (list) => {
     try {
     await deleteGoal(goal.id);
     toast.success("Successfully removed");
+    getHomepage();
     } finally {
       setSavingId(null);
     }
@@ -72,6 +75,7 @@ const determineToast = (list) => {
     try {
       await completeGoal(goal.id);
       toast.success(determineToast(encouragements));
+      getHomepage();
     } finally {
       setSavingId(null);
     }

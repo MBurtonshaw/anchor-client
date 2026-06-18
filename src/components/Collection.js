@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useHomepage } from "../contexts/HomepageContext";
 import { useGoal } from "../contexts/GoalContext";
 import { useTask } from "../contexts/TaskContext";
@@ -19,6 +19,7 @@ function Collection() {
   const goal = homepage?.goal || null;
   const weekendTask = homepage?.maintenanceTask || null;
   const isWeekend = homepage?.dayType === "WEEKEND";
+  const navigate = useNavigate();
 
   const encouragements = [
   "Nice work",
@@ -116,6 +117,7 @@ const determineToast = (list) => {
               } finally {
                 setSavingId(null);
               }
+              navigate('/');
             }}
           >
             {savingId === `goal-${goal.id}` ? "..." : "done"}
@@ -158,6 +160,7 @@ const determineToast = (list) => {
               } finally {
                 setSavingId(null);
               }
+              navigate('/');
             }}
           >
             {savingId === `weekend-${weekendTask.id}` ? "..." : "done"}
@@ -245,6 +248,7 @@ const determineToast = (list) => {
                 } finally {
                   setSavingId(null);
                 }
+                navigate('/');
               }}
             >
               {savingId === task.id ? "..." : "done"}

@@ -1,5 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useTask } from "../../contexts/TaskContext";
+import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -8,6 +9,7 @@ function Task() {
   const { tasks, completeTask, deleteTask, loading } = useTask();
 
   const { id } = useParams();
+  const { getHomepage } = useHomepage();
   const navigate = useNavigate();
   const taskId = Number(id);
   const task = tasks.find((t) => t.id === taskId);
@@ -60,6 +62,7 @@ function Task() {
     try {
       await deleteTask(task.id);
       toast.success("Successfully removed");
+      getHomepage();
     } finally {
       setSavingId(null);
     }
@@ -71,9 +74,11 @@ function Task() {
     try {
       await completeTask(task.id);
       toast.success(determineToast(encouragements));
+      await getHomepage();
     } finally {
       setSavingId(null);
     }
+    navigate(`/tasks/${task.id}`);
   };
 
   const completedToday = () => {
