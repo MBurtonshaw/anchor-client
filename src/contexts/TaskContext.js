@@ -7,7 +7,7 @@ import {
 } from "react";
 import { useUser } from "./UserContext";
 import { useError } from "./ErrorContext";
-import handleError from "../components/auth/HandleError";
+import handleError from "../components/utils/HandleError";
 import {
   getTasks as getTasksApi,
   getTaskById as getTaskByIdApi,
@@ -113,6 +113,7 @@ const getTaskById = async (taskId) => {
   };
 
   const completeTask = async (taskId) => {
+    console.log("TASKS REF:", tasks);
     if (!user?.userId) {
       setTasks([]);
       setLoading(false);
@@ -122,11 +123,13 @@ const getTaskById = async (taskId) => {
     try {
       await completeTaskApi(taskId);
       await getTasks();
+      console.log("TASKS REF:", tasks);
     } catch (err) {
       handleError(err, setError);
     } finally {
       setLoading(false);
     }
+    console.log("TASKS REF:", tasks);
   };
 
   useEffect(() => {

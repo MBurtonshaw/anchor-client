@@ -5,7 +5,7 @@ import {
 } from "../service/UserService";
 import { useError } from "../contexts/ErrorContext";
 import { jwtDecode } from "jwt-decode";
-import handleError from "../components/auth/HandleError";
+import handleError from "../components/utils/HandleError";
 
 const UserContext = createContext(null);
 

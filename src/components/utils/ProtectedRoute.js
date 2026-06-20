@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
-import Loader from '../../components/ui/Loader';
+import Loader from '../ui/Loader';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useUser();

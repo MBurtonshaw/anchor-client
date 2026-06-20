@@ -4,6 +4,7 @@ import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { isCompletedToday } from "../utils/TaskUtils";
 
 function WeekendTask() {
   const { weekendTask, completeWeekendTask, loading } = useWeekendTask();
@@ -65,13 +66,7 @@ function WeekendTask() {
     navigate(`/weekend/${weekendTask.id}`);
   };
 
-  const completedToday = () => {
-    if (!weekendTask?.lastCompleted) return false;
-
-    const today = new Date().toISOString().slice(0, 10);
-
-    return weekendTask.lastCompleted === today;
-  };
+  const completedToday = () => isCompletedToday(weekendTask);
 
   const handleImage = () => {
     if (!completedToday()) {

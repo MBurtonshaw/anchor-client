@@ -44,7 +44,7 @@ useEffect(() => {
 
   return (
     <HomepageContext.Provider
-      value={{ homepage, getHomepage, loading }}
+      value={{ homepage, getHomepage, setHomepage, loading }}
     >
       {children}
     </HomepageContext.Provider>

@@ -6,6 +6,7 @@ import { useTask } from "../contexts/TaskContext";
 import { useWeekendTask } from "../contexts/WeekendTaskContext";
 import Loader from "../components/ui/Loader";
 import { toast } from "react-toastify";
+import { isCompletedToday } from "./utils/TaskUtils";
 
 function Collection() {
   const { homepage, getHomepage, loading } = useHomepage();
@@ -22,46 +23,45 @@ function Collection() {
   const navigate = useNavigate();
 
   const encouragements = [
-  "Nice work",
-  "Well done",
-  "Great job",
-  "Keep it up",
-  "One step at a time",
-  "Progress made",
-  "You did it",
-  "Mission complete",
-  "That's a win",
-  "Momentum matters",
-  "Another step forward",
-  "Good effort",
-  "Keep moving",
-  "You're making progress",
-  "Way to go",
-  "Nicely done",
-  "Small steps add up",
-  "That's progress",
-  "Keep building momentum",
-  "You showed up today",
-  "Every move counts",
-  "Forward is forward",
-  "Keep going",
-  "Another one down",
-  "You've got this"
-];
+    "Nice work",
+    "Well done",
+    "Great job",
+    "Keep it up",
+    "One step at a time",
+    "Progress made",
+    "You did it",
+    "Mission complete",
+    "That's a win",
+    "Momentum matters",
+    "Another step forward",
+    "Good effort",
+    "Keep moving",
+    "You're making progress",
+    "Way to go",
+    "Nicely done",
+    "Small steps add up",
+    "That's progress",
+    "Keep building momentum",
+    "You showed up today",
+    "Every move counts",
+    "Forward is forward",
+    "Keep going",
+    "Another one down",
+    "You've got this",
+  ];
 
-const determineToast = (list) => {
-  if (!list?.length) return "Good job";
+  const determineToast = (list) => {
+    if (!list?.length) return "Good job";
 
-  let next = null;
+    let next = null;
 
-  do {
-    next = list[Math.floor(Math.random() * list.length)];
-  } while (next === lastToast && list.length > 1);
+    do {
+      next = list[Math.floor(Math.random() * list.length)];
+    } while (next === lastToast && list.length > 1);
 
-  setLastToast(next);
-  return next;
-};
-
+    setLastToast(next);
+    return next;
+  };
 
   const determineGoalClasses = (goal) => {
     if (isGoalFinished(goal)) {
@@ -117,7 +117,7 @@ const determineToast = (list) => {
               } finally {
                 setSavingId(null);
               }
-              navigate('/');
+              navigate("/");
             }}
           >
             {savingId === `goal-${goal.id}` ? "..." : "done"}
@@ -160,7 +160,7 @@ const determineToast = (list) => {
               } finally {
                 setSavingId(null);
               }
-              navigate('/');
+              navigate("/");
             }}
           >
             {savingId === `weekend-${weekendTask.id}` ? "..." : "done"}
@@ -171,12 +171,7 @@ const determineToast = (list) => {
   };
 
   function isTaskFinished(task) {
-    if (!task.lastCompleted || task.lastCompleted === 0) {
-      return false;
-    }
-    const today = new Date().toDateString();
-    const finished = new Date(task.lastCompleted + "T00:00:00").toDateString();
-    return today === finished;
+    return isCompletedToday(task);
   }
 
   const goalFinished = goal ? goal.finished : false;
@@ -187,7 +182,9 @@ const determineToast = (list) => {
     return goalFinished ? "bottom" : "top";
   })();
 
-  const weekendTaskFinished = weekendTask ? isTaskFinished(weekendTask) : false;
+  const weekendTaskFinished = weekendTask
+    ? isCompletedToday(weekendTask)
+    : false;
 
   const weekendTaskPlacement = (() => {
     if (!weekendTask) return "none";
@@ -248,7 +245,7 @@ const determineToast = (list) => {
                 } finally {
                   setSavingId(null);
                 }
-                navigate('/');
+                navigate("/");
               }}
             >
               {savingId === task.id ? "..." : "done"}

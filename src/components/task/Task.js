@@ -4,6 +4,7 @@ import { useHomepage } from "../../contexts/HomepageContext";
 import Loader from "../ui/Loader";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { isCompletedToday } from "../utils/TaskUtils";
 
 function Task() {
   const { tasks, completeTask, deleteTask, loading } = useTask();
@@ -44,6 +45,8 @@ function Task() {
     "You've got this",
   ];
 
+  const completedToday = () => isCompletedToday(task);
+
   const determineToast = (list) => {
     if (!list?.length) return "Good job";
 
@@ -62,7 +65,7 @@ function Task() {
     try {
       await deleteTask(task.id);
       toast.success("Successfully removed");
-      getHomepage();
+      await getHomepage();
     } finally {
       setSavingId(null);
     }
@@ -79,14 +82,6 @@ function Task() {
       setSavingId(null);
     }
     navigate(`/tasks/${task.id}`);
-  };
-
-  const completedToday = () => {
-    if (!task?.lastCompleted) return false;
-
-    const today = new Date().toISOString().slice(0, 10);
-
-    return task.lastCompleted === today;
   };
 
   const handleImage = () => {

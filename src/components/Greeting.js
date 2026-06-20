@@ -2,6 +2,7 @@ import quotesData from "../quotes.json";
 import { useState, useEffect } from "react";
 import { useUser } from "../contexts/UserContext";
 import { useHomepage } from "../contexts/HomepageContext";
+import { getToday } from "./utils/DateUtils";
 
 function Greeting() {
   const [quote, setQuote] = useState("");
@@ -10,10 +11,9 @@ function Greeting() {
   const { user } = useUser();
   const { homepage } = useHomepage();
   const isWeekend = homepage?.dayType === "WEEKEND";
+  const today = getToday();
 
   useEffect(() => {
-    const today = new Date().toDateString();
-
     const storedDate = localStorage.getItem("quoteDate");
     const storedIndex = localStorage.getItem("quoteIndex");
 
@@ -28,7 +28,7 @@ function Greeting() {
     localStorage.setItem("quoteDate", today);
 
     setQuote(quotesData.quotes[newIndex]);
-  }, []);
+  }, [today]);
 
   useEffect(() => {
     const updateTime = () => {

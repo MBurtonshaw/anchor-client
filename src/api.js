@@ -1,5 +1,5 @@
 import config from './config';
-import { ApiError } from './components/auth/ApiError';
+import { ApiError } from './components/utils/ApiError';
 
 export async function api(path, method = 'GET', body = null) {
   const url = config.apiBaseUrl + path;

@@ -21,7 +21,7 @@ import ErrorBanner from "./components/ui/ErrorBanner";
 import HowToUse from "./components/HowToUse";
 import WeekendTask from "./components/weekendTask/WeekendTask";
 import EditWeekendTask from "./components/weekendTask/EditWeekendTask";
-import ProtectedRoute from './components/auth/ProtectedRoute';
+import ProtectedRoute from './components/utils/ProtectedRoute';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
