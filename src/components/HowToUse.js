@@ -140,7 +140,7 @@ function HowToUse() {
               </p>
               <p className="p-2 py-md-3">
                 This mode reduces pressure while still keeping a simple
-                structure for the day.
+                structure for Saturdays and Sundays.
               </p>
             </div>
           </div>
