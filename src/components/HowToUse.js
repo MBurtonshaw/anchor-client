@@ -136,7 +136,7 @@ function HowToUse() {
               </p>
               <p className="p-2 py-md-3">
                 A single weekend task is added to the top of the list as a
-                lighter focus for the day.
+                lighter focus for the end of the week.
               </p>
               <p className="p-2 py-md-3">
                 This mode reduces pressure while still keeping a simple
