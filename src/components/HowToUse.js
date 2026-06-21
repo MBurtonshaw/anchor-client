@@ -15,13 +15,11 @@ function HowToUse() {
             <h4 className="p-3 pt-4 p-md-4 pt-md-5">Homepage</h4>
             <div className="how-to-text-div">
               <p className="p-2 py-md-3">
-                The homepage displays one goal and your daily tasks. The
+                Anchor's homepage displays your daily tasks and one goal. The
                 highlighted goal is your recommended focus for the day.
               </p>
               <p className="p-2 py-md-3">
-                Each day, tasks reset so they can be completed again. One goal
-                is selected for you and is intended to be your primary focus for
-                the day.
+                Each day, tasks reset so they can be completed again. One goal is selected each day and is intended to be your primary focus.
               </p>
               <p className="p-2 py-md-3">Tasks repeat daily, goals do not.</p>
             </div>
@@ -75,7 +73,7 @@ function HowToUse() {
                 priority and can optionally include a due date.
               </p>
               <p className="p-2 py-md-3">
-                The app uses this information to select one goal as your daily
+                Anchor uses this information to select one goal as your daily
                 focus.
               </p>
               <p className="p-2 py-md-3">
@@ -169,7 +167,7 @@ function HowToUse() {
             important to you right now.
           </p>
           <p className="p-2 p-md-4 pb-md-5 crunched">
-            Avoid trying to plan everything at once. The app works best when it
+            Avoid trying to plan everything at once. Anchor works best when it
             helps you focus on today's priorities rather than every project you
             may want to tackle in the future.
           </p>
@@ -183,7 +181,7 @@ function HowToUse() {
       <h1>How to Use</h1>
 
       <h4 className="p-2 pt-4">
-        This app is designed to reduce cognitive load by helping you focus on
+        Anchor is designed to reduce cognitive load by helping you focus on
         daily tasks and one meaningful goal at a time.
       </h4>
 
