@@ -6,7 +6,7 @@ import {
   useCallback,
 } from "react";
 import { useError } from "../contexts/ErrorContext";
-import handleError from "../components/auth/HandleError";
+import handleError from "../components/utils/HandleError";
 import { useUser } from "./UserContext";
 import {
   getGoals as getGoalsApi,

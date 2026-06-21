@@ -7,7 +7,7 @@ import {
 } from "react";
 import { useUser } from "./UserContext";
 import { useError } from "./ErrorContext";
-import handleError from '../components/auth/HandleError';
+import handleError from '../components/utils/HandleError';
 import {
   getWeekendTask as getWeekendTaskApi,
   updateWeekendTask as updateWeekendTaskApi,
