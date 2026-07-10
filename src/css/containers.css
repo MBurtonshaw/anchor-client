@@ -9,6 +9,18 @@
   }
 }
 
+.anchor_logo_container {
+  max-width: 75px;
+}
+
+.anchor_logo {
+  width: 100%;
+}
+
+.navbar_img_container {
+  max-width: 75px;
+}
+
 .button_div {
   background-color: rgb(252, 250, 255);
   border-radius: 50%;
