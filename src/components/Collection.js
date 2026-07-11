@@ -1,27 +1,44 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useHomepage } from "../contexts/HomepageContext";
-import { useGoal } from "../contexts/GoalContext";
-import { useTask } from "../contexts/TaskContext";
 import Loader from "../components/ui/Loader";
-import { toast } from "react-toastify";
+import { useState } from "react";
 import { isCompletedToday } from "./utils/TaskUtils";
 import WeekendTaskCard from '../components/weekendTask/WeekendTaskCard';
+import GoalCard from '../components/goal/GoalCard';
+import TaskCard from '../components/task/TaskCard';
+import { toast } from "react-toastify";
 
 function Collection() {
   const { homepage, getHomepage, loading } = useHomepage();
-  const { completeGoal } = useGoal();
-  const { completeTask } = useTask();
-  const [savingId, setSavingId] = useState(null);
-  const [lastToast, setLastToast] = useState(null);
 
   const tasks = homepage?.tasks || [];
   const goal = homepage?.goal || null;
   const weekendTask = homepage?.maintenanceTask || null;
   const isWeekend = homepage?.dayType === "WEEKEND";
-  const navigate = useNavigate();
+    const [lastToast, setLastToast] = useState(null);
 
-  const encouragements = [
+  function isTaskFinished(task) {
+    return isCompletedToday(task);
+  }
+
+  const goalFinished = goal ? goal.finished : false;
+
+  const goalPlacement = (() => {
+    if (!goal) return "none";
+    if (isWeekend) return "bottom";
+    return goalFinished ? "bottom" : "top";
+  })();
+
+  const weekendTaskFinished = weekendTask
+    ? isCompletedToday(weekendTask)
+    : false;
+
+  const weekendTaskPlacement = (() => {
+    if (!weekendTask) return "none";
+    if (!isWeekend) return "none";
+    return weekendTaskFinished ? "bottom" : "top";
+  })();
+
+     const encouragements = [
     "Nice work",
     "Well done",
     "Great job",
@@ -62,95 +79,10 @@ function Collection() {
     return next;
   };
 
-  const determineGoalClasses = (goal) => {
-    if (isGoalFinished(goal)) {
-      return "card";
-    } else {
-      if (isWeekend) {
-        return "card card--primary-weekend";
-      } else {
-        return "card card--primary";
-      }
-    }
-  };
-
-  const renderGoal = () => {
-    if (!goal) return null;
-
-    return (
-      <div className="single_todo col-12 col-md-6 col-xl-4" key={`g${goal.id}`}>
-        <div className={determineGoalClasses(goal)}>
-          <Link className="unmarked_link" to={`/goals/${goal.id}`}>
-            <div
-              className={`card-body ${
-                isGoalFinished(goal) ? "card--finished" : "unfinished"
-              }`}
-            >
-              <h5 className="card-title">{goal.title}</h5>
-              <p className="card-subtitle">
-                {isWeekend ? "Current Goal • Weekend Mode" : "Current Goal"}
-              </p>
-            </div>
-          </Link>
-        </div>
-
-        {!isGoalFinished(goal) && (
-          <button
-            className="done_button"
-            disabled={savingId === `goal-${goal.id}`}
-            onClick={async () => {
-              setSavingId(`goal-${goal.id}`);
-
-              try {
-                await completeGoal(goal.id);
-                toast.success(determineToast(encouragements));
-                await getHomepage();
-              } finally {
-                setSavingId(null);
-              }
-              navigate("/");
-            }}
-          >
-            {savingId === `goal-${goal.id}` ? "..." : "done"}
-          </button>
-        )}
-      </div>
-    );
-  };
-
-
-
-  function isTaskFinished(task) {
-    return isCompletedToday(task);
-  }
-
-  const goalFinished = goal ? goal.finished : false;
-
-  const goalPlacement = (() => {
-    if (!goal) return "none";
-    if (isWeekend) return "bottom";
-    return goalFinished ? "bottom" : "top";
-  })();
-
-  const weekendTaskFinished = weekendTask
-    ? isCompletedToday(weekendTask)
-    : false;
-
-  const weekendTaskPlacement = (() => {
-    if (!weekendTask) return "none";
-    if (!isWeekend) return "none";
-    return weekendTaskFinished ? "bottom" : "top";
-  })();
-
-  function taskMapper(task) {
-    return isTaskFinished(task)
-      ? "card-body card--finished"
-      : "card-body unfinished";
-  }
-
-  function isGoalFinished(goal) {
-    return goal.finished;
-  }
+  const handleComplete = async () => {
+  toast.success(determineToast(encouragements));
+  await getHomepage();
+};
 
   function viewMapper() {
     const list = [];
@@ -163,48 +95,22 @@ function Collection() {
       list.push(<WeekendTaskCard
         key={`w${weekendTask.id}`}
         weekendTask={weekendTask}
+        onComplete={handleComplete}
     />);
     }
 
     if (goalPlacement === "top") {
-      list.push(renderGoal());
+      list.push(<GoalCard key={`g${goal.id}`} goal={goal} onComplete={handleComplete} />);
     }
 
     // add sorted tasks
     sortedTasks.forEach((task) => {
       list.push(
-        <div
-          className="single_todo col-12 col-md-6 col-xl-4"
-          key={`t${task.id}`}
-        >
-          <div className="card">
-            <Link className="unmarked_link" to={`/tasks/${task.id}`}>
-              <div className={taskMapper(task)}>
-                <h5 className="card-title">{task.title}</h5>
-                <p className="card-spacer"></p>
-              </div>
-            </Link>
-          </div>
-          {!isTaskFinished(task) && (
-            <button
-              className="done_button"
-              disabled={savingId === task.id}
-              onClick={async () => {
-                setSavingId(task.id);
-                try {
-                  await completeTask(task.id);
-                  toast.success(determineToast(encouragements));
-                  await getHomepage();
-                } finally {
-                  setSavingId(null);
-                }
-                navigate("/");
-              }}
-            >
-              {savingId === task.id ? "..." : "done"}
-            </button>
-          )}
-        </div>,
+        <TaskCard
+      key={`t${task.id}`}
+      task={task}
+      onComplete={handleComplete}
+    />
       );
     });
 
@@ -212,11 +118,12 @@ function Collection() {
       list.push(<WeekendTaskCard
         key={`w${weekendTask.id}`}
         weekendTask={weekendTask}
+        onComplete={handleComplete}
     />);
     }
 
     if (goalPlacement === "bottom") {
-      list.push(renderGoal());
+      list.push(<GoalCard key={`g${goal.id}`} goal={goal} onComplete={handleComplete} />);
     }
 
     return list;
