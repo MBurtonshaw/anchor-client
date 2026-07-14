@@ -42,11 +42,6 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <div className="navbar_bg">
             <ul className="navbar-nav mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav_link" to="/" onClick={closeNavbar}>
-                  Home
-                </Link>
-              </li>
 
               {!user ? (
                 ""
@@ -54,24 +49,10 @@ function Navbar() {
                 <li className="nav-item">
                   <Link
                     className="nav_link"
-                    to="/tasks/add"
+                    to="/appointments"
                     onClick={closeNavbar}
                   >
-                    Add Task
-                  </Link>
-                </li>
-              )}
-
-              {!user ? (
-                ""
-              ) : (
-                <li className="nav-item">
-                  <Link
-                    className="nav_link"
-                    to="/goals/add"
-                    onClick={closeNavbar}
-                  >
-                    Add Goal
+                    Appointments
                   </Link>
                 </li>
               )}
@@ -85,7 +66,21 @@ function Navbar() {
                     to="/goals"
                     onClick={closeNavbar}
                   >
-                    View Goals
+                    Goals
+                  </Link>
+                </li>
+              )}
+
+              {!user ? (
+                ""
+              ) : (
+                <li className="nav-item">
+                  <Link
+                    className="nav_link"
+                    to="/tasks"
+                    onClick={closeNavbar}
+                  >
+                    Tasks
                   </Link>
                 </li>
               )}
@@ -96,7 +91,7 @@ function Navbar() {
                   to="/how_to_use"
                   onClick={closeNavbar}
                 >
-                  How to Use
+                  How To Use
                 </Link>
               </li>
 
