@@ -10,6 +10,7 @@ import handleError from "../components/utils/HandleError";
 import { useUser } from "./UserContext";
 import {
   getGoals as getGoalsApi,
+  getCurrentGoal as getCurrentGoalApi,
   addGoal as addGoalApi,
   updateGoal as updateGoalApi,
   deleteGoal as deleteGoalApi,
@@ -22,6 +23,7 @@ export const useGoal = () => useContext(GoalContext);
 
 export const GoalProvider = ({ children }) => {
   const [goals, setGoals] = useState([]);
+  const [currentGoal, setCurrentGoal] = useState(null);
   const [loading, setLoading] = useState(true);
   const { setError } = useError();
 
@@ -30,6 +32,7 @@ export const GoalProvider = ({ children }) => {
   const getGoals = useCallback(async () => {
     if (!user?.userId) {
       setGoals([]);
+      setCurrentGoal(null);
       setLoading(false);
       return;
     }
@@ -38,7 +41,9 @@ export const GoalProvider = ({ children }) => {
 
     try {
       const res = await getGoalsApi();
+      const res2 = await getCurrentGoalApi();
       setGoals(res);
+      setCurrentGoal(res2);
     } catch (err) {
       handleError(err, setError);
     } finally {
@@ -124,6 +129,7 @@ export const GoalProvider = ({ children }) => {
     <GoalContext.Provider
       value={{
         goals,
+        currentGoal,
         getGoals,
         addGoal,
         updateGoal,

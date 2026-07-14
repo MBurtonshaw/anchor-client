@@ -40,7 +40,7 @@ function GoalCard({ goal, onComplete }) {
   if (!goal) return null;
 
   return (
-    <div className="single_todo col-12 col-md-6 col-xl-4" key={`g${goal.id}`}>
+    <div className="single_todo col-12 col-md-6 col-xl-4 m-auto mt-2" key={`g${goal.id}`}>
       <div className={determineGoalClasses(goal)}>
         <Link className="unmarked_link" to={`/goals/${goal.id}`}>
           <div

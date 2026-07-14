@@ -4,6 +4,10 @@ export function getGoals() {
   return api(`/goals`);
 }
 
+export function getCurrentGoal() {
+  return api(`/goals/current`);
+}
+
 export function getGoalById(goalId) {
   return api(`/goals/${goalId}`);
 }
