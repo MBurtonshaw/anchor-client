@@ -12,6 +12,8 @@ import Logout from "./components/Logout";
 import EditTask from "./components/task/EditTask";
 import EditGoal from "./components/goal/EditGoal";
 import AddTask from "./components/task/AddTask";
+import AddAppointment from "./components/appointment/AddAppointment";
+import EditAppointment from "./components/appointment/EditAppointment";
 import AddGoal from "./components/goal/AddGoal";
 import Task from "./components/task/Task";
 import Goal from "./components/goal/Goal";
@@ -60,6 +62,8 @@ function App() {
         <Route path="tasks/:id"element={<ProtectedRoute><Task /></ProtectedRoute>} />
         <Route path="goals/:id" element={<ProtectedRoute><Goal /></ProtectedRoute>} />
         <Route path="/tasks/add" element={<ProtectedRoute><AddTask /></ProtectedRoute>} />
+        <Route path="/appointments/add" element={<ProtectedRoute><AddAppointment /></ProtectedRoute>} />
+        <Route path="/appointments/:id/edit" element={<ProtectedRoute><EditAppointment /></ProtectedRoute>} />
         <Route path="/goals/manage" element={<ProtectedRoute><GoalManager /></ProtectedRoute>} />
         <Route path="/goals/add" element={<ProtectedRoute><AddGoal /></ProtectedRoute>} />
         <Route path="/goals/accomplishments" element={<ProtectedRoute><Accomplishments /></ProtectedRoute>} />
