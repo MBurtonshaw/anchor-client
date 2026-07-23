@@ -8,16 +8,16 @@ export function getTaskById(taskId) {
   return api(`/tasks/${taskId}`);
 }
 
-export function addTask(task) {
+export function createTask(task) {
   return api(`/tasks`, "POST", task);
 }
 
 export function updateTask(task, taskId) {
-  return api(`/tasks/${taskId}/edit`, "PUT", task);
+  return api(`/tasks/${taskId}`, "PUT", task);
 }
 
 export function completeTask(taskId) {
-  return api(`/tasks/${taskId}/completed`, "PUT");
+  return api(`/tasks/${taskId}/complete`, "PATCH");
 }
 
 export function deleteTask(taskId) {

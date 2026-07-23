@@ -5,9 +5,9 @@ export function getWeekendTask() {
 }
 
 export function updateWeekendTask(task, taskId) {
-  return api(`/weekendTask/${taskId}/edit`, "PUT", task);
+  return api(`/weekendTask/${taskId}`, "PUT", task);
 }
 
 export function completeWeekendTask(taskId) {
-  return api(`/weekendTask/${taskId}/completed`, "PUT");
+  return api(`/weekendTask/${taskId}/complete`, "PATCH");
 }

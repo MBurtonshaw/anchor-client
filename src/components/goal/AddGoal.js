@@ -5,7 +5,7 @@ import { useHomepage } from "../../contexts/HomepageContext";
 import { toast } from "react-toastify";
 
 function AddGoal() {
-  const { addGoal } = useGoal();
+  const { createGoal } = useGoal();
   const [addTitle, setAddTitle] = useState("");
   const [addNotes, setAddNotes] = useState("");
   const [addPriority, setAddPriority] = useState(1);
@@ -28,7 +28,7 @@ function AddGoal() {
     e.preventDefault();
     setSavingId(1);
     try {
-      await addGoal({
+      await createGoal({
       title: addTitle,
       priority: addPriority,
       notes: addNotes,

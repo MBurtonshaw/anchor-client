@@ -19,7 +19,7 @@ export const useWeekendTask = () => useContext(WeekendTaskContext);
 
 export const WeekendTaskProvider = ({ children }) => {
   const [weekendTask, setWeekendTask] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { user } = useUser();
   const { setError } = useError();

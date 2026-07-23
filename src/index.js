@@ -7,6 +7,7 @@ import { GoalProvider } from "./contexts/GoalContext";
 import { HomepageProvider } from "./contexts/HomepageContext";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import { WeekendTaskProvider } from "./contexts/WeekendTaskContext";
+import { AppointmentProvider } from "./contexts/AppointmentContext";
 import "./css/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -21,7 +22,9 @@ root.render(
             <TaskProvider>
               <GoalProvider>
                 <WeekendTaskProvider>
-                  <App />
+                  <AppointmentProvider>
+                    <App />
+                  </AppointmentProvider>
                 </WeekendTaskProvider>
               </GoalProvider>
             </TaskProvider>

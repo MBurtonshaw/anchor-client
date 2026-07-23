@@ -11,7 +11,7 @@ import handleError from "../components/utils/HandleError";
 import {
   getTasks as getTasksApi,
   getTaskById as getTaskByIdApi,
-  addTask as addTaskApi,
+  createTask as createTaskApi,
   updateTask as updateTaskApi,
   deleteTask as deleteTaskApi,
   completeTask as completeTaskApi,
@@ -22,7 +22,7 @@ export const useTask = () => useContext(TaskContext);
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { user } = useUser();
   const { setError } = useError();
@@ -61,7 +61,7 @@ const getTaskById = async (taskId) => {
   }
 };
 
-  const addTask = async (task) => {
+  const createTask = async (task) => {
     if (!user?.userId) {
       setTasks([]);
       setLoading(false);
@@ -69,7 +69,7 @@ const getTaskById = async (taskId) => {
     }
     setLoading(true);
     try {
-      await addTaskApi(task);
+      await createTaskApi(task);
       await getTasks();
     } catch (err) {
       handleError(err, setError);
@@ -146,7 +146,7 @@ const getTaskById = async (taskId) => {
         tasks,
         getTasks,
         getTaskById,
-        addTask,
+        createTask,
         updateTask,
         deleteTask,
         completeTask,

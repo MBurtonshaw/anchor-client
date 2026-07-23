@@ -11,7 +11,7 @@ import { useUser } from "./UserContext";
 import {
   getGoals as getGoalsApi,
   getCurrentGoal as getCurrentGoalApi,
-  addGoal as addGoalApi,
+  createGoal as createGoalApi,
   updateGoal as updateGoalApi,
   deleteGoal as deleteGoalApi,
   completeGoal as completeGoalApi,
@@ -51,7 +51,7 @@ export const GoalProvider = ({ children }) => {
     }
   }, [user, setError]);
 
-  const addGoal = async (goalData) => {
+  const createGoal = async (goalData) => {
     if (!user?.userId) {
       setGoals([]);
       setLoading(false);
@@ -59,7 +59,7 @@ export const GoalProvider = ({ children }) => {
     }
 
     try {
-      await addGoalApi(goalData);
+      await createGoalApi(goalData);
       await getGoals();
     } catch (err) {
       handleError(err, setError);
@@ -131,7 +131,7 @@ export const GoalProvider = ({ children }) => {
         goals,
         currentGoal,
         getGoals,
-        addGoal,
+        createGoal,
         updateGoal,
         deleteGoal,
         completeGoal,

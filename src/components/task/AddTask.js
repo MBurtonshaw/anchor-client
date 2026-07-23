@@ -5,7 +5,7 @@ import { useHomepage } from "../../contexts/HomepageContext";
 import { toast } from "react-toastify";
 
 function AddTask() {
-  const { addTask } = useTask();
+  const { createTask } = useTask();
   const [addTitle, setAddTitle] = useState("");
   const { getHomepage } = useHomepage();
   const [savingId, setSavingId] = useState(null);
@@ -22,7 +22,7 @@ function AddTask() {
     e.preventDefault();
     setSavingId(1);
     try {
-      await addTask({
+      await createTask({
         title: addTitle,
       });
       toast.success("Added successfully");

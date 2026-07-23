@@ -12,16 +12,16 @@ export function getGoalById(goalId) {
   return api(`/goals/${goalId}`);
 }
 
-export function addGoal(goal) {
+export function createGoal(goal) {
   return api(`/goals`, "POST", goal);
 }
 
 export function updateGoal(goal, goalId) {
-  return api(`/goals/${goalId}/edit`, "PUT", goal);
+  return api(`/goals/${goalId}`, "PUT", goal);
 }
 
 export function completeGoal(goalId) {
-  return api(`/goals/${goalId}/completed`, "PUT");
+  return api(`/goals/${goalId}/complete`, "PATCH");
 }
 
 export function deleteGoal(goalId) {
