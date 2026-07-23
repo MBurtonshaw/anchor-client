@@ -113,7 +113,6 @@ const getTaskById = async (taskId) => {
   };
 
   const completeTask = async (taskId) => {
-    console.log("TASKS REF:", tasks);
     if (!user?.userId) {
       setTasks([]);
       setLoading(false);
@@ -123,13 +122,11 @@ const getTaskById = async (taskId) => {
     try {
       await completeTaskApi(taskId);
       await getTasks();
-      console.log("TASKS REF:", tasks);
     } catch (err) {
       handleError(err, setError);
     } finally {
       setLoading(false);
     }
-    console.log("TASKS REF:", tasks);
   };
 
   useEffect(() => {

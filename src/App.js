@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import Appointment from "./components/appointment/Appointment";
 import EditTask from "./components/task/EditTask";
 import EditGoal from "./components/goal/EditGoal";
 import AddTask from "./components/task/AddTask";
@@ -19,9 +20,11 @@ import Task from "./components/task/Task";
 import Goal from "./components/goal/Goal";
 import Navbar from "./components/ui/Navbar";
 import GoalHub from "./components/goal/GoalHub";
+import AppointmentHub from "./components/appointment/AppointmentHub";
 import Accomplishments from "./components/goal/Accomplishments";
 import TaskManager from "./components/task/TaskManager";
 import GoalManager from "./components/goal/GoalManager";
+import AppointmentManager from "./components/appointment/AppointmentManager";
 import ErrorBanner from "./components/ui/ErrorBanner";
 import HowToUse from "./components/HowToUse";
 import WeekendTask from "./components/weekendTask/WeekendTask";
@@ -62,9 +65,12 @@ function App() {
         <Route path="tasks/:id"element={<ProtectedRoute><Task /></ProtectedRoute>} />
         <Route path="goals/:id" element={<ProtectedRoute><Goal /></ProtectedRoute>} />
         <Route path="/tasks/add" element={<ProtectedRoute><AddTask /></ProtectedRoute>} />
+        <Route path="/appointments" element={<ProtectedRoute><AppointmentHub /></ProtectedRoute>} />
         <Route path="/appointments/add" element={<ProtectedRoute><AddAppointment /></ProtectedRoute>} />
+        <Route path="/appointments/:id" element={<ProtectedRoute><Appointment /></ProtectedRoute>} />
         <Route path="/appointments/:id/edit" element={<ProtectedRoute><EditAppointment /></ProtectedRoute>} />
         <Route path="/goals/manage" element={<ProtectedRoute><GoalManager /></ProtectedRoute>} />
+        <Route path="/appointments/manage" element={<ProtectedRoute><AppointmentManager /></ProtectedRoute>} />
         <Route path="/goals/add" element={<ProtectedRoute><AddGoal /></ProtectedRoute>} />
         <Route path="/goals/accomplishments" element={<ProtectedRoute><Accomplishments /></ProtectedRoute>} />
         <Route path="/tasks/:id/edit" element={<ProtectedRoute><EditTask /></ProtectedRoute>} />

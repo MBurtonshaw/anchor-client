@@ -2,9 +2,10 @@ import { useHomepage } from "../contexts/HomepageContext";
 import Loader from "../components/ui/Loader";
 import { useState } from "react";
 import { isCompletedToday } from "./utils/TaskUtils";
-import WeekendTaskCard from '../components/weekendTask/WeekendTaskCard';
-import GoalCard from '../components/goal/GoalCard';
-import TaskCard from '../components/task/TaskCard';
+import WeekendTaskCard from "../components/weekendTask/WeekendTaskCard";
+import GoalCard from "../components/goal/GoalCard";
+import TaskCard from "../components/task/TaskCard";
+import AppointmentCard from "../components/appointment/AppointmentCard";
 import { toast } from "react-toastify";
 
 function Collection() {
@@ -12,9 +13,10 @@ function Collection() {
 
   const tasks = homepage?.tasks || [];
   const goal = homepage?.goal || null;
+  const appointments = homepage?.appointments || [];
   const weekendTask = homepage?.maintenanceTask || null;
   const isWeekend = homepage?.dayType === "WEEKEND";
-    const [lastToast, setLastToast] = useState(null);
+  const [lastToast, setLastToast] = useState(null);
 
   function isTaskFinished(task) {
     return isCompletedToday(task);
@@ -38,7 +40,7 @@ function Collection() {
     return weekendTaskFinished ? "bottom" : "top";
   })();
 
-     const encouragements = [
+  const encouragements = [
     "Nice work",
     "Well done",
     "Great job",
@@ -80,9 +82,9 @@ function Collection() {
   };
 
   const handleComplete = async () => {
-  toast.success(determineToast(encouragements));
-  await getHomepage();
-};
+    toast.success(determineToast(encouragements));
+    await getHomepage();
+  };
 
   function viewMapper() {
     const list = [];
@@ -91,39 +93,83 @@ function Collection() {
       return isTaskFinished(a) - isTaskFinished(b);
     });
 
+    const sortedAppointments = [...appointments].sort((a, b) => {
+      return a.finished - b.finished;
+    });
+
+    sortedAppointments.forEach((appointment) => {
+      if (!appointment.finished) {
+        list.push(
+          <AppointmentCard
+            key={`a${appointment.id}`}
+            appointment={appointment}
+            onComplete={handleComplete}
+          />,
+        );
+      }
+    });
+
     if (weekendTaskPlacement === "top") {
-      list.push(<WeekendTaskCard
-        key={`w${weekendTask.id}`}
-        weekendTask={weekendTask}
-        onComplete={handleComplete}
-    />);
+      list.push(
+        <WeekendTaskCard
+          key={`w${weekendTask.id}`}
+          weekendTask={weekendTask}
+          onComplete={handleComplete}
+        />,
+      );
     }
 
     if (goalPlacement === "top") {
-      list.push(<GoalCard key={`g${goal.id}`} goal={goal} onComplete={handleComplete} />);
+      list.push(
+        <GoalCard
+          key={`g${goal.id}`}
+          goal={goal}
+          onComplete={handleComplete}
+        />,
+      );
     }
 
     // add sorted tasks
     sortedTasks.forEach((task) => {
       list.push(
         <TaskCard
-      key={`t${task.id}`}
-      task={task}
-      onComplete={handleComplete}
-    />
+          key={`t${task.id}`}
+          task={task}
+          onComplete={handleComplete}
+        />,
       );
     });
 
+    sortedAppointments.forEach((appointment) => {
+      if (appointment.finished) {
+        list.push(
+          <AppointmentCard
+            key={`a${appointment.id}`}
+            appointment={appointment}
+            onComplete={handleComplete}
+          />,
+        );
+      }
+    });
+
     if (weekendTaskPlacement === "bottom") {
-      list.push(<WeekendTaskCard
-        key={`w${weekendTask.id}`}
-        weekendTask={weekendTask}
-        onComplete={handleComplete}
-    />);
+      list.push(
+        <WeekendTaskCard
+          key={`w${weekendTask.id}`}
+          weekendTask={weekendTask}
+          onComplete={handleComplete}
+        />,
+      );
     }
 
     if (goalPlacement === "bottom") {
-      list.push(<GoalCard key={`g${goal.id}`} goal={goal} onComplete={handleComplete} />);
+      list.push(
+        <GoalCard
+          key={`g${goal.id}`}
+          goal={goal}
+          onComplete={handleComplete}
+        />,
+      );
     }
 
     return list;

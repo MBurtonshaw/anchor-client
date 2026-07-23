@@ -8,6 +8,7 @@ function AddGoal() {
   const { createAppointment } = useAppointment();
   const [addTitle, setAddTitle] = useState("");
   const [addNotes, setAddNotes] = useState("");
+  const [addAppointmentTime, setAddAppointmentTime] = useState("");
   const [addDueDate, setAddDueDate] = useState("");
   const { getHomepage } = useHomepage();
   const [savingId, setSavingId] = useState(null);
@@ -21,6 +22,7 @@ function AddGoal() {
   const handleTitle = (e) => handleChange(e, setAddTitle);
   const handleNotes = (e) => handleChange(e, setAddNotes);
   const handleDueDate = (e) => handleChange(e, setAddDueDate);
+  const handleAppointmentTime = (e) => handleChange(e, setAddAppointmentTime);
 
   const handleSubmit = async (e, goal) => {
     e.preventDefault();
@@ -29,6 +31,7 @@ function AddGoal() {
       await createAppointment({
       title: addTitle,
       dueDate: addDueDate,
+      appointmentTime: addAppointmentTime,
       notes: addNotes
     });
     toast.success('Added successfully');
@@ -57,7 +60,7 @@ function AddGoal() {
         </div>
          <div className="w-50 m-auto my-4">
           <label className="card-text d-block mb-2" htmlFor="date">
-            Due Date (Optional):
+            Due Date:
           </label>
           <input
             className="text-center w-100"
@@ -65,6 +68,18 @@ function AddGoal() {
             id="date"
             name="date"
             onChange={handleDueDate}
+          />
+        </div>
+        <div className="w-50 m-auto my-4">
+          <label className="card-text d-block mb-2" htmlFor="date">
+            Appointment Time:
+          </label>
+          <input
+            className="text-center w-100"
+            type="time"
+            id="time"
+            name="time"
+            onChange={handleAppointmentTime}
           />
         </div>
         <div className="w-50 m-auto my-4">

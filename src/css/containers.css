@@ -59,6 +59,10 @@
   border-right: 6px solid rgba(110, 56, 146, 0.6);
 }
 
+.card--primary-appointment {
+  border-left: 6px solid #90caf9;
+}
+
 .card--weekend-goal {
   opacity: 0.82;
   box-shadow: 0 3px 10px rgba(90, 60, 120, 0.12);
